@@ -1,9 +1,0 @@
-import axios from "axios";
-
-export async function getUser() {
-	const response = await axios.get("/api/user", {
-		withCredentials: true,
-	});
-	return response.data;
-}
-
