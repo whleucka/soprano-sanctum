@@ -1,0 +1,145 @@
+body,
+.bg-dark {
+    background-color: #111 !important;
+}
+
+#soprano {
+    color: white;
+    background-color: #111;
+    height: 100%;
+    padding-bottom: 100px;
+}
+
+#sidebar {
+    width: 190px;
+    padding-top: 2px;
+    background-color: #111;
+}
+
+#sidebar .navbar-item {
+    font-size: 1.3em;
+}
+
+a:link,
+a:visited {
+    color: #ffffff;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+a:hover,
+a:active {
+    color: springgreen;
+}
+
+ul.navbar-nav a {
+    color: #666;
+}
+
+ul.navbar-nav a:hover {
+    color: #222;
+}
+
+#sidebar > ul.navbar-nav li.navbar-item {
+    padding: 5px 0;
+}
+
+#sidebar > ul.navbar-nav li.navbar-item {
+    color: #888;
+}
+
+#sidebar > ul.navbar-nav li.navbar-item:hover {
+    color: #fff;
+}
+
+.btn-link:hover {
+    color: springgreen;
+}
+
+.card {
+    background-color: #111;
+    color: white;
+    border-color: #666;
+}
+
+.music-note {
+    filter: invert(1);
+}
+
+.navbar-brand {
+    font-size: 1.8em;
+}
+
+.navbar-brand > img {
+    height: 20px;
+}
+
+.container-fluid {
+    padding: 0 10px !important;
+}
+
+.player-btn {
+    font-size: 1.7em;
+    color: #888;
+}
+
+.player-btn:hover {
+    color: #fff;
+}
+
+#player-controls > button {
+    margin-right: 20px;
+}
+
+/**
+ * Player
+ */
+#player {
+    background-color: #222;
+    height: 100px;
+    width: 100%;
+    z-index: 999;
+    position: absolute;
+    bottom: 0;
+}
+
+#player-cont {
+    padding-top: 10px;
+}
+
+#player-cover-art {
+    height: 100px;
+}
+
+main {
+    height: calc(100vh - 67px);
+}
+
+.content {
+    width: 100%;
+}
+
+@media (max-width: 575.98px) {
+}
+
+@media (max-width: 767.98px) {
+    #sidebar {
+        width: 80px;
+    }
+    .link-toggle {
+        display: none;
+    }
+    #sidebar > ul.navbar-nav li.navbar-item span {
+        font-size: 1.4em;
+        padding: 8px 0;
+    }
+    .navbar-brand span {
+        display: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+}
