@@ -70783,7 +70783,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Reducer_SopranoReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Reducer/SopranoReducer */ "./resources/js/components/Reducer/SopranoReducer.js");
-/* harmony import */ var _lib_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/Soprano */ "./resources/js/lib/Soprano.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Library/Soprano */ "./resources/js/components/Library/Soprano.js");
 /* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 /* harmony import */ var _Layout_Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Layout/Search */ "./resources/js/components/Layout/Search.js");
 /* harmony import */ var _Layout_Sidebar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Layout/Sidebar */ "./resources/js/components/Layout/Sidebar.js");
@@ -70814,17 +70814,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var initialState = {
+  user: null,
+  directories: null
+};
 
 var App = function App() {
-  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(_Reducer_SopranoReducer__WEBPACK_IMPORTED_MODULE_2__["SopranoReducer"], {
-    user: null
-  }),
+  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(_Reducer_SopranoReducer__WEBPACK_IMPORTED_MODULE_2__["SopranoReducer"], initialState),
       _useReducer2 = _slicedToArray(_useReducer, 2),
       state = _useReducer2[0],
       dispatch = _useReducer2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _lib_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getUser().then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getUser().then(function (res) {
       return dispatch({
         type: "getUser",
         payload: res
@@ -70884,13 +70886,15 @@ var SopranoContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.c
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Module_DirectoryModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Module/DirectoryModule */ "./resources/js/components/Module/DirectoryModule.js");
+
 
 
 var Admin = function Admin() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     id: "admin",
     className: "content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Admin"));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Admin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_DirectoryModule__WEBPACK_IMPORTED_MODULE_1__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Admin);
@@ -71014,11 +71018,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+
 
 
 
 
 var Menu = function Menu() {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     id: "sidebar",
     className: "text-center"
@@ -71030,7 +71040,7 @@ var Menu = function Menu() {
     className: "navbar-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "headphones",
-    className: "mr-2"
+    className: "mr-2 sidebar-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "link-toggle"
   }, "Playlist"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -71039,16 +71049,16 @@ var Menu = function Menu() {
     className: "navbar-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "search",
-    className: "mr-2"
+    className: "mr-2 sidebar-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "link-toggle"
-  }, "Search"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }, "Search"))), state.user && state.user.is_admin === 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/admin"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "navbar-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "lock",
-    className: "mr-2"
+    className: "mr-2 sidebar-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "link-toggle"
   }, "Admin")))));
@@ -71058,40 +71068,10 @@ var Menu = function Menu() {
 
 /***/ }),
 
-/***/ "./resources/js/components/Reducer/SopranoReducer.js":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/Reducer/SopranoReducer.js ***!
-  \***********************************************************/
-/*! exports provided: SopranoReducer */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SopranoReducer", function() { return SopranoReducer; });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function SopranoReducer(state, action) {
-  switch (action.type) {
-    case "getUser":
-      return _objectSpread(_objectSpread({}, state), {}, {
-        user: action.payload
-      });
-
-    default:
-      return state;
-  }
-}
-
-/***/ }),
-
-/***/ "./resources/js/lib/Soprano.js":
-/*!*************************************!*\
-  !*** ./resources/js/lib/Soprano.js ***!
-  \*************************************/
+/***/ "./resources/js/components/Library/Soprano.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/Library/Soprano.js ***!
+  \****************************************************/
 /*! exports provided: Soprano */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -71139,8 +71119,171 @@ var Soprano = {
     }
 
     return getUser;
+  }(),
+  getDirectories: function () {
+    var _getDirectories = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/directory", {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    function getDirectories() {
+      return _getDirectories.apply(this, arguments);
+    }
+
+    return getDirectories;
   }()
 };
+
+/***/ }),
+
+/***/ "./resources/js/components/Module/DirectoryModule.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/Module/DirectoryModule.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var DirectoryModule = function DirectoryModule() {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      progress = _useState2[0],
+      setProgress = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      scanning = _useState4[0],
+      setScanning = _useState4[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getDirectories().then(function (res) {
+      dispatch({
+        type: "getDirectories",
+        payload: res
+      });
+    });
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "directories"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "btn btn-sm float-right mr-2 btn-success"
+  }, "Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), state.directories && state.directories.length > 0 && state.directories.map(function (directory, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Directory, {
+      key: i,
+      directory: directory
+    });
+  }), scanning && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress scan-progress"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress-bar",
+    role: "progressbar",
+    style: {
+      width: "".concat(progress, "%")
+    }
+  })));
+};
+
+var Directory = function Directory(_ref) {
+  var directory = _ref.directory;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "truncate dir-path w-100 pt-1"
+  }, directory.path, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "directory-actions d-inline"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    id: directory.id,
+    className: "btn btn-sm btn-primary float-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "retweet"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    id: directory.id,
+    className: "btn btn-sm btn-danger float-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "trash"
+  })))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (DirectoryModule);
+
+/***/ }),
+
+/***/ "./resources/js/components/Reducer/SopranoReducer.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/Reducer/SopranoReducer.js ***!
+  \***********************************************************/
+/*! exports provided: SopranoReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SopranoReducer", function() { return SopranoReducer; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function SopranoReducer(state, action) {
+  switch (action.type) {
+    case "getUser":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        user: action.payload
+      });
+
+    case "getDirectories":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        directories: action.payload
+      });
+
+    default:
+      return state;
+  }
+}
 
 /***/ }),
 

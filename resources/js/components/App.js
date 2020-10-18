@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { SopranoReducer } from "./Reducer/SopranoReducer";
-import { Soprano } from "../lib/Soprano";
+import { Soprano } from "./Library/Soprano";
 import { SopranoContext } from "./Context/SopranoContext";
 import Search from "./Layout/Search";
 import Menu from "./Layout/Sidebar";
@@ -10,8 +10,13 @@ import Admin from "./Layout/Admin";
 import Player from "./Layout/Player";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+const initialState = {
+    user: null,
+    directories: null,
+};
+
 const App = () => {
-    const [state, dispatch] = useReducer(SopranoReducer, { user: null });
+    const [state, dispatch] = useReducer(SopranoReducer, initialState);
 
     useEffect(() => {
         Soprano.getUser().then((res) =>
