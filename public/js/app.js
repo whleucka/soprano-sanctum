@@ -71149,6 +71149,68 @@ var Soprano = {
     }
 
     return getDirectories;
+  }(),
+  addDirectory: function () {
+    var _addDirectory = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(path) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/directory", {
+                path: path
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context3.sent;
+              return _context3.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    function addDirectory(_x) {
+      return _addDirectory.apply(this, arguments);
+    }
+
+    return addDirectory;
+  }(),
+  removeDirectory: function () {
+    var _removeDirectory = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(id) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/directory/".concat(id), {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context4.sent;
+              return _context4.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    function removeDirectory(_x2) {
+      return _removeDirectory.apply(this, arguments);
+    }
+
+    return removeDirectory;
   }()
 };
 
@@ -71169,6 +71231,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 /* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var _Utilities_Errors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Errors */ "./resources/js/components/Utilities/Errors.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -71180,6 +71243,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -71201,6 +71265,11 @@ var DirectoryModule = function DirectoryModule() {
       scanning = _useState4[0],
       setScanning = _useState4[1];
 
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      showAddDirectory = _useState6[0],
+      setShowAddDirectory = _useState6[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getDirectories().then(function (res) {
       dispatch({
@@ -71212,8 +71281,17 @@ var DirectoryModule = function DirectoryModule() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "directories"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "btn btn-sm float-right mr-2 btn-success"
-  }, "Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), state.directories && state.directories.length > 0 && state.directories.map(function (directory, i) {
+    className: "btn btn-sm float-right mr-2 btn-success",
+    onClick: function onClick() {
+      setShowAddDirectory(!showAddDirectory);
+    }
+  }, "Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container py-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AddDirectory, {
+    hideAddDirectory: function hideAddDirectory() {
+      setShowAddDirectory(false);
+    }
+  })), state.directories && state.directories.length > 0 && state.directories.map(function (directory, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Directory, {
       key: i,
       directory: directory
@@ -71231,6 +71309,21 @@ var DirectoryModule = function DirectoryModule() {
 
 var Directory = function Directory(_ref) {
   var directory = _ref.directory;
+
+  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+      state = _useContext2.state,
+      dispatch = _useContext2.dispatch;
+
+  var handleRemoveDirectory = function handleRemoveDirectory(e) {
+    var id = parseInt(e.currentTarget.id);
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].removeDirectory(id).then(function (res) {
+      dispatch({
+        type: "removeDirectory",
+        payload: id
+      });
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "truncate dir-path w-100 pt-1"
   }, directory.path, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -71242,10 +71335,82 @@ var Directory = function Directory(_ref) {
     name: "retweet"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     id: directory.id,
-    className: "btn btn-sm btn-danger float-right"
+    className: "btn btn-sm btn-danger float-right",
+    onClick: handleRemoveDirectory
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "trash"
   })))));
+};
+
+var AddDirectory = function AddDirectory(_ref2) {
+  var hideAddDirectory = _ref2.hideAddDirectory;
+
+  var _useContext3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+      state = _useContext3.state,
+      dispatch = _useContext3.dispatch;
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState8 = _slicedToArray(_useState7, 2),
+      path = _useState8[0],
+      setPath = _useState8[1];
+
+  var errorState = {
+    message: "",
+    errors: []
+  };
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(errorState),
+      _useState10 = _slicedToArray(_useState9, 2),
+      errors = _useState10[0],
+      setErrors = _useState10[1];
+
+  var resetErrors = function resetErrors() {
+    setErrors(errorState);
+  };
+
+  var handleAddDirectory = function handleAddDirectory(e) {
+    if (path) {
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].addDirectory(path).then(function (res) {
+        dispatch({
+          type: "addDirectory",
+          payload: res
+        });
+        hideAddDirectory();
+        resetErrors();
+      })["catch"](function (err) {
+        if (err.response && err.response.status === 422) {
+          setErrors(err.response.data);
+        }
+      });
+    } else {
+      hideAddDirectory();
+      resetErrors();
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Errors__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    message: errors.message,
+    errors: errors.errors["path"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-prepend"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "input-group-text"
+  }, "Path")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control",
+    value: path,
+    placeholder: "/",
+    onChange: function onChange(e) {
+      setPath(e.currentTarget.value);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-append"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: handleAddDirectory,
+    className: "btn btn-sm btn-secondary"
+  }, "Save"))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (DirectoryModule);
@@ -71262,6 +71427,18 @@ var Directory = function Directory(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SopranoReducer", function() { return SopranoReducer; });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -71280,10 +71457,56 @@ function SopranoReducer(state, action) {
         directories: action.payload
       });
 
+    case "addDirectory":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        directories: [].concat(_toConsumableArray(state.directories), [action.payload])
+      });
+
+    case "removeDirectory":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        directories: state.directories.filter(function (directory) {
+          return directory.id != action.payload;
+        })
+      });
+
     default:
       return state;
   }
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/Utilities/Errors.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Utilities/Errors.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var Errors = function Errors(_ref) {
+  var message = _ref.message,
+      errors = _ref.errors;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, message && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-danger",
+    role: "alert"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, message), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    style: {
+      paddingLeft: "20px"
+    }
+  }, errors.map(function (err, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: i
+    }, err);
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Errors);
 
 /***/ }),
 

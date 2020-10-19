@@ -4,6 +4,18 @@ export function SopranoReducer(state, action) {
             return { ...state, user: action.payload };
         case "getDirectories":
             return { ...state, directories: action.payload };
+        case "addDirectory":
+            return {
+                ...state,
+                directories: [...state.directories, action.payload],
+            };
+        case "removeDirectory":
+            return {
+                ...state,
+                directories: state.directories.filter(
+                    (directory) => directory.id != action.payload
+                ),
+            };
         default:
             return state;
     }

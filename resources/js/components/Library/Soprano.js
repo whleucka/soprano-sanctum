@@ -13,4 +13,22 @@ export const Soprano = {
         });
         return response.data;
     },
+    addDirectory: async function (path) {
+        const response = await axios.post(
+            "/api/directory",
+            {
+                path,
+            },
+            {
+                withCredentials: true,
+            }
+        );
+        return response.data;
+    },
+    removeDirectory: async function (id) {
+        const response = await axios.delete(`/api/directory/${id}`, {
+            withCredentials: true,
+        });
+        return response.data;
+    },
 };
