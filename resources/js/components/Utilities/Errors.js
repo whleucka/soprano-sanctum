@@ -2,7 +2,7 @@ import React from "react";
 
 const Errors = ({ message, errors }) => {
     return (
-        <div>
+        <>
             {message && (
                 <div className="alert alert-danger" role="alert">
                     <strong>{message}</strong>
@@ -13,7 +13,7 @@ const Errors = ({ message, errors }) => {
                     </ul>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 

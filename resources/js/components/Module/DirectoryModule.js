@@ -6,8 +6,6 @@ import Errors from "../Utilities/Errors";
 
 const DirectoryModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
-    const [progress, setProgress] = useState(0);
-    const [scanning, setScanning] = useState(false);
     const [showAddDirectory, setShowAddDirectory] = useState(false);
 
     useEffect(() => {
@@ -28,12 +26,19 @@ const DirectoryModule = () => {
             </button>
             <h4>Directories</h4>
             {showAddDirectory && (
-                <div className="container py-2">
-                    <AddDirectory
-                        hideAddDirectory={() => {
-                            setShowAddDirectory(false);
-                        }}
-                    />
+                <div className="mx-auto" style={{ width: "300px" }}>
+                    <p className="help-text">
+                        Add a directory path that is located on the server.
+                        Press the scan button when you're ready to synchronize
+                        the database. Accepted formats are mp3, m4a, flac, ogg.
+                    </p>
+                    <div className="py-3">
+                        <AddDirectory
+                            hideAddDirectory={() => {
+                                setShowAddDirectory(false);
+                            }}
+                        />
+                    </div>
                 </div>
             )}
             {state.directories &&
@@ -41,26 +46,42 @@ const DirectoryModule = () => {
                 state.directories.map((directory, i) => {
                     return <Directory key={i} directory={directory} />;
                 })}
-            {scanning && (
-                <div className="progress scan-progress">
-                    <div
-                        className="progress-bar"
-                        role="progressbar"
-                        style={{ width: `${progress}%` }}
-                    ></div>
-                </div>
-            )}
         </div>
     );
 };
 
 const Directory = ({ directory }) => {
     const { state, dispatch } = useContext(SopranoContext);
+    const [progress, setProgress] = useState(0);
+    const [scanning, setScanning] = useState(false);
 
     const handleRemoveDirectory = (e) => {
         const id = parseInt(e.currentTarget.id);
         Soprano.removeDirectory(id).then((res) => {
             dispatch({ type: "removeDirectory", payload: id });
+        });
+    };
+
+    const handleScanDirectory = (e) => {
+        const id = parseInt(e.currentTarget.id);
+        Soprano.scanDirectory(id).then((res) => {
+            setScanning(true);
+            const count = res.count;
+            const paths = res.paths;
+            paths.map((path, i) => {
+                const path_arr = path.split("/");
+                const filename = path_arr[path_arr.length - 1];
+                Soprano.synchTrack(path)
+                    .then((_res) => {
+                        console.log(`Synchronizing ${filename}`);
+                        const pct = (i / count) * 100;
+                        setProgress(pct);
+                        if (i === paths.length - 1) setScanning(false);
+                    })
+                    .catch((err) => {
+                        setScanning(false);
+                    });
+            });
         });
     };
 
@@ -72,6 +93,7 @@ const Directory = ({ directory }) => {
                     <button
                         id={directory.id}
                         className="btn btn-sm btn-primary float-right"
+                        onClick={handleScanDirectory}
                     >
                         <FontAwesome name="retweet" />
                     </button>
@@ -84,6 +106,15 @@ const Directory = ({ directory }) => {
                     </button>
                 </div>
             </div>
+            {scanning && (
+                <div className="progress scan-progress">
+                    <div
+                        className="progress-bar"
+                        role="progressbar"
+                        style={{ width: `${progress}%` }}
+                    ></div>
+                </div>
+            )}
         </div>
     );
 };

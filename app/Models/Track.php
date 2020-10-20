@@ -34,12 +34,12 @@ class Track extends Model
             'mime_type' => $data['mime_type'],
             'playtime_seconds' => $data['playtime_seconds'],
             'playtime_string' => $data['playtime_string'],
-            'artist' => $data['comments_html']['artist'][0],
-            'album' => $data['comments_html']['album'][0], 
-            'title' => $data['comments_html']['title'][0],
-            'year' => $data['comments_html']['year'][0],
-            'number' => $data['comments_html']['track_number'][0],
-            'genre' => implode(',', $data['comments_html']['genre']),
+            'artist' => (isset($data['comments_html']['artist'])) ? $data['comments_html']['artist'][0] : 'No Artist',
+            'album' => (isset($data['comments_html']['album'])) ? $data['comments_html']['album'][0] : 'No Album', 
+            'title' => (isset($data['comments_html']['title'])) ? $data['comments_html']['title'][0] : 'No Title',
+            'year' => (isset($data['comments_html']['year'])) ? $data['comments_html']['year'][0] : '',
+            'number' => (isset($data['comments_html']['track_number'])) ? $data['comments_html']['track_number'][0] : '',
+            'genre' => (isset($data['comments_html']['genre'])) ? implode(',', $data['comments_html']['genre']) : '',
         ];
     }
 }

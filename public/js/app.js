@@ -71211,6 +71211,68 @@ var Soprano = {
     }
 
     return removeDirectory;
+  }(),
+  scanDirectory: function () {
+    var _scanDirectory = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(id) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/directory/scan/".concat(id), {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context5.sent;
+              return _context5.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    function scanDirectory(_x3) {
+      return _scanDirectory.apply(this, arguments);
+    }
+
+    return scanDirectory;
+  }(),
+  synchTrack: function () {
+    var _synchTrack = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(path) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track", {
+                filepath: path
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context6.sent;
+              return _context6.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    function synchTrack(_x4) {
+      return _synchTrack.apply(this, arguments);
+    }
+
+    return synchTrack;
   }()
 };
 
@@ -71255,20 +71317,10 @@ var DirectoryModule = function DirectoryModule() {
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
-      progress = _useState2[0],
-      setProgress = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      scanning = _useState4[0],
-      setScanning = _useState4[1];
-
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      showAddDirectory = _useState6[0],
-      setShowAddDirectory = _useState6[1];
+      showAddDirectory = _useState2[0],
+      setShowAddDirectory = _useState2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getDirectories().then(function (res) {
@@ -71286,25 +71338,24 @@ var DirectoryModule = function DirectoryModule() {
       setShowAddDirectory(!showAddDirectory);
     }
   }, "Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container py-2"
+    className: "mx-auto",
+    style: {
+      width: "300px"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "help-text"
+  }, "Add a directory path that is located on the server. Press the scan button when you're ready to synchronize the database. Accepted formats are mp3, m4a, flac, ogg."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "py-3"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AddDirectory, {
     hideAddDirectory: function hideAddDirectory() {
       setShowAddDirectory(false);
     }
-  })), state.directories && state.directories.length > 0 && state.directories.map(function (directory, i) {
+  }))), state.directories && state.directories.length > 0 && state.directories.map(function (directory, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Directory, {
       key: i,
       directory: directory
     });
-  }), scanning && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "progress scan-progress"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "progress-bar",
-    role: "progressbar",
-    style: {
-      width: "".concat(progress, "%")
-    }
-  })));
+  }));
 };
 
 var Directory = function Directory(_ref) {
@@ -71313,6 +71364,16 @@ var Directory = function Directory(_ref) {
   var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
       state = _useContext2.state,
       dispatch = _useContext2.dispatch;
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      progress = _useState4[0],
+      setProgress = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      scanning = _useState6[0],
+      setScanning = _useState6[1];
 
   var handleRemoveDirectory = function handleRemoveDirectory(e) {
     var id = parseInt(e.currentTarget.id);
@@ -71324,13 +71385,35 @@ var Directory = function Directory(_ref) {
     });
   };
 
+  var handleScanDirectory = function handleScanDirectory(e) {
+    var id = parseInt(e.currentTarget.id);
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].scanDirectory(id).then(function (res) {
+      setScanning(true);
+      var count = res.count;
+      var paths = res.paths;
+      paths.map(function (path, i) {
+        var path_arr = path.split("/");
+        var filename = path_arr[path_arr.length - 1];
+        _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
+          console.log("Synchronizing ".concat(filename));
+          var pct = i / count * 100;
+          setProgress(pct);
+          if (i === paths.length - 1) setScanning(false);
+        })["catch"](function (err) {
+          setScanning(false);
+        });
+      });
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "truncate dir-path w-100 pt-1"
   }, directory.path, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "directory-actions d-inline"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     id: directory.id,
-    className: "btn btn-sm btn-primary float-right"
+    className: "btn btn-sm btn-primary float-right",
+    onClick: handleScanDirectory
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "retweet"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -71339,7 +71422,15 @@ var Directory = function Directory(_ref) {
     onClick: handleRemoveDirectory
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "trash"
-  })))));
+  })))), scanning && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress scan-progress"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress-bar",
+    role: "progressbar",
+    style: {
+      width: "".concat(progress, "%")
+    }
+  })));
 };
 
 var AddDirectory = function AddDirectory(_ref2) {
@@ -71492,7 +71583,7 @@ __webpack_require__.r(__webpack_exports__);
 var Errors = function Errors(_ref) {
   var message = _ref.message,
       errors = _ref.errors;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, message && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, message && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "alert alert-danger",
     role: "alert"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, message), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
