@@ -22,17 +22,21 @@ const DirectoryModule = () => {
                     setShowAddDirectory(!showAddDirectory);
                 }}
             >
-                Add
+                {showAddDirectory && <span>Cancel</span>}
+                {!showAddDirectory && <span>Add</span>}
             </button>
             <h4>Directories</h4>
             {showAddDirectory && (
-                <div className="mx-auto" style={{ width: "300px" }}>
-                    <p className="help-text">
+                <div className="mx-auto">
+                    <div class="alert alert-info mt-4 mb-1" role="alert">
+                        <strong>
+                            <FontAwesome name="info-circle" className="mr-2" />
+                        </strong>
                         Add a directory path that is located on the server.
                         Press the scan button when you're ready to synchronize
                         the database. Accepted formats are mp3, m4a, flac, ogg.
-                    </p>
-                    <div className="py-3">
+                    </div>
+                    <div className="pb-3 pt-2">
                         <AddDirectory
                             hideAddDirectory={() => {
                                 setShowAddDirectory(false);
