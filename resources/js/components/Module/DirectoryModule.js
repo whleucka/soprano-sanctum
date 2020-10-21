@@ -28,7 +28,7 @@ const DirectoryModule = () => {
             <h4>Directories</h4>
             {showAddDirectory && (
                 <div className="mx-auto">
-                    <div class="alert alert-info mt-4 mb-1" role="alert">
+                    <div className="alert alert-info mt-4 mb-1" role="alert">
                         <strong>
                             <FontAwesome name="info-circle" className="mr-2" />
                         </strong>
