@@ -38,6 +38,7 @@ main {
 
 .content {
     width: 100%;
+    padding: 0 10px;
 }
 
 a:link,
