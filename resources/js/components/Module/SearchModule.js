@@ -3,7 +3,22 @@ import FontAwesome from "react-fontawesome";
 
 const SearchModule = () => {
     const [term, setTerm] = useState("");
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState([
+        {
+            album: "Test Album 1",
+            artist: "Test Artist 1",
+            title: "Derp derp derp derp 1",
+            cover: "/img/no-album.png",
+            playtime_string: "5:23",
+        },
+        {
+            album: "Test Album 2",
+            artist: "Test Artist 2",
+            title: "Derp derp derp derp 2",
+            cover: "/img/no-album.png",
+            playtime_string: "5:24",
+        },
+    ]);
 
     const handleInput = (e) => {
         setTerm(e.currentTarget.value);
@@ -22,7 +37,7 @@ const SearchModule = () => {
                     handleSubmit={handleSubmit}
                 />
             </div>
-            <div id="results-cont">
+            <div id="results-cont" className="mt-2">
                 <SearchResults results={results} />
             </div>
         </>
@@ -47,7 +62,7 @@ const SearchInput = ({ inputValue, handleInput, handleSubmit }) => {
                     type="button"
                     onClick={handleSubmit}
                 >
-                    Search
+                    <FontAwesome name="search" className="mr-2" /> Search
                 </button>
             </div>
         </div>
@@ -55,9 +70,10 @@ const SearchInput = ({ inputValue, handleInput, handleSubmit }) => {
 };
 
 const SearchResults = ({ results }) => {
+    const hasResults = results.length > 0;
     return (
         <>
-            {!results.length && (
+            {!hasResults && (
                 <div className="alert alert-secondary my-2" role="alert">
                     <strong>
                         <FontAwesome name="info-circle" className="mr-2" />
@@ -66,17 +82,30 @@ const SearchResults = ({ results }) => {
                     genre!
                 </div>
             )}
-            {results.length > 0 && (
-                <div className="row">
-                    <div className="col">
-                        <div className="d-flex">
-                            <div className="search-row-cover"></div>
-                            <div className="search-row-title"></div>
-                            <div className="search-row-playtime-string"></div>
+            {hasResults &&
+                results.map((result, i) => {
+                    return (
+                        <div key={i} className="row resultRow">
+                            <div className="col">
+                                <div className="d-flex">
+                                    <div className="search-row-cover">
+                                        <img
+                                            className="search-album-cover"
+                                            src={result.cover}
+                                            alt="cover"
+                                        />
+                                    </div>
+                                    <div className="search-row-title truncate w-100">
+                                        {result.artist} - {result.title}
+                                    </div>
+                                    <div className="search-row-playtime-string">
+                                        {result.playtime_string}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            )}
+                    );
+                })}
         </>
     );
 };

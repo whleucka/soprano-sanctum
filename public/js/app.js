@@ -71545,7 +71545,19 @@ var SearchModule = function SearchModule() {
       term = _useState2[0],
       setTerm = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
+    album: "Test Album 1",
+    artist: "Test Artist 1",
+    title: "Derp derp derp derp 1",
+    cover: "/img/no-album.png",
+    playtime_string: "5:23"
+  }, {
+    album: "Test Album 2",
+    artist: "Test Artist 2",
+    title: "Derp derp derp derp 2",
+    cover: "/img/no-album.png",
+    playtime_string: "5:24"
+  }]),
       _useState4 = _slicedToArray(_useState3, 2),
       results = _useState4[0],
       setResults = _useState4[1];
@@ -71565,7 +71577,8 @@ var SearchModule = function SearchModule() {
     handleInput: handleInput,
     handleSubmit: handleSubmit
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    id: "results-cont"
+    id: "results-cont",
+    className: "mt-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
     results: results
   })));
@@ -71593,30 +71606,41 @@ var SearchInput = function SearchInput(_ref) {
     className: "btn btn-success",
     type: "button",
     onClick: handleSubmit
-  }, "Search")));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "search",
+    className: "mr-2"
+  }), " Search")));
 };
 
 var SearchResults = function SearchResults(_ref2) {
   var results = _ref2.results;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, !results.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  var hasResults = results.length > 0;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, !hasResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "alert alert-secondary my-2",
     role: "alert"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "info-circle",
     className: "mr-2"
-  })), "No results, try searching for an artist, album, title, or genre!"), results.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "d-flex"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "search-row-cover"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "search-row-title"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "search-row-playtime-string"
-  })))));
+  })), "No results, try searching for an artist, album, title, or genre!"), hasResults && results.map(function (result, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: i,
+      className: "row resultRow"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "d-flex"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "search-row-cover"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      className: "search-album-cover",
+      src: result.cover,
+      alt: "cover"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "search-row-title truncate w-100"
+    }, result.artist, " - ", result.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "search-row-playtime-string"
+    }, result.playtime_string))));
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SearchModule);

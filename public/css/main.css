@@ -37,8 +37,8 @@ main {
 }
 
 .content {
-    width: 100%;
-    padding: 0 10px;
+    width: 82%;
+    margin: 0 auto;
 }
 
 a:link,
@@ -180,6 +180,23 @@ ul.navbar-nav a:hover {
 }
 .directory-actions > button {
     margin-right: 6px;
+}
+
+/**
+ * Search
+ */
+.resultRow {
+    padding-top: 4px;
+}
+.resultRow:hover {
+    background-color: #222;
+    cursor: pointer;
+}
+.search-album-cover {
+    height: 24px;
+}
+.search-row-cover {
+    margin-right: 10px;
 }
 
 @media (max-width: 575.98px) {
