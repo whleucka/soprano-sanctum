@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TrackController extends Controller
 {
@@ -32,6 +33,28 @@ class TrackController extends Controller
             $meta
         );
         return $track;
+    }
+
+    public function validateSearchTerm()
+    {
+        return request()->validate([
+            'term' => [
+                'required',
+                'string',
+            ]
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny', Track::class);
+        $data = $this->validateSearchTerm();
+        $tracks = DB::table('tracks')
+            ->where('artist', 'like', "{$data['term']}%")
+            ->orWhere('album', 'like', "{$data['term']}%")
+            ->orWhere('title', 'like', "{$data['term']}%")
+            ->get();
+        return $tracks;
     }
 
     /**

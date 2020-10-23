@@ -41,4 +41,12 @@ export const Soprano = {
         );
         return response.data;
     },
+    search: async function (term) {
+        const response = await axios.post(
+            "/api/track/search",
+            { term },
+            { withCredentials: true }
+        );
+        return response.data;
+    },
 };

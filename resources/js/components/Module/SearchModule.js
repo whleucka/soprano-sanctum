@@ -1,31 +1,26 @@
 import React, { useState } from "react";
 import FontAwesome from "react-fontawesome";
+import { Soprano } from "../Library/Soprano";
 
 const SearchModule = () => {
     const [term, setTerm] = useState("");
-    const [results, setResults] = useState([
-        {
-            album: "Test Album 1",
-            artist: "Test Artist 1",
-            title: "Derp derp derp derp 1",
-            cover: "/img/no-album.png",
-            playtime_string: "5:23",
-        },
-        {
-            album: "Test Album 2",
-            artist: "Test Artist 2",
-            title: "Derp derp derp derp 2",
-            cover: "/img/no-album.png",
-            playtime_string: "5:24",
-        },
-    ]);
+    const [loading, setLoading] = useState(false);
+    const [results, setResults] = useState([]);
 
     const handleInput = (e) => {
         setTerm(e.currentTarget.value);
     };
 
     const handleSubmit = (e) => {
-        console.log("Pressed");
+        setLoading(true);
+        Soprano.search(term)
+            .then((res) => {
+                setResults(res);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setLoading(false);
+            });
     };
 
     return (
@@ -38,6 +33,15 @@ const SearchModule = () => {
                 />
             </div>
             <div id="results-cont" className="mt-2">
+                {!results.length && !term && (
+                    <div className="alert alert-secondary my-2" role="alert">
+                        <strong>
+                            <FontAwesome name="info-circle" className="mr-2" />
+                        </strong>
+                        No results, try searching for an artist, album, title,
+                        or genre!
+                    </div>
+                )}
                 <SearchResults results={results} />
             </div>
         </>
@@ -73,15 +77,6 @@ const SearchResults = ({ results }) => {
     const hasResults = results.length > 0;
     return (
         <>
-            {!hasResults && (
-                <div className="alert alert-secondary my-2" role="alert">
-                    <strong>
-                        <FontAwesome name="info-circle" className="mr-2" />
-                    </strong>
-                    No results, try searching for an artist, album, title, or
-                    genre!
-                </div>
-            )}
             {hasResults &&
                 results.map((result, i) => {
                     return (
@@ -91,7 +86,7 @@ const SearchResults = ({ results }) => {
                                     <div className="search-row-cover">
                                         <img
                                             className="search-album-cover"
-                                            src={result.cover}
+                                            src="/img/no-album.png"
                                             alt="cover"
                                         />
                                     </div>

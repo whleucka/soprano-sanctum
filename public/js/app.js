@@ -71275,6 +71275,38 @@ var Soprano = {
     }
 
     return synchTrack;
+  }(),
+  search: function () {
+    var _search = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(term) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track/search", {
+                term: term
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context7.sent;
+              return _context7.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }));
+
+    function search(_x5) {
+      return _search.apply(this, arguments);
+    }
+
+    return search;
   }()
 };
 
@@ -71524,6 +71556,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -71539,35 +71572,35 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var SearchModule = function SearchModule() {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       term = _useState2[0],
       setTerm = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{
-    album: "Test Album 1",
-    artist: "Test Artist 1",
-    title: "Derp derp derp derp 1",
-    cover: "/img/no-album.png",
-    playtime_string: "5:23"
-  }, {
-    album: "Test Album 2",
-    artist: "Test Artist 2",
-    title: "Derp derp derp derp 2",
-    cover: "/img/no-album.png",
-    playtime_string: "5:24"
-  }]),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      results = _useState4[0],
-      setResults = _useState4[1];
+      loading = _useState4[0],
+      setLoading = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      results = _useState6[0],
+      setResults = _useState6[1];
 
   var handleInput = function handleInput(e) {
     setTerm(e.currentTarget.value);
   };
 
   var handleSubmit = function handleSubmit(e) {
-    console.log("Pressed");
+    setLoading(true);
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].search(term).then(function (res) {
+      setResults(res);
+      setLoading(false);
+    })["catch"](function (err) {
+      setLoading(false);
+    });
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -71579,7 +71612,13 @@ var SearchModule = function SearchModule() {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "results-cont",
     className: "mt-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
+  }, !results.length && !term && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-secondary my-2",
+    role: "alert"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "info-circle",
+    className: "mr-2"
+  })), "No results, try searching for an artist, album, title, or genre!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
     results: results
   })));
 };
@@ -71615,13 +71654,7 @@ var SearchInput = function SearchInput(_ref) {
 var SearchResults = function SearchResults(_ref2) {
   var results = _ref2.results;
   var hasResults = results.length > 0;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, !hasResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "alert alert-secondary my-2",
-    role: "alert"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    name: "info-circle",
-    className: "mr-2"
-  })), "No results, try searching for an artist, album, title, or genre!"), hasResults && results.map(function (result, i) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && results.map(function (result, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: i,
       className: "row resultRow"
@@ -71633,7 +71666,7 @@ var SearchResults = function SearchResults(_ref2) {
       className: "search-row-cover"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       className: "search-album-cover",
-      src: result.cover,
+      src: "/img/no-album.png",
       alt: "cover"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "search-row-title truncate w-100"
