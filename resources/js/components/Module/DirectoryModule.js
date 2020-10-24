@@ -3,6 +3,7 @@ import FontAwesome from "react-fontawesome";
 import { SopranoContext } from "../Context/SopranoContext";
 import { Soprano } from "../Library/Soprano";
 import Errors from "../Utilities/Errors";
+import { Info } from "../Utilities/Alerts";
 
 const DirectoryModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -28,14 +29,10 @@ const DirectoryModule = () => {
             <h4>Directories</h4>
             {showAddDirectory && (
                 <div className="mx-auto">
-                    <div className="alert alert-info mt-4 mb-1" role="alert">
-                        <strong>
-                            <FontAwesome name="info-circle" className="mr-2" />
-                        </strong>
-                        Add a directory path that is located on the server.
-                        Press the scan button when you're ready to synchronize
-                        the database. Accepted formats are mp3, m4a, flac, ogg.
-                    </div>
+                    <Info
+                        classes="mt-4 mb-1"
+                        msg="Add a directory path that is located on the server. Press the scan button when you're ready to synchronize the database. Accepted formats are mp3, m4a, flac, ogg."
+                    />
                     <div className="pb-3 pt-2">
                         <AddDirectory
                             hideAddDirectory={() => {

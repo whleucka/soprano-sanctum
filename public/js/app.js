@@ -73629,6 +73629,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 /* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
 /* harmony import */ var _Utilities_Errors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Errors */ "./resources/js/components/Utilities/Errors.js");
+/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -73640,6 +73641,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -73674,13 +73676,10 @@ var DirectoryModule = function DirectoryModule() {
     }
   }, showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cancel"), !showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "mx-auto"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "alert alert-info mt-4 mb-1",
-    role: "alert"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    name: "info-circle",
-    className: "mr-2"
-  })), "Add a directory path that is located on the server. Press the scan button when you're ready to synchronize the database. Accepted formats are mp3, m4a, flac, ogg."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_5__["Info"], {
+    classes: "mt-4 mb-1",
+    msg: "Add a directory path that is located on the server. Press the scan button when you're ready to synchronize the database. Accepted formats are mp3, m4a, flac, ogg."
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "pb-3 pt-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AddDirectory, {
     hideAddDirectory: function hideAddDirectory() {
@@ -73860,6 +73859,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
 /* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
 /* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
+/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -73871,6 +73871,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -73892,12 +73893,7 @@ var SearchModule = function SearchModule() {
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState6 = _slicedToArray(_useState5, 2),
       results = _useState6[0],
-      setResults = _useState6[1]; // TODO I don't like this, but I am not sure
-  //      what to do about no results coming back from
-  //      API. We need a flag when the term != '' and
-  //      results.length > 0, but it can only be displayed
-  //      when the button is pressed ???
-
+      setResults = _useState6[1];
 
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState8 = _slicedToArray(_useState7, 2),
@@ -73940,16 +73936,9 @@ var SearchModule = function SearchModule() {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "results-cont",
     className: "mt-2"
-  }, noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "alert alert-secondary my-2",
-    role: "alert"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    name: "info-circle",
-    className: "mr-2"
-  })), "No results, try searching for an artist, album, title, or genre!"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    loading: loading,
-    size: 50,
-    color: "#38c172",
+  }, noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_5__["Info"], {
+    msg: "No results found. Please search for an artist, album, track, or genre."
+  }), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_4__["default"], {
     width: "80%"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
     results: results
@@ -74094,6 +74083,91 @@ function SopranoReducer(state, action) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Utilities/Alerts.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Utilities/Alerts.js ***!
+  \*****************************************************/
+/*! exports provided: Info, Alert, Success, Danger, Warning */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Info", function() { return Info; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Alert", function() { return Alert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Success", function() { return Success; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Danger", function() { return Danger; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Warning", function() { return Warning; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Info = function Info(_ref) {
+  var msg = _ref.msg,
+      classes = _ref.classes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-info my-2 " + classes,
+    role: "alert"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "info-circle",
+    className: "mr-2"
+  })), msg);
+};
+
+var Alert = function Alert(_ref2) {
+  var msg = _ref2.msg,
+      classes = _ref2.classes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-info my-2 " + classes,
+    role: "alert"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "info-circle",
+    className: "mr-2"
+  })), msg);
+};
+
+var Warning = function Warning(_ref3) {
+  var msg = _ref3.msg,
+      classes = _ref3.classes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-info my-2 " + classes,
+    role: "alert"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "info-circle",
+    className: "mr-2"
+  })), msg);
+};
+
+var Danger = function Danger(_ref4) {
+  var msg = _ref4.msg,
+      classes = _ref4.classes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-info my-2 " + classes,
+    role: "alert"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "info-circle",
+    className: "mr-2"
+  })), msg);
+};
+
+var Success = function Success(_ref5) {
+  var msg = _ref5.msg,
+      classes = _ref5.classes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-info my-2 " + classes,
+    role: "alert"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "info-circle",
+    className: "mr-2"
+  })), msg);
+};
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Utilities/Errors.js":
 /*!*****************************************************!*\
   !*** ./resources/js/components/Utilities/Errors.js ***!
@@ -74150,12 +74224,13 @@ var BarSpinner = function BarSpinner(_ref) {
       size = _ref.size,
       width = _ref.width,
       color = _ref.color;
+  if (loading === null) loading = true;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "sweet-loading"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_spinners_BarLoader__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    width: width !== null && width !== void 0 ? width : 100,
-    size: size,
-    color: color,
+    width: width !== null && width !== void 0 ? width : "100%",
+    size: size !== null && size !== void 0 ? size : 50,
+    color: color !== null && color !== void 0 ? color : "#38c172",
     loading: loading
   }));
 };

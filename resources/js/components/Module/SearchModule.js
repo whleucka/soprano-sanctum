@@ -3,16 +3,12 @@ import FontAwesome from "react-fontawesome";
 import { Soprano } from "../Library/Soprano";
 import { htmlDecode } from "../Utilities/Tools";
 import BarSpinner from "../Utilities/Spinner";
+import { Info } from "../Utilities/Alerts";
 
 const SearchModule = () => {
     const [term, setTerm] = useState("");
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState([]);
-    // TODO I don't like this, but I am not sure
-    //      what to do about no results coming back from
-    //      API. We need a flag when the term != '' and
-    //      results.length > 0, but it can only be displayed
-    //      when the button is pressed ???
     const [noResults, setNoResults] = useState(false);
     const handleInput = (e) => {
         setTerm(e.currentTarget.value);
@@ -53,22 +49,9 @@ const SearchModule = () => {
             </div>
             <div id="results-cont" className="mt-2">
                 {noResults && (
-                    <div className="alert alert-secondary my-2" role="alert">
-                        <strong>
-                            <FontAwesome name="info-circle" className="mr-2" />
-                        </strong>
-                        No results, try searching for an artist, album, title,
-                        or genre!
-                    </div>
+                    <Info msg="No results found. Please search for an artist, album, track, or genre." />
                 )}
-                {loading && (
-                    <BarSpinner
-                        loading={loading}
-                        size={50}
-                        color={"#38c172"}
-                        width={"80%"}
-                    />
-                )}
+                {loading && <BarSpinner width={"80%"} />}
                 <SearchResults results={results} />
             </div>
         </>
@@ -127,7 +110,6 @@ const SearchInput = ({
 
 const SearchResults = ({ results }) => {
     const hasResults = results.length > 0;
-
     return (
         <>
             {hasResults &&

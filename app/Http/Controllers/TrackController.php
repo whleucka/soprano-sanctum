@@ -52,7 +52,9 @@ class TrackController extends Controller
         $tracks = DB::table('tracks')
             ->where('artist', 'like', "{$data['term']}%")
             ->orWhere('album', 'like', "{$data['term']}%")
-            ->orWhere('title', 'like', "{$data['term']}%")
+            ->orWhere('title', 'like', "%{$data['term']}%")
+            ->orWhere('genre', 'like', "%{$data['term']}%")
+            ->orWhere('year', '=', $data['term'])
             ->get();
         return $tracks;
     }
