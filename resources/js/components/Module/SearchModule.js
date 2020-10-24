@@ -89,7 +89,13 @@ const Genres = () => {
                 className="d-flex justify-content-around flex-wrap"
             >
                 {genres.map((genre) => {
-                    return <Avatar className="m-2" title={name} name={genre} />;
+                    return (
+                        <Avatar
+                            className="grid-icon m-2"
+                            title={name}
+                            name={genre}
+                        />
+                    );
                 })}
             </div>
         </section>
@@ -132,7 +138,7 @@ const SearchInput = ({
                     type="button"
                     onClick={handleSubmit}
                 >
-                    <FontAwesome name="search" className="mr-2" /> Search
+                    <FontAwesome name="search" className="mr-2" />
                 </button>
                 <button
                     className="btn btn-secondary"

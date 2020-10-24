@@ -234,11 +234,19 @@ ul.navbar-nav a:hover {
 
 @media (max-width: 767.98px) {
     #sidebar {
-        width: 100px;
-        min-width: 100px;
+        width: 50px;
+        min-width: 50px;
     }
     .sidebar-icon {
         margin-right: 0 !important;
+    }
+    .navbar {
+        margin: 0;
+        padding: 0 4px;
+    }
+    .grid-icon {
+        height: 85px !important;
+        width: 85px !important;
     }
     .link-toggle {
         display: none;
@@ -248,7 +256,7 @@ ul.navbar-nav a:hover {
         padding: 8px 0;
     }
     .navbar-brand img {
-        padding-left: 14px;
+        padding-left: 0;
         height: 28px;
     }
     .navbar-brand span {

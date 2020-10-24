@@ -80629,7 +80629,7 @@ var Genres = function Genres() {
     className: "d-flex justify-content-around flex-wrap"
   }, genres.map(function (genre) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      className: "m-2",
+      className: "grid-icon m-2",
       title: name,
       name: genre
     });
@@ -80676,7 +80676,7 @@ var SearchInput = function SearchInput(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "search",
     className: "mr-2"
-  }), " Search"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-secondary",
     type: "button",
     onClick: handleClear
