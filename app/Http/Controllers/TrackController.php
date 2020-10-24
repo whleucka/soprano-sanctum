@@ -59,6 +59,21 @@ class TrackController extends Controller
         return $tracks;
     }
 
+    public function genres(Request $request)
+    {
+        $genres_raw = DB::table('tracks')->distinct('genre')->get();
+        $genres = [];
+        foreach ($genres_raw as $genre_raw) {
+            $genre_array = explode(',', $genre_raw->genre);
+            foreach ($genre_array as $genre) {
+                if (!in_array($genre, $genres) && $genre !== '')
+                    $genres[] = $genre;
+            }
+        }
+        sort($genres);
+        return $genres; 
+    }
+
     /**
      * Display a listing of the resource.
      *

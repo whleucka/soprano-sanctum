@@ -49,4 +49,10 @@ export const Soprano = {
         );
         return response.data;
     },
+    getGenres: async function () {
+        const response = await axios.get("/api/track/genres", {
+            withCredentials: true,
+        });
+        return response.data;
+    },
 };

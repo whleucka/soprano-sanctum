@@ -134,7 +134,7 @@ ul.navbar-nav a:hover {
     z-index: 999;
     position: absolute;
     bottom: 0;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 #player-cont {

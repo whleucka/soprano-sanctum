@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { SopranoContext } from "../Context/SopranoContext";
 import FontAwesome from "react-fontawesome";
 import { Soprano } from "../Library/Soprano";
 import { htmlDecode } from "../Utilities/Tools";
-import BarSpinner from "../Utilities/Spinner";
+import { BarSpinner, GridSpinner } from "../Utilities/Spinner";
 import { Info } from "../Utilities/Alerts";
+import Avatar from "react-avatar";
 
 const SearchModule = () => {
     const [term, setTerm] = useState("");
@@ -41,7 +42,7 @@ const SearchModule = () => {
 
     return (
         <>
-            <div id="search-cont">
+            <div id="search-cont" className="pt-2">
                 <SearchInput
                     inputValue={term}
                     handleInput={handleInput}
@@ -53,10 +54,45 @@ const SearchModule = () => {
                 {noResults && (
                     <Info msg="No results found. Please search for an artist, album, track, or genre." />
                 )}
+                {!term && !results.length && (
+                    <div>
+                        <Genres />
+                    </div>
+                )}
                 {loading && <BarSpinner width={"80%"} />}
                 <SearchResults results={results} />
             </div>
         </>
+    );
+};
+
+const Genres = () => {
+    const [genres, setGenres] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        Soprano.getGenres()
+            .then((res) => {
+                setLoading(false);
+                setGenres(res);
+            })
+            .catch((err) => setLoading(false));
+    }, []);
+
+    return (
+        <section id="genres" className="mt-4">
+            <h3>Genres</h3>
+            {loading && <GridSpinner size={14} />}
+            <div
+                id="genre-cont"
+                className="d-flex justify-content-around flex-wrap"
+            >
+                {genres.map((genre) => {
+                    return <Avatar className="m-2" title={name} name={genre} />;
+                })}
+            </div>
+        </section>
     );
 };
 
