@@ -1,7 +1,8 @@
 import React from "react";
 import FontAwesome from "react-fontawesome";
+import { htmlDecode } from "../Utilities/Tools";
 
-const Player = () => {
+const Player = ({ currentTrack }) => {
     return (
         <div id="player">
             <div className="media">
@@ -9,12 +10,30 @@ const Player = () => {
                     id="player-cover-art"
                     className="d-flex mr-3"
                     alt="album cover"
-                    src="/img/no-album.png"
+                    src={
+                        currentTrack.cover
+                            ? currentTrack.cover
+                            : "/img/no-album.png"
+                    }
                 />
                 <div id="player-cont" className="media-body">
-                    <h5>
-                        {"Artist"} - {"Title"}
-                    </h5>
+                    <div>
+                        <span id="player-album">
+                            {currentTrack.album
+                                ? htmlDecode(currentTrack.album)
+                                : "No Album"}
+                        </span>
+                        <br />
+                        <span id="player-artist-title">
+                            {currentTrack.artist
+                                ? htmlDecode(currentTrack.artist)
+                                : "No Artist"}
+                            {" - "}
+                            {currentTrack.title
+                                ? htmlDecode(currentTrack.title)
+                                : "No Title"}
+                        </span>
+                    </div>
                     <div id="player-controls" className="d-flex">
                         <button className="btn player-btn">
                             <FontAwesome name="step-backward" />

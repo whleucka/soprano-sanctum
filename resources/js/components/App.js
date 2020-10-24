@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 const initialState = {
     user: null,
     directories: null,
+    currentTrack: {},
 };
 
 const App = () => {
@@ -43,7 +44,7 @@ const App = () => {
                         <Admin />
                     </Route>
                 </Switch>
-                <Player />
+                <Player currentTrack={state.currentTrack} />
             </Router>
         </SopranoContext.Provider>
     );

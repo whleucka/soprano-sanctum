@@ -16,6 +16,11 @@ export function SopranoReducer(state, action) {
                     (directory) => directory.id != action.payload
                 ),
             };
+        case "playTrack":
+            return {
+                ...state,
+                currentTrack: action.payload,
+            };
         default:
             return state;
     }

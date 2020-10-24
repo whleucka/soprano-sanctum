@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { SopranoContext } from "../Context/SopranoContext";
 import FontAwesome from "react-fontawesome";
 import { Soprano } from "../Library/Soprano";
 import { htmlDecode } from "../Utilities/Tools";
@@ -35,6 +36,7 @@ const SearchModule = () => {
     const handleClear = (e) => {
         setResults([]);
         setTerm("");
+        setNoResults(false);
     };
 
     return (
@@ -109,6 +111,7 @@ const SearchInput = ({
 };
 
 const SearchResults = ({ results }) => {
+    const { state, dispatch } = useContext(SopranoContext);
     const hasResults = results.length > 0;
     return (
         <>
@@ -125,7 +128,15 @@ const SearchResults = ({ results }) => {
                                             alt="cover"
                                         />
                                     </div>
-                                    <div className="search-row-title truncate w-100">
+                                    <div
+                                        className="search-row-title truncate w-100"
+                                        onClick={(_) =>
+                                            dispatch({
+                                                type: "playTrack",
+                                                payload: result,
+                                            })
+                                        }
+                                    >
                                         {htmlDecode(result.artist)} -{" "}
                                         {htmlDecode(result.title)}
                                     </div>
