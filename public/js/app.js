@@ -80627,8 +80627,9 @@ var Genres = function Genres() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "genre-cont",
     className: "d-flex justify-content-around flex-wrap"
-  }, genres.map(function (genre) {
+  }, genres.map(function (genre, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      key: i,
       className: "grid-icon m-2",
       title: name,
       name: genre

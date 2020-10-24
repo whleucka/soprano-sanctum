@@ -88,9 +88,10 @@ const Genres = () => {
                 id="genre-cont"
                 className="d-flex justify-content-around flex-wrap"
             >
-                {genres.map((genre) => {
+                {genres.map((genre, i) => {
                     return (
                         <Avatar
+                            key={i}
                             className="grid-icon m-2"
                             title={name}
                             name={genre}
