@@ -4,8 +4,14 @@ import { htmlDecode } from "../Utilities/Tools";
 import Marquee from "react-double-marquee";
 
 const Player = ({ currentTrack }) => {
+    const trackUrl =
+        typeof currentTrack !== "undefined" && currentTrack.fingerprint
+            ? `/api/track/stream/${currentTrack.fingerprint}`
+            : null;
+
     return (
         <div id="player">
+            <audio id="audio" src={trackUrl} autoPlay />
             <div className="media">
                 <img
                     id="player-cover-art"

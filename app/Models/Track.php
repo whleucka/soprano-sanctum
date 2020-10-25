@@ -8,17 +8,45 @@ use Illuminate\Support\Facades\File;
 use getID3;
 use getid3_lib;
 use SplFileInfo;
+use FFMpeg;
+use Exception;
 
 class Track extends Model
 {
     use HasFactory;
     
     protected $guarded = [];
-
-    public function stream()
+    
+    public function transcode(string $filepath)
     {
-        // Implement me!
+        $storage_dir = storage_path().'/app/public/transcode/';
+        if (!file_exists($storage_dir)) {
+            mkdir($storage_dir);
+        }
+        $md5_file = $storage_dir.md5($filepath).'.mp3';
+        if (!file_exists($md5_file)) {
+            $ffmpeg = FFMpeg\FFMpeg::create([
+                'ffmpeg.binaries' => '/usr/bin/ffmpeg',
+                'ffprobe.binaries' => '/usr/bin/ffprobe',
+                'timeout' => 60 * 5,
+                'ffmpeg.threads' => 12,
+            ]);
+            $audio_channels = 2;
+            $bitrate = 320;
+            $audio = $ffmpeg->open($filepath);
+            $format = new FFMpeg\Format\Audio\Mp3('libmp3lame');
+            $format
+                ->setAudioChannels($audio_channels)
+                ->setAudioKiloBitrate($bitrate);
+            try {
+                $audio->save($format, $md5_file);
+            } catch (Exception $e) {
+                error_log($e->getMessage());
+            }
+        }
+        return $md5_file;
     }
+
 
     public static function analyze(string $filepath): array
     {

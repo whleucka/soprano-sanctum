@@ -22,6 +22,24 @@ class TrackController extends Controller
             ]
         ]);
     }
+    
+    public function stream(Track $track)
+    {
+        $path = ($track->fileformat !== 'mp3') ?
+            $this->transcode($track->filenamepath) :
+            $track->filenamepath;
+        $headers = [
+            'Content-Type' => mime_content_type($path),
+            'Content-Disposition' => 'inline',
+            'Cache-Control' => 'public, max-age=2629746',
+            'Accept-Ranges' => 'bytes',
+            'Content-Length' => filesize($path),
+            'Content-Transfer-Encoding' => 'chunked',
+            'Connection' => "Keep-Alive",
+            'X-Pad' => 'avoid browser bug',
+        ];
+        return response()->file($path, $headers);
+    }
 
     public function synch(Request $request)
     {

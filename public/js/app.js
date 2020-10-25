@@ -80211,9 +80211,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var Player = function Player(_ref) {
   var currentTrack = _ref.currentTrack;
+  var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
+    id: "audio",
+    src: trackUrl,
+    autoPlay: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "media"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     id: "player-cover-art",
