@@ -80557,8 +80557,29 @@ var SearchModule = function SearchModule() {
   };
 
   var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+
+    if (term) {
+      setLoading(true);
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].search(term).then(function (res) {
+        if (res.length) {
+          setNoResults(false);
+          setResults(res);
+        } else {
+          setNoResults(true);
+          setResults([]);
+        }
+
+        setLoading(false);
+      })["catch"](function (err) {
+        setLoading(false);
+      });
+    }
+  };
+
+  var handleGenre = function handleGenre(genre) {
     setLoading(true);
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].search(term).then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].search(genre).then(function (res) {
       if (res.length) {
         setNoResults(false);
         setResults(res);
@@ -80592,14 +80613,21 @@ var SearchModule = function SearchModule() {
     className: "mt-2"
   }, noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_6__["Info"], {
     msg: "No results found. Please search for an artist, album, track, or genre."
-  }), !term && !results.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Genres, null)), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_5__["BarSpinner"], {
+  }), !term && !results.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Genres, {
+    handleClick: function handleClick(e, genre) {
+      e.preventDefault();
+      handleGenre(genre);
+    }
+  })), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_5__["BarSpinner"], {
     width: "80%"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
     results: results
   })));
 };
 
-var Genres = function Genres() {
+var Genres = function Genres(_ref) {
+  var handleClick = _ref.handleClick;
+
   var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState10 = _slicedToArray(_useState9, 2),
       genres = _useState10[0],
@@ -80615,8 +80643,6 @@ var Genres = function Genres() {
     _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getGenres().then(function (res) {
       setLoading(false);
       setGenres(res);
-    })["catch"](function (err) {
-      return setLoading(false);
     });
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -80630,6 +80656,9 @@ var Genres = function Genres() {
   }, genres.map(function (genre, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_7__["default"], {
       key: i,
+      onClick: function onClick(e) {
+        handleClick(e, genre);
+      },
       className: "grid-icon m-2",
       title: name,
       name: genre
@@ -80637,11 +80666,11 @@ var Genres = function Genres() {
   })));
 };
 
-var SearchInput = function SearchInput(_ref) {
-  var inputValue = _ref.inputValue,
-      handleInput = _ref.handleInput,
-      handleSubmit = _ref.handleSubmit,
-      handleClear = _ref.handleClear;
+var SearchInput = function SearchInput(_ref2) {
+  var inputValue = _ref2.inputValue,
+      handleInput = _ref2.handleInput,
+      handleSubmit = _ref2.handleSubmit,
+      handleClear = _ref2.handleClear;
 
   var handleKeyUp = function handleKeyUp(e) {
     if (e.keyCode === 13) {
@@ -80671,6 +80700,7 @@ var SearchInput = function SearchInput(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "input-group-append"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    id: "btn-search",
     className: "btn btn-success",
     type: "button",
     onClick: handleSubmit
@@ -80687,8 +80717,8 @@ var SearchInput = function SearchInput(_ref) {
   }))));
 };
 
-var SearchResults = function SearchResults(_ref2) {
-  var results = _ref2.results;
+var SearchResults = function SearchResults(_ref3) {
+  var results = _ref3.results;
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
       state = _useContext.state,

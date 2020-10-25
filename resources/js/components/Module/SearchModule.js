@@ -17,8 +17,29 @@ const SearchModule = () => {
     };
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+        if (term) {
+            setLoading(true);
+            Soprano.search(term)
+                .then((res) => {
+                    if (res.length) {
+                        setNoResults(false);
+                        setResults(res);
+                    } else {
+                        setNoResults(true);
+                        setResults([]);
+                    }
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    setLoading(false);
+                });
+        }
+    };
+
+    const handleGenre = (genre) => {
         setLoading(true);
-        Soprano.search(term)
+        Soprano.search(genre)
             .then((res) => {
                 if (res.length) {
                     setNoResults(false);
@@ -56,7 +77,12 @@ const SearchModule = () => {
                 )}
                 {!term && !results.length && (
                     <div>
-                        <Genres />
+                        <Genres
+                            handleClick={(e, genre) => {
+                                e.preventDefault();
+                                handleGenre(genre);
+                            }}
+                        />
                     </div>
                 )}
                 {loading && <BarSpinner width={"80%"} />}
@@ -66,18 +92,16 @@ const SearchModule = () => {
     );
 };
 
-const Genres = () => {
+const Genres = ({ handleClick }) => {
     const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setLoading(true);
-        Soprano.getGenres()
-            .then((res) => {
-                setLoading(false);
-                setGenres(res);
-            })
-            .catch((err) => setLoading(false));
+        Soprano.getGenres().then((res) => {
+            setLoading(false);
+            setGenres(res);
+        });
     }, []);
 
     return (
@@ -92,6 +116,9 @@ const Genres = () => {
                     return (
                         <Avatar
                             key={i}
+                            onClick={(e) => {
+                                handleClick(e, genre);
+                            }}
                             className="grid-icon m-2"
                             title={name}
                             name={genre}
@@ -135,6 +162,7 @@ const SearchInput = ({
             />
             <div className="input-group-append">
                 <button
+                    id="btn-search"
                     className="btn btn-success"
                     type="button"
                     onClick={handleSubmit}
