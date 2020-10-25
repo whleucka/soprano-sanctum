@@ -85,7 +85,6 @@ class TrackController extends Controller
         foreach ($genres_raw as $genre_raw) {
             $genre_array = explode(',', $genre_raw->genre);
             foreach ($genre_array as $genre) {
-                $genre = str_replace('-', ' ', $genre);
                 if (!in_array($genre, $genres) && $genre !== '')
                     $genres[] = $genre;
             }
