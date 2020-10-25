@@ -14,6 +14,7 @@ const initialState = {
     user: null,
     directories: null,
     currentTrack: {},
+    playlist: [],
 };
 
 const App = () => {

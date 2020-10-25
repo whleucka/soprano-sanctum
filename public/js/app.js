@@ -80101,7 +80101,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var initialState = {
   user: null,
   directories: null,
-  currentTrack: {}
+  currentTrack: {},
+  playlist: []
 };
 
 var App = function App() {
@@ -80283,7 +80284,6 @@ var Player = function Player(_ref) {
   };
 
   var handleToggleShuffle = function handleToggleShuffle() {
-    // TODO Make this a global state
     setPlayer(_objectSpread(_objectSpread({}, player), {}, {
       shuffle: !player.shuffle
     }));
@@ -80331,7 +80331,11 @@ var Player = function Player(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-cont",
     className: "media-body"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, player.status === "idle" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    style: {
+      lineHeight: "46px"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Soprano")), player.status !== "idle" && player.status !== "loading" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-album",
     className: "marquee"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_double_marquee__WEBPACK_IMPORTED_MODULE_3___default.a, null, currentTrack.album ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.album) : "No Album")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -80342,15 +80346,18 @@ var Player = function Player(_ref) {
     className: "d-flex"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn player-btn",
-    onClick: handlePrevTrack
+    onClick: handlePrevTrack,
+    disabled: !state.playlist.length ? "disabled" : ""
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "step-backward"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn player-btn",
-    onClick: handlePlayPauseTrack
+    onClick: handlePlayPauseTrack,
+    disabled: player.status === "idle" ? "disabled" : ""
   }, playPauseIcon), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn player-btn",
-    onClick: handleNextTrack
+    onClick: handleNextTrack,
+    disabled: !state.playlist.length ? "disabled" : ""
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "step-forward"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

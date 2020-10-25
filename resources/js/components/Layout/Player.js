@@ -57,7 +57,6 @@ const Player = ({ currentTrack }) => {
     };
 
     const handleToggleShuffle = () => {
-        // TODO Make this a global state
         setPlayer({
             ...player,
             shuffle: !player.shuffle,
@@ -113,42 +112,54 @@ const Player = ({ currentTrack }) => {
                     }
                 />
                 <div id="player-cont" className="media-body">
-                    <div>
-                        <div id="player-album" className="marquee">
-                            <Marquee>
-                                {currentTrack.album
-                                    ? htmlDecode(currentTrack.album)
-                                    : "No Album"}
-                            </Marquee>
+                    {player.status === "idle" && (
+                        <div style={{ lineHeight: "46px" }}>
+                            <span>Soprano</span>
                         </div>
-                        <div id="player-artist-title" className="marquee">
-                            <Marquee>
-                                {currentTrack.artist
-                                    ? htmlDecode(currentTrack.artist)
-                                    : "No Artist"}
-                                {" " + htmlDecode("&mdash;") + " "}
-                                {currentTrack.title
-                                    ? htmlDecode(currentTrack.title)
-                                    : "No Title"}
-                            </Marquee>
+                    )}
+                    {player.status !== "idle" && player.status !== "loading" && (
+                        <div>
+                            <div id="player-album" className="marquee">
+                                <Marquee>
+                                    {currentTrack.album
+                                        ? htmlDecode(currentTrack.album)
+                                        : "No Album"}
+                                </Marquee>
+                            </div>
+                            <div id="player-artist-title" className="marquee">
+                                <Marquee>
+                                    {currentTrack.artist
+                                        ? htmlDecode(currentTrack.artist)
+                                        : "No Artist"}
+                                    {" " + htmlDecode("&mdash;") + " "}
+                                    {currentTrack.title
+                                        ? htmlDecode(currentTrack.title)
+                                        : "No Title"}
+                                </Marquee>
+                            </div>
                         </div>
-                    </div>
+                    )}
                     <div id="player-controls" className="d-flex">
                         <button
                             className="btn player-btn"
                             onClick={handlePrevTrack}
+                            disabled={!state.playlist.length ? "disabled" : ""}
                         >
                             <FontAwesome name="step-backward" />
                         </button>
                         <button
                             className="btn player-btn"
                             onClick={handlePlayPauseTrack}
+                            disabled={
+                                player.status === "idle" ? "disabled" : ""
+                            }
                         >
                             {playPauseIcon}
                         </button>
                         <button
                             className="btn player-btn"
                             onClick={handleNextTrack}
+                            disabled={!state.playlist.length ? "disabled" : ""}
                         >
                             <FontAwesome name="step-forward" />
                         </button>
