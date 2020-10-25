@@ -6,12 +6,12 @@
   -[*] Clear results
   -[*] Update scroll color
   -[*] Add genre selecton
-  -[] Add year selection
+  -[*] Add year selection
 
 -[] Handle click on search row
-  -[] Dispatch playTrack
-  -[] Confirm artist, album, track in Player
-  -[] Stream track
+  -[*] Dispatch playTrack
+  -[*] Confirm artist, album, track in Player
+  -[*] Stream track
 
 -[] Implement Playlist
   -[] Add Playlist section
@@ -26,9 +26,8 @@
   -[] Add track to playlist 
   -[] Add tracks to playlist
   
--[] Implement Cover Art
-  -[] Scan for images
+-[*] Implement Cover Art
+  -[*] Scan for images
   
 -[] Implement User Settings
-  
--[] Track provider
+
