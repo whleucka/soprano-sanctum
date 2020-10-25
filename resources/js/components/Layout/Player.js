@@ -1,6 +1,7 @@
 import React from "react";
 import FontAwesome from "react-fontawesome";
 import { htmlDecode } from "../Utilities/Tools";
+import Marquee from "react-double-marquee";
 
 const Player = ({ currentTrack }) => {
     return (
@@ -18,21 +19,24 @@ const Player = ({ currentTrack }) => {
                 />
                 <div id="player-cont" className="media-body">
                     <div>
-                        <span id="player-album">
-                            {currentTrack.album
-                                ? htmlDecode(currentTrack.album)
-                                : "No Album"}
-                        </span>
-                        <br />
-                        <span id="player-artist-title">
-                            {currentTrack.artist
-                                ? htmlDecode(currentTrack.artist)
-                                : "No Artist"}
-                            {" - "}
-                            {currentTrack.title
-                                ? htmlDecode(currentTrack.title)
-                                : "No Title"}
-                        </span>
+                        <div id="player-album" className="marquee">
+                            <Marquee>
+                                {currentTrack.album
+                                    ? htmlDecode(currentTrack.album)
+                                    : "No Album"}
+                            </Marquee>
+                        </div>
+                        <div id="player-artist-title" className="marquee">
+                            <Marquee>
+                                {currentTrack.artist
+                                    ? htmlDecode(currentTrack.artist)
+                                    : "No Artist"}
+                                {" " + htmlDecode("&mdash;") + " "}
+                                {currentTrack.title
+                                    ? htmlDecode(currentTrack.title)
+                                    : "No Title"}
+                            </Marquee>
+                        </div>
                     </div>
                     <div id="player-controls" className="d-flex">
                         <button className="btn player-btn">

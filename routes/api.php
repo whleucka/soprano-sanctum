@@ -32,4 +32,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/track', [TrackController::class, 'synch'])->name('track.synch');
     Route::post('/track/search', [TrackController::class, 'search'])->name('track.search');
     Route::get('/track/genres', [TrackController::class, 'genres'])->name('track.genres');
+    Route::get('/track/years', [TrackController::class, 'years'])->name('track.years');
 });

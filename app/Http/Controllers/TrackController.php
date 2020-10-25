@@ -55,6 +55,7 @@ class TrackController extends Controller
             ->orWhere('title', 'like', "%{$data['term']}%")
             ->orWhere('genre', 'like', "%{$data['term']}%")
             ->orWhere('year', '=', $data['term'])
+            ->orderBy('artist')->orderBy('album')
             ->get();
         return $tracks;
     }
@@ -66,12 +67,28 @@ class TrackController extends Controller
         foreach ($genres_raw as $genre_raw) {
             $genre_array = explode(',', $genre_raw->genre);
             foreach ($genre_array as $genre) {
+                $genre = str_replace('-', ' ', $genre);
                 if (!in_array($genre, $genres) && $genre !== '')
                     $genres[] = $genre;
             }
         }
         sort($genres);
         return $genres; 
+    }
+
+    public function years(Request $request)
+    {
+        $years_raw = DB::table('tracks')
+            ->select('year')
+            ->distinct('year')
+            ->where('year', '!=', '')
+            ->orderBy('year')
+            ->get();
+        $years = [];
+        foreach ($years_raw as $year_raw) {
+            $years[] = $year_raw->year;
+        }
+        return $years; 
     }
 
     /**

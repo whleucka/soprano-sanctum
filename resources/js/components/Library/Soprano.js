@@ -55,4 +55,10 @@ export const Soprano = {
         });
         return response.data;
     },
+    getYears: async function () {
+        const response = await axios.get("/api/track/years", {
+            withCredentials: true,
+        });
+        return response.data;
+    },
 };

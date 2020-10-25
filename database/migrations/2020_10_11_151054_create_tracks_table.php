@@ -27,6 +27,7 @@ class CreateTracksTable extends Migration
             $table->string('mime_type');
             $table->double('playtime_seconds');
             $table->string('playtime_string');
+            $table->string('cover');
             $table->string('artist')
                   ->index();
             $table->string('album')

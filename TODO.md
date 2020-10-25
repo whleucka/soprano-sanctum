@@ -5,7 +5,7 @@
   -[*] Escape button should clear
   -[*] Clear results
   -[*] Update scroll color
-  -[] Add genre selecton
+  -[*] Add genre selecton
   -[] Add year selection
 
 -[] Handle click on search row

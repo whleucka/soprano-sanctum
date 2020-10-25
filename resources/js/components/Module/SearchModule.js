@@ -12,50 +12,34 @@ const SearchModule = () => {
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState([]);
     const [noResults, setNoResults] = useState(false);
+
+    const search = (searchTerm) => {
+        if (searchTerm.trim() !== "") {
+            setLoading(true);
+            Soprano.search(searchTerm).then((res) => {
+                if (!res.length) setNoResults(true);
+                else setNoResults(false);
+                setResults(res);
+                setLoading(false);
+            });
+        } else {
+            setTerm("");
+        }
+    };
+
     const handleInput = (e) => {
-        setTerm(e.currentTarget.value);
+        const input = e.currentTarget.value;
+        if (input.trim() !== "") setNoResults(false);
+        setTerm(input);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (term) {
-            setLoading(true);
-            Soprano.search(term)
-                .then((res) => {
-                    if (res.length) {
-                        setNoResults(false);
-                        setResults(res);
-                    } else {
-                        setNoResults(true);
-                        setResults([]);
-                    }
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    setLoading(false);
-                });
-        }
-    };
-
-    const handleGenre = (genre) => {
-        setLoading(true);
-        Soprano.search(genre)
-            .then((res) => {
-                if (res.length) {
-                    setNoResults(false);
-                    setResults(res);
-                } else {
-                    setNoResults(true);
-                    setResults([]);
-                }
-                setLoading(false);
-            })
-            .catch((err) => {
-                setLoading(false);
-            });
+        search(term);
     };
 
     const handleClear = (e) => {
+        e.preventDefault();
         setResults([]);
         setTerm("");
         setNoResults(false);
@@ -75,12 +59,18 @@ const SearchModule = () => {
                 {noResults && (
                     <Info msg="No results found. Please search for an artist, album, track, or genre." />
                 )}
-                {!term && !results.length && (
+                {!loading && !term && !results.length && (
                     <div>
                         <Genres
                             handleClick={(e, genre) => {
                                 e.preventDefault();
-                                handleGenre(genre);
+                                search(genre);
+                            }}
+                        />
+                        <Years
+                            handleClick={(e, year) => {
+                                e.preventDefault();
+                                search(year);
                             }}
                         />
                     </div>
@@ -95,19 +85,23 @@ const SearchModule = () => {
 const Genres = ({ handleClick }) => {
     const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [noResults, setNoResults] = useState(false);
 
     useEffect(() => {
         setLoading(true);
         Soprano.getGenres().then((res) => {
-            setLoading(false);
+            if (!res.length) setNoResults(true);
+            else setNoResults(false);
             setGenres(res);
+            setLoading(false);
         });
     }, []);
 
     return (
-        <section id="genres" className="mt-4">
-            <h3>Genres</h3>
+        <section id="genre" className="mt-4">
+            <h3>Genre</h3>
             {loading && <GridSpinner size={14} />}
+            {noResults && <Info msg="No genres found." />}
             <div
                 id="genre-cont"
                 className="d-flex justify-content-around flex-wrap"
@@ -121,7 +115,49 @@ const Genres = ({ handleClick }) => {
                             }}
                             className="grid-icon m-2"
                             title={name}
-                            name={genre}
+                            value={genre}
+                        />
+                    );
+                })}
+            </div>
+        </section>
+    );
+};
+
+const Years = ({ handleClick }) => {
+    const [years, setYears] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [noResults, setNoResults] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        Soprano.getYears().then((res) => {
+            if (!res.length) setNoResults(true);
+            else setNoResults(false);
+            setYears(res);
+            setLoading(false);
+        });
+    }, []);
+
+    return (
+        <section id="year" className="mt-4">
+            <h3>Year</h3>
+            {loading && <GridSpinner size={14} />}
+            {noResults && <Info msg="No years found." />}
+            <div
+                id="years-cont"
+                className="d-flex justify-content-around flex-wrap"
+            >
+                {years.map((year, i) => {
+                    return (
+                        <Avatar
+                            key={i}
+                            onClick={(e) => {
+                                handleClick(e, year);
+                            }}
+                            className="grid-icon m-2"
+                            title={year}
+                            value={year}
                         />
                     );
                 })}
@@ -195,7 +231,7 @@ const SearchResults = ({ results }) => {
                                     <div className="search-row-cover">
                                         <img
                                             className="search-album-cover"
-                                            src="/img/no-album.png"
+                                            src={result.cover}
                                             alt="cover"
                                         />
                                     </div>
@@ -208,7 +244,8 @@ const SearchResults = ({ results }) => {
                                             })
                                         }
                                     >
-                                        {htmlDecode(result.artist)} -{" "}
+                                        {htmlDecode(result.artist)}
+                                        {" " + htmlDecode("&mdash;") + " "}
                                         {htmlDecode(result.title)}
                                     </div>
                                     <div className="search-row-playtime-string">
