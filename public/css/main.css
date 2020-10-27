@@ -28,6 +28,24 @@ body {
     border-radius: 10px;
 }
 
+.modal-backdrop {
+    z-index: 998;
+}
+
+.modal-header > button {
+    color: white;
+}
+
+.modal-content {
+    background-color: #111;
+    border: 1px solid #333;
+}
+
+.modal-header,
+.modal-footer {
+    border: 0;
+}
+
 body,
 .table {
     color: #fff;
@@ -148,6 +166,10 @@ ul.navbar-nav a:hover {
 
 #player-cover-art {
     height: 100px;
+}
+
+#player-cover-art:hover {
+    cursor: pointer;
 }
 
 .player-btn {

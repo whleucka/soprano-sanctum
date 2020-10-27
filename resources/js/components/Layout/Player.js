@@ -96,25 +96,33 @@ const Player = ({ currentTrack }) => {
             audio.pause();
         }
     }, [player]);
-
+    const cover_src = currentTrack.cover
+        ? currentTrack.cover
+        : "/img/no-album.png";
     return (
         <div id="player">
             <audio id="audio" src={trackUrl} autoPlay />
             <div className="media">
                 <img
+                    data-toggle="modal"
+                    data-target="#coverModal"
                     id="player-cover-art"
                     className="d-flex mr-3"
                     alt="album cover"
-                    src={
-                        currentTrack.cover
-                            ? currentTrack.cover
-                            : "/img/no-album.png"
-                    }
+                    src={cover_src}
                 />
                 <div id="player-cont" className="media-body">
                     {player.status === "idle" && (
                         <div style={{ lineHeight: "46px" }}>
-                            <span>Soprano</span>
+                            <Marquee>
+                                <img
+                                    src="/img/music.png"
+                                    alt="soprano"
+                                    style={{ height: "13px" }}
+                                    className="music-note mr-2"
+                                />
+                                <span>Soprano</span>
+                            </Marquee>
                         </div>
                     )}
                     {player.status !== "idle" && player.status !== "loading" && (
@@ -171,6 +179,59 @@ const Player = ({ currentTrack }) => {
                                 className={shuffleClass}
                                 name="random"
                             />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <CoverModal currentTrack={currentTrack} cover_src={cover_src} />
+        </div>
+    );
+};
+
+const CoverModal = ({ currentTrack, cover_src }) => {
+    return (
+        <div
+            className="modal"
+            id="coverModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modalTitle"
+            aria-hidden="true"
+        >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="modalTitle">
+                            {currentTrack.album
+                                ? htmlDecode(currentTrack.album)
+                                : "No Album"}
+                            <br />
+                            <small>{currentTrack.year}</small>
+                        </h5>
+                        <button
+                            type="button"
+                            className="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <img
+                            id="modal-cover-art"
+                            className="w-100"
+                            alt="album cover"
+                            src={cover_src}
+                        />
+                    </div>
+                    <div className="modal-footer">
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Close
                         </button>
                     </div>
                 </div>
