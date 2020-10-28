@@ -1,6 +1,8 @@
+import { mod } from "../Utilities/Tools";
+
 export function SopranoReducer(state, action) {
     switch (action.type) {
-        case "getUser":
+        case "initUser":
             return { ...state, user: action.payload };
         case "getDirectories":
             return { ...state, directories: action.payload };
@@ -20,6 +22,32 @@ export function SopranoReducer(state, action) {
             return {
                 ...state,
                 currentTrack: action.payload,
+            };
+        case "copyPlaylist":
+            return {
+                ...state,
+                playlist: action.payload,
+            };
+        case "nextTrack":
+            return {
+                ...state,
+                currentIndex: mod(
+                    state.currentIndex + 1,
+                    state.playlist.length
+                ),
+            };
+        case "prevTrack":
+            return {
+                ...state,
+                currentIndex: mod(
+                    state.currentIndex - 1,
+                    state.playlist.length
+                ),
+            };
+        case "changeTrack":
+            return {
+                ...state,
+                currentTrack: state.playlist[action.payload],
             };
         default:
             return state;

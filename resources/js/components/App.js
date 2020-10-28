@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 const initialState = {
     user: null,
     directories: null,
+    currentIndex: 0,
     currentTrack: {},
     playlist: [],
 };
@@ -22,9 +23,14 @@ const App = () => {
 
     useEffect(() => {
         Soprano.getUser().then((res) =>
-            dispatch({ type: "getUser", payload: res })
+            dispatch({ type: "initUser", payload: res })
         );
     }, []);
+
+    useEffect(() => {
+        if (state.playlist.length > 0)
+            dispatch({ type: "changeTrack", payload: state.currentIndex });
+    }, [state.currentIndex]);
 
     const ContextValue = useMemo(() => {
         return { state, dispatch };

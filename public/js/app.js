@@ -80101,6 +80101,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var initialState = {
   user: null,
   directories: null,
+  currentIndex: 0,
   currentTrack: {},
   playlist: []
 };
@@ -80114,11 +80115,17 @@ var App = function App() {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getUser().then(function (res) {
       return dispatch({
-        type: "getUser",
+        type: "initUser",
         payload: res
       });
     });
   }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (state.playlist.length > 0) dispatch({
+      type: "changeTrack",
+      payload: state.currentIndex
+    });
+  }, [state.currentIndex]);
   var ContextValue = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
     return {
       state: state,
@@ -80257,24 +80264,30 @@ var Player = function Player(_ref) {
     }));
   };
 
-  var handleNextTrack = function handleNextTrack() {// Implement next track
-    // dispatch nextTrack
+  var handleNextTrack = function handleNextTrack() {
+    dispatch({
+      type: "nextTrack"
+    });
   };
 
-  var handlePrevTrack = function handlePrevTrack() {// Implement prev track
-    // dispatch prevTrack
+  var handlePrevTrack = function handlePrevTrack() {
+    dispatch({
+      type: "prevTrack"
+    });
   };
 
   var handlePlayPauseTrack = function handlePlayPauseTrack() {
-    setPlayer(_objectSpread(_objectSpread({}, player), {}, {
-      status: player.status === "paused" ? "playing" : "paused"
-    }));
+    if (player.status === "paused") handlePlayTrack();else handlePauseTrack();
   };
 
   var handlePlayTrack = function handlePlayTrack() {
     setPlayer(_objectSpread(_objectSpread({}, player), {}, {
       status: "playing"
     }));
+    if (state.playlist.length > 0 && !Object.entries(state.currentTrack)) dispatch({
+      type: "changeTrack",
+      payload: currentIndex
+    });
   };
 
   var handlePauseTrack = function handlePauseTrack() {
@@ -80363,7 +80376,7 @@ var Player = function Player(_ref) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn player-btn",
     onClick: handlePlayPauseTrack,
-    disabled: player.status === "idle" ? "disabled" : ""
+    disabled: !player.status === "idle" ? "disabled" : ""
   }, playPauseIcon), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn player-btn",
     onClick: handleNextTrack,
@@ -80388,7 +80401,7 @@ var CoverModal = function CoverModal(_ref2) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal",
     id: "coverModal",
-    tabindex: "-1",
+    tabIndex: "-1",
     role: "dialog",
     "aria-labelledby": "modalTitle",
     "aria-hidden": "true"
@@ -81116,6 +81129,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var SearchModule = function SearchModule() {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       term = _useState2[0],
@@ -81167,6 +81184,18 @@ var SearchModule = function SearchModule() {
     setNoResults(false);
   };
 
+  var handleCopyPlaylist = function handleCopyPlaylist(e) {
+    e.preventDefault();
+    dispatch({
+      type: "copyPlaylist",
+      payload: results
+    });
+    dispatch({
+      type: "changeTrack",
+      payload: 0
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "search-cont",
     className: "pt-2"
@@ -81192,7 +81221,15 @@ var SearchModule = function SearchModule() {
     }
   })), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_5__["BarSpinner"], {
     width: "80%"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
+  }), results.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "search-actions",
+    className: "py-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "btn btn-sm btn-success",
+    onClick: handleCopyPlaylist
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    name: "play"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
     results: results
   })));
 };
@@ -81349,9 +81386,9 @@ var SearchInput = function SearchInput(_ref3) {
 var SearchResults = function SearchResults(_ref4) {
   var results = _ref4.results;
 
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
-      state = _useContext.state,
-      dispatch = _useContext.dispatch;
+  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
+      state = _useContext2.state,
+      dispatch = _useContext2.dispatch;
 
   var hasResults = results.length > 0;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && results.map(function (result, i) {
@@ -81396,6 +81433,7 @@ var SearchResults = function SearchResults(_ref4) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SopranoReducer", function() { return SopranoReducer; });
+/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -81414,9 +81452,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+
 function SopranoReducer(state, action) {
   switch (action.type) {
-    case "getUser":
+    case "initUser":
       return _objectSpread(_objectSpread({}, state), {}, {
         user: action.payload
       });
@@ -81441,6 +81480,26 @@ function SopranoReducer(state, action) {
     case "playTrack":
       return _objectSpread(_objectSpread({}, state), {}, {
         currentTrack: action.payload
+      });
+
+    case "copyPlaylist":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        playlist: action.payload
+      });
+
+    case "nextTrack":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentIndex: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_0__["mod"])(state.currentIndex + 1, state.playlist.length)
+      });
+
+    case "prevTrack":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentIndex: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_0__["mod"])(state.currentIndex - 1, state.playlist.length)
+      });
+
+    case "changeTrack":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentTrack: state.playlist[action.payload]
       });
 
     default:
@@ -81631,15 +81690,20 @@ var GridSpinner = function GridSpinner(_ref2) {
 /*!****************************************************!*\
   !*** ./resources/js/components/Utilities/Tools.js ***!
   \****************************************************/
-/*! exports provided: htmlDecode */
+/*! exports provided: htmlDecode, mod */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "htmlDecode", function() { return htmlDecode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mod", function() { return mod; });
 var htmlDecode = function htmlDecode(input) {
   var doc = new DOMParser().parseFromString(input, "text/html");
   return doc.documentElement.textContent;
+};
+
+var mod = function mod(x, n) {
+  return (x % n + n) % n;
 };
 
 

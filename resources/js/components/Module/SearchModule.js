@@ -8,6 +8,7 @@ import { Info } from "../Utilities/Alerts";
 import Avatar from "react-avatar";
 
 const SearchModule = () => {
+    const { state, dispatch } = useContext(SopranoContext);
     const [term, setTerm] = useState("");
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState([]);
@@ -45,6 +46,12 @@ const SearchModule = () => {
         setNoResults(false);
     };
 
+    const handleCopyPlaylist = (e) => {
+        e.preventDefault();
+        dispatch({ type: "copyPlaylist", payload: results });
+        dispatch({ type: "changeTrack", payload: 0 });
+    };
+
     return (
         <>
             <div id="search-cont" className="pt-2">
@@ -76,6 +83,16 @@ const SearchModule = () => {
                     </div>
                 )}
                 {loading && <BarSpinner width={"80%"} />}
+                {results.length > 0 && (
+                    <div id="search-actions" className="py-2">
+                        <button
+                            className="btn btn-sm btn-success"
+                            onClick={handleCopyPlaylist}
+                        >
+                            <FontAwesome name="play" />
+                        </button>
+                    </div>
+                )}
                 <SearchResults results={results} />
             </div>
         </>

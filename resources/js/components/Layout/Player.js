@@ -26,20 +26,16 @@ const Player = ({ currentTrack }) => {
     };
 
     const handleNextTrack = () => {
-        // Implement next track
-        // dispatch nextTrack
+        dispatch({ type: "nextTrack" });
     };
 
     const handlePrevTrack = () => {
-        // Implement prev track
-        // dispatch prevTrack
+        dispatch({ type: "prevTrack" });
     };
 
     const handlePlayPauseTrack = () => {
-        setPlayer({
-            ...player,
-            status: player.status === "paused" ? "playing" : "paused",
-        });
+        if (player.status === "paused") handlePlayTrack();
+        else handlePauseTrack();
     };
 
     const handlePlayTrack = () => {
@@ -47,6 +43,8 @@ const Player = ({ currentTrack }) => {
             ...player,
             status: "playing",
         });
+        if (state.playlist.length > 0 && !Object.entries(state.currentTrack))
+            dispatch({ type: "changeTrack", payload: currentIndex });
     };
 
     const handlePauseTrack = () => {
@@ -159,7 +157,7 @@ const Player = ({ currentTrack }) => {
                             className="btn player-btn"
                             onClick={handlePlayPauseTrack}
                             disabled={
-                                player.status === "idle" ? "disabled" : ""
+                                !player.status === "idle" ? "disabled" : ""
                             }
                         >
                             {playPauseIcon}
@@ -193,7 +191,7 @@ const CoverModal = ({ currentTrack, cover_src }) => {
         <div
             className="modal"
             id="coverModal"
-            tabindex="-1"
+            tabIndex="-1"
             role="dialog"
             aria-labelledby="modalTitle"
             aria-hidden="true"
