@@ -2,14 +2,18 @@ import React, { useContext } from "react";
 import { SopranoContext } from "../Context/SopranoContext";
 import { htmlDecode } from "../Utilities/Tools";
 
-const TrackRow = ({ track }) => {
+const TrackRow = ({ type, track, index }) => {
     const { state, dispatch } = useContext(SopranoContext);
     const handleClick = (e) => {
         e.preventDefault();
-        dispatch({
-            type: "playTrack",
-            payload: track,
-        });
+        if (type === "search") {
+            dispatch({
+                type: "playTrack",
+                payload: track,
+            });
+        } else if (type === "playlist") {
+            dispatch({ type: "changeTrack", payload: index });
+        }
     };
     return (
         <div className="row resultRow">

@@ -102,6 +102,25 @@ const SearchModule = () => {
     );
 };
 
+const SearchResults = ({ results }) => {
+    const hasResults = results.length > 0;
+    return (
+        <>
+            {hasResults &&
+                results.map((result, i) => {
+                    return (
+                        <TrackRow
+                            type={"search"}
+                            index={i}
+                            track={result}
+                            key={i}
+                        />
+                    );
+                })}
+        </>
+    );
+};
+
 const Genres = ({ handleClick }) => {
     const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -234,18 +253,6 @@ const SearchInput = ({
                 </button>
             </div>
         </div>
-    );
-};
-
-const SearchResults = ({ results }) => {
-    const hasResults = results.length > 0;
-    return (
-        <>
-            {hasResults &&
-                results.map((result, i) => {
-                    return <TrackRow track={result} key={i} />;
-                })}
-        </>
     );
 };
 

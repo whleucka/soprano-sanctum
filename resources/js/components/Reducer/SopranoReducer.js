@@ -64,6 +64,11 @@ export function SopranoReducer(state, action) {
                 ...state,
                 currentIndex: nextIndex,
             };
+        case "setCurrentIndex":
+            return {
+                ...state,
+                currentIndex: action.payload,
+            };
         case "changeTrack":
             return {
                 ...state,

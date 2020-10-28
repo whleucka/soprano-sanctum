@@ -8,7 +8,14 @@ const PlaylistModule = ({ tracks }) => {
         <>
             {hasResults &&
                 tracks.map((track, i) => {
-                    return <TrackRow track={track} key={i} />;
+                    return (
+                        <TrackRow
+                            type={"playlist"}
+                            index={i}
+                            track={track}
+                            key={i}
+                        />
+                    );
                 })}
             {!hasResults && <Alert msg="No tracks are currently queued." />}
         </>

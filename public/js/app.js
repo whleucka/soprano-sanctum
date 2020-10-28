@@ -80109,6 +80109,8 @@ var initialState = {
 };
 
 var App = function App() {
+  var _state$currentTrack;
+
   var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(_Reducer_SopranoReducer__WEBPACK_IMPORTED_MODULE_2__["SopranoReducer"], initialState),
       _useReducer2 = _slicedToArray(_useReducer, 2),
       state = _useReducer2[0],
@@ -80147,7 +80149,12 @@ var App = function App() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Admin__WEBPACK_IMPORTED_MODULE_8__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Player__WEBPACK_IMPORTED_MODULE_9__["default"], {
     shuffle: state.shuffle,
     repeat: state.repeat,
-    currentTrack: state.currentTrack
+    currentTrack: (_state$currentTrack = state.currentTrack) !== null && _state$currentTrack !== void 0 ? _state$currentTrack : {
+      album: "No Album",
+      track: "No Track",
+      artist: "No Artist",
+      cover: "/img/no-album.png"
+    }
   })));
 };
 
@@ -80290,10 +80297,6 @@ var Player = function Player(_ref) {
     setPlayer(_objectSpread(_objectSpread({}, player), {}, {
       status: "playing"
     }));
-    if (state.playlist.length > 0 && !Object.entries(state.currentTrack)) dispatch({
-      type: "changeTrack",
-      payload: currentIndex
-    });
   };
 
   var handlePauseTrack = function handlePauseTrack() {
@@ -80338,7 +80341,7 @@ var Player = function Player(_ref) {
       audio.pause();
     }
   }, [player]);
-  var cover_src = currentTrack.cover ? currentTrack.cover : "/img/no-album.png";
+  var cover_src = typeof currentTrack !== "undefined" ? currentTrack.cover : "/img/no-album.png";
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
@@ -81123,6 +81126,8 @@ var PlaylistModule = function PlaylistModule(_ref) {
   var hasResults = tracks.length > 0;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && tracks.map(function (track, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      type: "playlist",
+      index: i,
       track: track,
       key: i
     });
@@ -81286,8 +81291,21 @@ var SearchModule = function SearchModule() {
   })));
 };
 
-var Genres = function Genres(_ref) {
-  var handleClick = _ref.handleClick;
+var SearchResults = function SearchResults(_ref) {
+  var results = _ref.results;
+  var hasResults = results.length > 0;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && results.map(function (result, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      type: "search",
+      index: i,
+      track: result,
+      key: i
+    });
+  }));
+};
+
+var Genres = function Genres(_ref2) {
+  var handleClick = _ref2.handleClick;
 
   var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState10 = _slicedToArray(_useState9, 2),
@@ -81335,8 +81353,8 @@ var Genres = function Genres(_ref) {
   })));
 };
 
-var Years = function Years(_ref2) {
-  var handleClick = _ref2.handleClick;
+var Years = function Years(_ref3) {
+  var handleClick = _ref3.handleClick;
 
   var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState16 = _slicedToArray(_useState15, 2),
@@ -81384,11 +81402,11 @@ var Years = function Years(_ref2) {
   })));
 };
 
-var SearchInput = function SearchInput(_ref3) {
-  var inputValue = _ref3.inputValue,
-      handleInput = _ref3.handleInput,
-      handleSubmit = _ref3.handleSubmit,
-      handleClear = _ref3.handleClear;
+var SearchInput = function SearchInput(_ref4) {
+  var inputValue = _ref4.inputValue,
+      handleInput = _ref4.handleInput,
+      handleSubmit = _ref4.handleSubmit,
+      handleClear = _ref4.handleClear;
 
   var handleKeyUp = function handleKeyUp(e) {
     if (e.keyCode === 13) {
@@ -81435,17 +81453,6 @@ var SearchInput = function SearchInput(_ref3) {
   }))));
 };
 
-var SearchResults = function SearchResults(_ref4) {
-  var results = _ref4.results;
-  var hasResults = results.length > 0;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && results.map(function (result, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      track: result,
-      key: i
-    });
-  }));
-};
-
 /* harmony default export */ __webpack_exports__["default"] = (SearchModule);
 
 /***/ }),
@@ -81468,7 +81475,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TrackRow = function TrackRow(_ref) {
-  var track = _ref.track;
+  var type = _ref.type,
+      track = _ref.track,
+      index = _ref.index;
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
       state = _useContext.state,
@@ -81476,10 +81485,18 @@ var TrackRow = function TrackRow(_ref) {
 
   var handleClick = function handleClick(e) {
     e.preventDefault();
-    dispatch({
-      type: "playTrack",
-      payload: track
-    });
+
+    if (type === "search") {
+      dispatch({
+        type: "playTrack",
+        payload: track
+      });
+    } else if (type === "playlist") {
+      dispatch({
+        type: "changeTrack",
+        payload: index
+      });
+    }
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -81600,6 +81617,11 @@ function SopranoReducer(state, action) {
 
       return _objectSpread(_objectSpread({}, state), {}, {
         currentIndex: nextIndex
+      });
+
+    case "setCurrentIndex":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentIndex: action.payload
       });
 
     case "changeTrack":

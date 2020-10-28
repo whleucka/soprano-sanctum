@@ -56,7 +56,14 @@ const App = () => {
                 <Player
                     shuffle={state.shuffle}
                     repeat={state.repeat}
-                    currentTrack={state.currentTrack}
+                    currentTrack={
+                        state.currentTrack ?? {
+                            album: "No Album",
+                            track: "No Track",
+                            artist: "No Artist",
+                            cover: "/img/no-album.png",
+                        }
+                    }
                 />
             </Router>
         </SopranoContext.Provider>

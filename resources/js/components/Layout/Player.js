@@ -42,8 +42,6 @@ const Player = ({ currentTrack, shuffle }) => {
             ...player,
             status: "playing",
         });
-        if (state.playlist.length > 0 && !Object.entries(state.currentTrack))
-            dispatch({ type: "changeTrack", payload: currentIndex });
     };
 
     const handlePauseTrack = () => {
@@ -92,9 +90,10 @@ const Player = ({ currentTrack, shuffle }) => {
             audio.pause();
         }
     }, [player]);
-    const cover_src = currentTrack.cover
-        ? currentTrack.cover
-        : "/img/no-album.png";
+    const cover_src =
+        typeof currentTrack !== "undefined"
+            ? currentTrack.cover
+            : "/img/no-album.png";
     return (
         <div id="player">
             <audio id="audio" src={trackUrl} autoPlay />
