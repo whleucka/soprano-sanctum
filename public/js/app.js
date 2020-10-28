@@ -80103,7 +80103,9 @@ var initialState = {
   directories: null,
   currentIndex: 0,
   currentTrack: {},
-  playlist: []
+  playlist: [],
+  shuffle: true,
+  repeat: true
 };
 
 var App = function App() {
@@ -80141,6 +80143,8 @@ var App = function App() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Search__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/admin"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Admin__WEBPACK_IMPORTED_MODULE_8__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Player__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    shuffle: state.shuffle,
+    repeat: state.repeat,
     currentTrack: state.currentTrack
   })));
 };
@@ -80238,15 +80242,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Player = function Player(_ref) {
-  var currentTrack = _ref.currentTrack;
+  var currentTrack = _ref.currentTrack,
+      shuffle = _ref.shuffle;
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_4__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
-    status: "idle",
-    shuffle: true
+    status: "idle"
   }),
       _useState2 = _slicedToArray(_useState, 2),
       player = _useState2[0],
@@ -80266,13 +80270,13 @@ var Player = function Player(_ref) {
 
   var handleNextTrack = function handleNextTrack() {
     dispatch({
-      type: "nextTrack"
+      type: shuffle ? "shuffleTrack" : "nextTrack"
     });
   };
 
   var handlePrevTrack = function handlePrevTrack() {
     dispatch({
-      type: "prevTrack"
+      type: shuffle ? "shuffleTrack" : "prevTrack"
     });
   };
 
@@ -80297,12 +80301,16 @@ var Player = function Player(_ref) {
   };
 
   var handleToggleShuffle = function handleToggleShuffle() {
-    setPlayer(_objectSpread(_objectSpread({}, player), {}, {
-      shuffle: !player.shuffle
-    }));
+    dispatch({
+      type: "toggleShuffle"
+    });
   };
 
-  var handleToggleRepeat = function handleToggleRepeat() {};
+  var handleToggleRepeat = function handleToggleRepeat() {
+    dispatch({
+      type: "toggleRepeat"
+    });
+  };
 
   var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null;
   var playPauseIcon = player.status === "playing" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -80310,7 +80318,7 @@ var Player = function Player(_ref) {
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "play"
   });
-  var shuffleClass = player.shuffle ? "text-success" : "";
+  var shuffleClass = shuffle ? "text-success" : "";
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     var audio = document.getElementById("audio");
     audio.onplay = handlePlayTrack;
@@ -81495,6 +81503,27 @@ function SopranoReducer(state, action) {
     case "prevTrack":
       return _objectSpread(_objectSpread({}, state), {}, {
         currentIndex: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_0__["mod"])(state.currentIndex - 1, state.playlist.length)
+      });
+
+    case "toggleShuffle":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        shuffle: !state.shuffle
+      });
+
+    case "toggleRepeat":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        shuffle: !state.repeat
+      });
+
+    case "shuffleTrack":
+      var nextIndex = null;
+
+      while (nextIndex !== state.currentIndex) {
+        nextIndex = Math.floor(Math.random() * state.playlist.length);
+      }
+
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentIndex: nextIndex
       });
 
     case "changeTrack":

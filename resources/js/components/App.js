@@ -16,6 +16,8 @@ const initialState = {
     currentIndex: 0,
     currentTrack: {},
     playlist: [],
+    shuffle: true,
+    repeat: true,
 };
 
 const App = () => {
@@ -51,7 +53,11 @@ const App = () => {
                         <Admin />
                     </Route>
                 </Switch>
-                <Player currentTrack={state.currentTrack} />
+                <Player
+                    shuffle={state.shuffle}
+                    repeat={state.repeat}
+                    currentTrack={state.currentTrack}
+                />
             </Router>
         </SopranoContext.Provider>
     );

@@ -4,11 +4,10 @@ import { htmlDecode } from "../Utilities/Tools";
 import Marquee from "react-double-marquee";
 import { SopranoContext } from "../Context/SopranoContext";
 
-const Player = ({ currentTrack }) => {
+const Player = ({ currentTrack, shuffle }) => {
     const { state, dispatch } = useContext(SopranoContext);
     const [player, setPlayer] = useState({
         status: "idle",
-        shuffle: true,
     });
 
     const handleError = () => {
@@ -26,11 +25,11 @@ const Player = ({ currentTrack }) => {
     };
 
     const handleNextTrack = () => {
-        dispatch({ type: "nextTrack" });
+        dispatch({ type: shuffle ? "shuffleTrack" : "nextTrack" });
     };
 
     const handlePrevTrack = () => {
-        dispatch({ type: "prevTrack" });
+        dispatch({ type: shuffle ? "shuffleTrack" : "prevTrack" });
     };
 
     const handlePlayPauseTrack = () => {
@@ -55,13 +54,12 @@ const Player = ({ currentTrack }) => {
     };
 
     const handleToggleShuffle = () => {
-        setPlayer({
-            ...player,
-            shuffle: !player.shuffle,
-        });
+        dispatch({ type: "toggleShuffle" });
     };
 
-    const handleToggleRepeat = () => {};
+    const handleToggleRepeat = () => {
+        dispatch({ type: "toggleRepeat" });
+    };
 
     const trackUrl =
         typeof currentTrack !== "undefined" && currentTrack.fingerprint
@@ -75,7 +73,7 @@ const Player = ({ currentTrack }) => {
             <FontAwesome name="play" />
         );
 
-    const shuffleClass = player.shuffle ? "text-success" : "";
+    const shuffleClass = shuffle ? "text-success" : "";
 
     useEffect(() => {
         const audio = document.getElementById("audio");

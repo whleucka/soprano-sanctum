@@ -44,6 +44,25 @@ export function SopranoReducer(state, action) {
                     state.playlist.length
                 ),
             };
+        case "toggleShuffle":
+            return {
+                ...state,
+                shuffle: !state.shuffle,
+            };
+        case "toggleRepeat":
+            return {
+                ...state,
+                shuffle: !state.repeat,
+            };
+        case "shuffleTrack":
+            let nextIndex = null;
+            while (nextIndex !== state.currentIndex) {
+                nextIndex = Math.floor(Math.random() * state.playlist.length);
+            }
+            return {
+                ...state,
+                currentIndex: nextIndex,
+            };
         case "changeTrack":
             return {
                 ...state,
