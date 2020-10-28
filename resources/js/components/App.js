@@ -8,6 +8,7 @@ import Menu from "./Layout/Sidebar";
 import Playlist from "./Layout/Playlist";
 import Admin from "./Layout/Admin";
 import Player from "./Layout/Player";
+import Podcasts from "./Layout/Podcasts";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const initialState = {
@@ -48,6 +49,9 @@ const App = () => {
                     </Route>
                     <Route path="/search">
                         <Search />
+                    </Route>
+                    <Route path="/podcasts">
+                        <Podcasts />
                     </Route>
                     <Route path="/admin">
                         <Admin />

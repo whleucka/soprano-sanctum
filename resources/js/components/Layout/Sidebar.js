@@ -27,6 +27,15 @@ const Menu = () => {
                         <span className="link-toggle">Search</span>
                     </li>
                 </Link>
+                <Link to="/podcasts">
+                    <li className="navbar-item">
+                        <FontAwesome
+                            name="microphone"
+                            className="mr-2 sidebar-icon"
+                        />
+                        <span className="link-toggle">Podcasts</span>
+                    </li>
+                </Link>
                 {state.user && state.user.is_admin === 1 && (
                     <Link to="/admin">
                         <li className="navbar-item">
