@@ -80345,7 +80345,7 @@ var Player = function Player(_ref) {
       audio.pause();
     }
   }, [player]);
-  var cover_src = typeof currentTrack !== "undefined" ? currentTrack.cover : "/img/no-album.png";
+  var cover_src = Object.entries(currentTrack).length ? currentTrack.cover : "/img/no-album.png";
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {

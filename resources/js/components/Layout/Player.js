@@ -90,10 +90,9 @@ const Player = ({ currentTrack, shuffle }) => {
             audio.pause();
         }
     }, [player]);
-    const cover_src =
-        typeof currentTrack !== "undefined"
-            ? currentTrack.cover
-            : "/img/no-album.png";
+    const cover_src = Object.entries(currentTrack).length
+        ? currentTrack.cover
+        : "/img/no-album.png";
     return (
         <div id="player">
             <audio id="audio" src={trackUrl} autoPlay />
