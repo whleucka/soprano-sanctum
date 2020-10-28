@@ -1,5 +1,6 @@
 import React from "react";
 import TrackRow from "./TrackRow";
+import { Alert } from "../Utilities/Alerts";
 
 const PlaylistModule = ({ tracks }) => {
     const hasResults = tracks.length > 0;
@@ -9,6 +10,7 @@ const PlaylistModule = ({ tracks }) => {
                 tracks.map((track, i) => {
                     return <TrackRow track={track} key={i} />;
                 })}
+            {!hasResults && <Alert msg="No tracks are currently queued." />}
         </>
     );
 };

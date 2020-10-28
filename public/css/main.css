@@ -86,6 +86,10 @@ main {
     overflow-x: hidden;
 }
 
+.content h1 {
+    font-size: 2rem;
+}
+
 a:link,
 a:visited {
     color: #ffffff;
@@ -103,6 +107,10 @@ a:active {
 
 ul.navbar-nav a {
     color: #666;
+}
+
+#navbarSupportedContent > ul.navbar-nav.ml-auto > li {
+    text-align: right !important;
 }
 
 ul.navbar-nav a:hover {
@@ -186,6 +194,14 @@ ul.navbar-nav a:hover {
     margin-right: 15px;
 }
 
+#player-album {
+    padding-left: 10px;
+    padding-top: 4px;
+}
+
+#player-artist-title {
+    padding-left: 10px;
+}
 .action-col {
     text-align: right;
     width: 1%;

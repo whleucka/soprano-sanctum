@@ -109,8 +109,8 @@ const Player = ({ currentTrack, shuffle }) => {
                 />
                 <div id="player-cont" className="media-body">
                     {player.status === "idle" && (
-                        <div style={{ lineHeight: "46px" }}>
-                            <Marquee>
+                        <>
+                            <div id="player-album">
                                 <img
                                     src="/img/music.png"
                                     alt="soprano"
@@ -118,8 +118,11 @@ const Player = ({ currentTrack, shuffle }) => {
                                     className="music-note mr-2"
                                 />
                                 <span>Soprano</span>
-                            </Marquee>
-                        </div>
+                            </div>
+                            <div>
+                                <span>&nbsp;</span>
+                            </div>
+                        </>
                     )}
                     {player.status !== "idle" && player.status !== "loading" && (
                         <div>
@@ -155,7 +158,7 @@ const Player = ({ currentTrack, shuffle }) => {
                             className="btn player-btn"
                             onClick={handlePlayPauseTrack}
                             disabled={
-                                !player.status === "idle" ? "disabled" : ""
+                                player.status === "idle" ? "disabled" : ""
                             }
                         >
                             {playPauseIcon}
