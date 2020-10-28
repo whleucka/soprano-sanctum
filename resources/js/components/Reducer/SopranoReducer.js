@@ -56,8 +56,9 @@ export function SopranoReducer(state, action) {
             };
         case "shuffleTrack":
             let nextIndex = null;
-            while (nextIndex !== state.currentIndex) {
+            while (nextIndex === null) {
                 nextIndex = Math.floor(Math.random() * state.playlist.length);
+                if (nextIndex === state.currentIndex) nextIndex = null;
             }
             return {
                 ...state,

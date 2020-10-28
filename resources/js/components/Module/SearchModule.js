@@ -2,10 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { SopranoContext } from "../Context/SopranoContext";
 import FontAwesome from "react-fontawesome";
 import { Soprano } from "../Library/Soprano";
-import { htmlDecode } from "../Utilities/Tools";
+import TrackRow from "./TrackRow";
 import { BarSpinner, GridSpinner } from "../Utilities/Spinner";
 import { Info } from "../Utilities/Alerts";
 import Avatar from "react-avatar";
+import { useHistory } from "react-router-dom";
 
 const SearchModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -13,6 +14,7 @@ const SearchModule = () => {
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState([]);
     const [noResults, setNoResults] = useState(false);
+    const history = useHistory();
 
     const search = (searchTerm) => {
         if (searchTerm.trim() !== "") {
@@ -50,6 +52,7 @@ const SearchModule = () => {
         e.preventDefault();
         dispatch({ type: "copyPlaylist", payload: results });
         dispatch({ type: "changeTrack", payload: 0 });
+        history.push("/home");
     };
 
     return (
@@ -235,43 +238,12 @@ const SearchInput = ({
 };
 
 const SearchResults = ({ results }) => {
-    const { state, dispatch } = useContext(SopranoContext);
     const hasResults = results.length > 0;
     return (
         <>
             {hasResults &&
                 results.map((result, i) => {
-                    return (
-                        <div key={i} className="row resultRow">
-                            <div className="col">
-                                <div className="d-flex">
-                                    <div className="search-row-cover">
-                                        <img
-                                            className="search-album-cover"
-                                            src={result.cover}
-                                            alt="cover"
-                                        />
-                                    </div>
-                                    <div
-                                        className="search-row-title truncate w-100"
-                                        onClick={(_) =>
-                                            dispatch({
-                                                type: "playTrack",
-                                                payload: result,
-                                            })
-                                        }
-                                    >
-                                        {htmlDecode(result.artist)}
-                                        {" " + htmlDecode("&mdash;") + " "}
-                                        {htmlDecode(result.title)}
-                                    </div>
-                                    <div className="search-row-playtime-string">
-                                        {result.playtime_string}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    );
+                    return <TrackRow track={result} key={i} />;
                 })}
         </>
     );

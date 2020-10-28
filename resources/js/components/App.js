@@ -44,7 +44,7 @@ const App = () => {
                 <Menu />
                 <Switch>
                     <Route path="/home">
-                        <Playlist />
+                        <Playlist tracks={state.playlist} />
                     </Route>
                     <Route path="/search">
                         <Search />

@@ -80138,7 +80138,9 @@ var App = function App() {
     value: ContextValue
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Sidebar__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/home"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Playlist__WEBPACK_IMPORTED_MODULE_7__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Playlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    tracks: state.playlist
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/search"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Search__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["Route"], {
     path: "/admin"
@@ -80461,13 +80463,18 @@ var CoverModal = function CoverModal(_ref2) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Module/PlaylistModule */ "./resources/js/components/Module/PlaylistModule.js");
 
 
-var Playlist = function Playlist() {
+
+var Playlist = function Playlist(_ref) {
+  var tracks = _ref.tracks;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     id: "playlist",
     className: "content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Playlist"));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Playlist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    tracks: tracks
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Playlist);
@@ -81096,6 +81103,36 @@ var AddDirectory = function AddDirectory(_ref2) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Module/PlaylistModule.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/Module/PlaylistModule.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TrackRow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TrackRow */ "./resources/js/components/Module/TrackRow.js");
+
+
+
+var PlaylistModule = function PlaylistModule(_ref) {
+  var tracks = _ref.tracks;
+  var hasResults = tracks.length > 0;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && tracks.map(function (track, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      track: track,
+      key: i
+    });
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PlaylistModule);
+
+/***/ }),
+
 /***/ "./resources/js/components/Module/SearchModule.js":
 /*!********************************************************!*\
   !*** ./resources/js/components/Module/SearchModule.js ***!
@@ -81111,10 +81148,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
-/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+/* harmony import */ var _TrackRow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TrackRow */ "./resources/js/components/Module/TrackRow.js");
 /* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
 /* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
 /* harmony import */ var react_avatar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-avatar */ "./node_modules/react-avatar/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -81126,6 +81164,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -81160,6 +81199,8 @@ var SearchModule = function SearchModule() {
       _useState8 = _slicedToArray(_useState7, 2),
       noResults = _useState8[0],
       setNoResults = _useState8[1];
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["useHistory"])();
 
   var search = function search(searchTerm) {
     if (searchTerm.trim() !== "") {
@@ -81202,6 +81243,7 @@ var SearchModule = function SearchModule() {
       type: "changeTrack",
       payload: 0
     });
+    history.push("/home");
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -81393,41 +81435,72 @@ var SearchInput = function SearchInput(_ref3) {
 
 var SearchResults = function SearchResults(_ref4) {
   var results = _ref4.results;
-
-  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
-      state = _useContext2.state,
-      dispatch = _useContext2.dispatch;
-
   var hasResults = results.length > 0;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && results.map(function (result, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: i,
-      className: "row resultRow"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "d-flex"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "search-row-cover"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-      className: "search-album-cover",
-      src: result.cover,
-      alt: "cover"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "search-row-title truncate w-100",
-      onClick: function onClick(_) {
-        return dispatch({
-          type: "playTrack",
-          payload: result
-        });
-      }
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.artist), " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])("&mdash;") + " ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "search-row-playtime-string"
-    }, result.playtime_string))));
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      track: result,
+      key: i
+    });
   }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SearchModule);
+
+/***/ }),
+
+/***/ "./resources/js/components/Module/TrackRow.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/Module/TrackRow.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+
+
+
+
+var TrackRow = function TrackRow(_ref) {
+  var track = _ref.track;
+
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
+  var handleClick = function handleClick(e) {
+    e.preventDefault();
+    dispatch({
+      type: "playTrack",
+      payload: track
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row resultRow"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-flex"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "search-row-cover"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "search-album-cover",
+    src: track.cover,
+    alt: "cover"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    onClick: handleClick,
+    className: "search-row-title truncate w-100"
+  }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(track.artist), " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])("&mdash;") + " ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(track.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "search-row-playtime-string"
+  }, track.playtime_string))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TrackRow);
 
 /***/ }),
 
@@ -81518,8 +81591,9 @@ function SopranoReducer(state, action) {
     case "shuffleTrack":
       var nextIndex = null;
 
-      while (nextIndex !== state.currentIndex) {
+      while (nextIndex === null) {
         nextIndex = Math.floor(Math.random() * state.playlist.length);
+        if (nextIndex === state.currentIndex) nextIndex = null;
       }
 
       return _objectSpread(_objectSpread({}, state), {}, {
