@@ -17,6 +17,7 @@ const initialState = {
     currentIndex: 0,
     currentTrack: {},
     playlist: [],
+    playlists: [],
     shuffle: true,
     repeat: true,
 };
@@ -42,7 +43,7 @@ const App = () => {
     return (
         <SopranoContext.Provider value={ContextValue}>
             <Router>
-                <Menu />
+                <Menu playlists={state.playlists} />
                 <Switch>
                     <Route path="/home">
                         <Playlist tracks={state.playlist} />

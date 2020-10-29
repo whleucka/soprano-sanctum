@@ -64,6 +64,7 @@ const PodcastModule = () => {
         e.preventDefault();
         setResults([]);
         setOffset(0);
+        setTotal(0);
         setTerm("");
         setNoResults(false);
     };
