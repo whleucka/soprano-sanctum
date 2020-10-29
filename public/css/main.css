@@ -117,6 +117,10 @@ ul.navbar-nav a {
     text-align: right !important;
 }
 
+li.navbar-item:hover {
+    cursor: pointer;
+}
+
 ul.navbar-nav a:hover {
     color: #222;
 }

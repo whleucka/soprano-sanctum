@@ -97,6 +97,7 @@ class DirectoryTest extends TestCase
         $response = $this->json('DELETE', route('directory.destroy', $this->user->directories->first()->id));
         $response->assertNoContent();
     }
+
     /**
      * @test
      */
