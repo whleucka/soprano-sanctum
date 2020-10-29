@@ -61,7 +61,7 @@ export const Soprano = {
         });
         return response.data;
     },
-    searchPodcastEpisode: async function (term) {
+    searchPodcastEpisode: async function (term, offset, sortByDate) {
         const response = await axios.get(
             "https://listen-api.listennotes.com/api/v2/search",
             {
@@ -71,7 +71,10 @@ export const Soprano = {
                 params: {
                     q: term,
                     type: "episode",
-                    sort_by_date: 1,
+                    language: "English",
+                    region: "ca,us,gb,au,nz",
+                    sort_by_date: sortByDate,
+                    offset,
                 },
                 withCredentials: false,
             }

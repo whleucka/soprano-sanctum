@@ -80914,7 +80914,7 @@ var Soprano = {
     return getYears;
   }(),
   searchPodcastEpisode: function () {
-    var _searchPodcastEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(term) {
+    var _searchPodcastEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(term, offset, sortByDate) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
@@ -80928,7 +80928,10 @@ var Soprano = {
                 params: {
                   q: term,
                   type: "episode",
-                  sort_by_date: 1
+                  language: "English",
+                  region: "ca,us,gb,au,nz",
+                  sort_by_date: sortByDate,
+                  offset: offset
                 },
                 withCredentials: false
               });
@@ -80945,7 +80948,7 @@ var Soprano = {
       }, _callee10);
     }));
 
-    function searchPodcastEpisode(_x6) {
+    function searchPodcastEpisode(_x6, _x7, _x8) {
       return _searchPodcastEpisode.apply(this, arguments);
     }
 
@@ -81235,7 +81238,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SearchInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchInput */ "./resources/js/components/Module/SearchInput.js");
 /* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
 /* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
-/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+/* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
+/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -81254,25 +81266,47 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var PodcastModule = function PodcastModule() {
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
-      state = _useContext.state,
-      dispatch = _useContext.dispatch;
 
+var PodcastModule = function PodcastModule() {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       term = _useState2[0],
       setTerm = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
       _useState4 = _slicedToArray(_useState3, 2),
-      results = _useState4[0],
-      setResults = _useState4[1];
+      offset = _useState4[0],
+      setOffset = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1),
       _useState6 = _slicedToArray(_useState5, 2),
-      noResults = _useState6[0],
-      setNoResults = _useState6[1];
+      sortByDate = _useState6[0],
+      setSortByDate = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      loading = _useState8[0],
+      setLoading = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState10 = _slicedToArray(_useState9, 2),
+      results = _useState10[0],
+      setResults = _useState10[1];
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      noResults = _useState12[0],
+      setNoResults = _useState12[1];
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState14 = _slicedToArray(_useState13, 2),
+      count = _useState14[0],
+      setCount = _useState14[1];
+
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState16 = _slicedToArray(_useState15, 2),
+      total = _useState16[0],
+      setTotal = _useState16[1];
 
   var handleInput = function handleInput(e) {
     var input = e.currentTarget.value;
@@ -81280,33 +81314,47 @@ var PodcastModule = function PodcastModule() {
     setTerm(input);
   };
 
+  var searchEpisode = function searchEpisode(searchTerm) {
+    if (searchTerm.trim() !== "") {
+      setLoading(true);
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].searchPodcastEpisode(term, offset, sortByDate).then(function (res) {
+        if (!res.count) setNoResults(true);
+        var podcast_results = res.results;
+        var podcasts = [];
+        podcast_results.map(function (result) {
+          var podcast = {
+            cover: result.image,
+            podcast: result.podcast.title_original,
+            publisher: result.podcast.publisher_original,
+            created: result.pub_date_ms,
+            title: result.title_original,
+            description: result.description_original,
+            link: result.link,
+            podcast_url: result.audio,
+            playtime_seconds: result.audio_length_sec
+          };
+          podcasts.push(podcast);
+        });
+        setResults([].concat(_toConsumableArray(results), podcasts));
+        setOffset(res.next_offset);
+        setTotal(res.total);
+        setCount(res.count);
+        setLoading(false);
+      });
+    } else {
+      setTerm("");
+    }
+  };
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].searchPodcastEpisode(term).then(function (res) {
-      if (!res.count) setNoResults(true);
-      var podcast_results = res.results;
-      var podcasts = [];
-      podcast_results.map(function (result) {
-        var podcast = {
-          cover: result.image,
-          podcast: result.podcast.title_original,
-          publisher: result.podcast.publisher_original,
-          created: result.pub_date_ms,
-          title: result.title_original,
-          description: result.description_original,
-          link: result.link,
-          podcast_url: result.audio,
-          playtime_seconds: result.audio_length_sec
-        };
-        podcasts.push(podcast);
-      });
-      setResults(podcasts);
-    });
+    searchEpisode(term);
   };
 
   var handleClear = function handleClear(e) {
     e.preventDefault();
     setResults([]);
+    setOffset(0);
     setTerm("");
     setNoResults(false);
   };
@@ -81321,11 +81369,39 @@ var PodcastModule = function PodcastModule() {
     handleInput: handleInput,
     handleSubmit: handleSubmit,
     handleClear: handleClear
-  }), results.length > 0 && results.map(function (result) {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "promo-powered",
+    className: "text-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "/img/listennote.png",
+    alt: "listen note",
+    id: "listennote"
+  })), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_4__["BarSpinner"], {
+    width: "80%"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
+    hasMore: offset < Math.floor(total / 10),
+    results: results,
+    loadMore: function loadMore() {
+      searchEpisode(term);
+    }
+  })));
+};
+
+var SearchResults = function SearchResults(_ref) {
+  var results = _ref.results,
+      hasMore = _ref.hasMore,
+      loadMore = _ref.loadMore;
+
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, results.length > 0 && results.map(function (result, i) {
     var publish_date = new Date(result.created);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: i,
       className: "media cursor my-4",
-      title: result.description,
+      title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description),
       onClick: function onClick() {
         dispatch({
           type: "playTrack",
@@ -81340,10 +81416,15 @@ var PodcastModule = function PodcastModule() {
       className: "media-body podcast-details"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
       className: "mt-0"
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
       className: "mt-1"
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date.toLocaleDateString(), " ", publish_date.toLocaleTimeString()))));
-  })));
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date.toLocaleDateString(), " ", publish_date.toLocaleTimeString())));
+  }), hasMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "text-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: loadMore,
+    className: "btn btn-success"
+  }, "Load More")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PodcastModule);

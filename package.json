@@ -32,6 +32,7 @@
         "react-avatar": "^3.9.7",
         "react-double-marquee": "^1.0.6",
         "react-fontawesome": "^1.7.1",
+        "react-infinite-scroller": "^1.2.4",
         "react-router-dom": "^5.2.0",
         "react-spinners": "^0.9.0"
     }

@@ -80,7 +80,7 @@ main {
 
 .content {
     width: 100%;
-    padding: 0 10px;
+    padding: 0 10px 20px 10px;
     margin: 0 auto;
     overflow-y: auto;
     overflow-x: hidden;
@@ -248,6 +248,9 @@ ul.navbar-nav a:hover {
 /**
  * Podcasts
  */
+#listennote {
+    height: 12px;
+}
 .podcast-cover {
     width: 90px;
     height: 90px;
