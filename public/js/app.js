@@ -80413,6 +80413,8 @@ var Player = function Player(_ref) {
 };
 
 var CoverModal = function CoverModal(_ref2) {
+  var _currentTrack$year;
+
   var currentTrack = _ref2.currentTrack,
       cover_src = _ref2.cover_src;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -80432,7 +80434,7 @@ var CoverModal = function CoverModal(_ref2) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
     className: "modal-title",
     id: "modalTitle"
-  }, currentTrack.album ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.album) : "No Album", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, currentTrack.year)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, currentTrack.album ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.album) : Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, (_currentTrack$year = currentTrack.year) !== null && _currentTrack$year !== void 0 ? _currentTrack$year : currentTrack.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
     className: "close",
     "data-dismiss": "modal",
@@ -81289,6 +81291,7 @@ var PodcastModule = function PodcastModule() {
           cover: result.image,
           podcast: result.podcast.title_original,
           publisher: result.podcast.publisher_original,
+          created: result.pub_date_ms,
           title: result.title_original,
           description: result.description_original,
           link: result.link,
@@ -81308,6 +81311,7 @@ var PodcastModule = function PodcastModule() {
     setNoResults(false);
   };
 
+  var description_length = 600;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "search-cont",
     className: "pt-2"
@@ -81318,8 +81322,10 @@ var PodcastModule = function PodcastModule() {
     handleSubmit: handleSubmit,
     handleClear: handleClear
   }), results.length > 0 && results.map(function (result) {
+    var publish_date = new Date(result.created);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "media cursor my-4",
+      title: result.description,
       onClick: function onClick() {
         dispatch({
           type: "playTrack",
@@ -81331,12 +81337,12 @@ var PodcastModule = function PodcastModule() {
       src: result.cover,
       alt: "podcast cover"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "media-body"
+      className: "media-body podcast-details"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
       className: "mt-0"
     }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
       className: "mt-1"
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.title)), Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.description))));
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date.toLocaleDateString(), " ", publish_date.toLocaleTimeString()))));
   })));
 };
 

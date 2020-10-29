@@ -249,8 +249,8 @@ ul.navbar-nav a:hover {
  * Podcasts
  */
 .podcast-cover {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
 }
 
 .underline {
@@ -264,6 +264,11 @@ ul.navbar-nav a:hover {
 .cursor:hover {
     cursor: pointer;
     color: #fff;
+}
+
+.podcast-details {
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 /**

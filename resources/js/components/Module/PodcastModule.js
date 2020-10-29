@@ -27,6 +27,7 @@ const PodcastModule = () => {
                     cover: result.image,
                     podcast: result.podcast.title_original,
                     publisher: result.podcast.publisher_original,
+                    created: result.pub_date_ms,
                     title: result.title_original,
                     description: result.description_original,
                     link: result.link,
@@ -45,6 +46,7 @@ const PodcastModule = () => {
         setTerm("");
         setNoResults(false);
     };
+    const description_length = 600;
     return (
         <>
             <div id="search-cont" className="pt-2">
@@ -57,10 +59,12 @@ const PodcastModule = () => {
                 />
                 {results.length > 0 &&
                     results.map((result) => {
+                        const publish_date = new Date(result.created);
                         return (
                             <>
                                 <div
                                     className="media cursor my-4"
+                                    title={result.description}
                                     onClick={() => {
                                         dispatch({
                                             type: "playTrack",
@@ -73,14 +77,17 @@ const PodcastModule = () => {
                                         src={result.cover}
                                         alt="podcast cover"
                                     />
-                                    <div className="media-body">
+                                    <div className="media-body podcast-details">
                                         <h4 className="mt-0">
                                             {htmlDecode(result.podcast)}
                                         </h4>
                                         <h5 className="mt-1">
                                             {htmlDecode(result.title)}
                                         </h5>
-                                        {htmlDecode(result.description)}
+                                        <small>
+                                            {publish_date.toLocaleDateString()}{" "}
+                                            {publish_date.toLocaleTimeString()}
+                                        </small>
                                     </div>
                                 </div>
                             </>

@@ -205,9 +205,11 @@ const CoverModal = ({ currentTrack, cover_src }) => {
                         <h5 className="modal-title" id="modalTitle">
                             {currentTrack.album
                                 ? htmlDecode(currentTrack.album)
-                                : "No Album"}
+                                : htmlDecode(currentTrack.title)}
                             <br />
-                            <small>{currentTrack.year}</small>
+                            <small>
+                                {currentTrack.year ?? currentTrack.podcast}
+                            </small>
                         </h5>
                         <button
                             type="button"
