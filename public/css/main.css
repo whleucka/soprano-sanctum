@@ -33,6 +33,10 @@ body {
 }
 
 .modal-header > button {
+    color: #ddd;
+}
+
+.modal-header > button:hover {
     color: white;
 }
 

@@ -205,20 +205,12 @@ const CoverModal = ({ currentTrack, cover_src }) => {
                         <h5 className="modal-title" id="modalTitle">
                             {currentTrack.album
                                 ? htmlDecode(currentTrack.album)
-                                : htmlDecode(currentTrack.title)}
+                                : htmlDecode(currentTrack.podcast)}
                             <br />
                             <small>
-                                {currentTrack.year ?? currentTrack.podcast}
+                                {currentTrack.year ?? currentTrack.title}
                             </small>
                         </h5>
-                        <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div className="modal-body">
                         <img
@@ -231,7 +223,7 @@ const CoverModal = ({ currentTrack, cover_src }) => {
                     <div className="modal-footer">
                         <button
                             type="button"
-                            className="btn btn-sm btn-secondary"
+                            className="btn btn-sm btn-outline-secondary"
                             data-dismiss="modal"
                         >
                             Close

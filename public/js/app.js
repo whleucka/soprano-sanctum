@@ -80434,14 +80434,7 @@ var CoverModal = function CoverModal(_ref2) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
     className: "modal-title",
     id: "modalTitle"
-  }, currentTrack.album ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.album) : Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, (_currentTrack$year = currentTrack.year) !== null && _currentTrack$year !== void 0 ? _currentTrack$year : currentTrack.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    type: "button",
-    className: "close",
-    "data-dismiss": "modal",
-    "aria-label": "Close"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "aria-hidden": "true"
-  }, "\xD7"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, currentTrack.album ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.album) : Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.podcast), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, (_currentTrack$year = currentTrack.year) !== null && _currentTrack$year !== void 0 ? _currentTrack$year : currentTrack.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     id: "modal-cover-art",
@@ -80452,7 +80445,7 @@ var CoverModal = function CoverModal(_ref2) {
     className: "modal-footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
-    className: "btn btn-sm btn-secondary",
+    className: "btn btn-sm btn-outline-secondary",
     "data-dismiss": "modal"
   }, "Close")))));
 };
