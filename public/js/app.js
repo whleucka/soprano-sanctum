@@ -80321,7 +80321,9 @@ var Player = function Player(_ref) {
     });
   };
 
-  var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null;
+  var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null; // Override if podcast
+
+  if (typeof currentTrack !== "undefined" && currentTrack.podcast_url) trackUrl = currentTrack.podcast_url;
   var playPauseIcon = player.status === "playing" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "pause"
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -80376,10 +80378,10 @@ var Player = function Player(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Soprano")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "\xA0"))), player.status !== "idle" && player.status !== "loading" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-album",
     className: "marquee"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_double_marquee__WEBPACK_IMPORTED_MODULE_3___default.a, null, currentTrack.album ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.album) : "No Album")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_double_marquee__WEBPACK_IMPORTED_MODULE_3___default.a, null, currentTrack.album ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.album) : currentTrack.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-artist-title",
     className: "marquee"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_double_marquee__WEBPACK_IMPORTED_MODULE_3___default.a, null, currentTrack.artist ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.artist) : "No Artist", " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])("&mdash;") + " ", currentTrack.title ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.title) : "No Title"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_double_marquee__WEBPACK_IMPORTED_MODULE_3___default.a, null, currentTrack.artist && currentTrack.title ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.artist) + " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])("&mdash;") + " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(currentTrack.title) : currentTrack.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-controls",
     className: "d-flex"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -80908,6 +80910,44 @@ var Soprano = {
     }
 
     return getYears;
+  }(),
+  searchPodcastEpisode: function () {
+    var _searchPodcastEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(term) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              _context10.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
+                headers: {
+                  "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
+                },
+                params: {
+                  q: term,
+                  type: "episode",
+                  sort_by_date: 1
+                },
+                withCredentials: false
+              });
+
+            case 2:
+              response = _context10.sent;
+              return _context10.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }));
+
+    function searchPodcastEpisode(_x6) {
+      return _searchPodcastEpisode.apply(this, arguments);
+    }
+
+    return searchPodcastEpisode;
   }()
 };
 
@@ -81191,6 +81231,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _SearchInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchInput */ "./resources/js/components/Module/SearchInput.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -81206,16 +81248,27 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var PodcastModule = function PodcastModule() {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       term = _useState2[0],
       setTerm = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      noResults = _useState4[0],
-      setNoResults = _useState4[1];
+      results = _useState4[0],
+      setResults = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      noResults = _useState6[0],
+      setNoResults = _useState6[1];
 
   var handleInput = function handleInput(e) {
     var input = e.currentTarget.value;
@@ -81225,6 +81278,25 @@ var PodcastModule = function PodcastModule() {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].searchPodcastEpisode(term).then(function (res) {
+      if (!res.count) setNoResults(true);
+      var podcast_results = res.results;
+      var podcasts = [];
+      podcast_results.map(function (result) {
+        var podcast = {
+          cover: result.image,
+          podcast: result.podcast.title_original,
+          publisher: result.podcast.publisher_original,
+          title: result.title_original,
+          description: result.description_original,
+          link: result.link,
+          podcast_url: result.audio,
+          playtime_seconds: result.audio_length_sec
+        };
+        podcasts.push(podcast);
+      });
+      setResults(podcasts);
+    });
   };
 
   var handleClear = function handleClear(e) {
@@ -81243,6 +81315,26 @@ var PodcastModule = function PodcastModule() {
     handleInput: handleInput,
     handleSubmit: handleSubmit,
     handleClear: handleClear
+  }), results.length > 0 && results.map(function (result) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "media cursor my-4",
+      onClick: function onClick() {
+        dispatch({
+          type: "playTrack",
+          payload: result
+        });
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      className: "d-flex podcast-cover mr-3",
+      src: result.cover,
+      alt: "podcast cover"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "media-body"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+      className: "mt-0 underline"
+    }, result.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+      className: "mt-1"
+    }, result.album), result.description)));
   })));
 };
 

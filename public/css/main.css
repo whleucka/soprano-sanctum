@@ -246,6 +246,27 @@ ul.navbar-nav a:hover {
 }
 
 /**
+ * Podcasts
+ */
+.podcast-cover {
+    width: 100px;
+    height: 100px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.cursor {
+    color: #ccc;
+}
+
+.cursor:hover {
+    cursor: pointer;
+    color: #fff;
+}
+
+/**
  * Search
  */
 .resultRow {

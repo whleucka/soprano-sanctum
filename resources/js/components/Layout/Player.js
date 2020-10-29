@@ -59,10 +59,14 @@ const Player = ({ currentTrack, shuffle }) => {
         dispatch({ type: "toggleRepeat" });
     };
 
-    const trackUrl =
+    let trackUrl =
         typeof currentTrack !== "undefined" && currentTrack.fingerprint
             ? `/api/track/stream/${currentTrack.fingerprint}`
             : null;
+
+    // Override if podcast
+    if (typeof currentTrack !== "undefined" && currentTrack.podcast_url)
+        trackUrl = currentTrack.podcast_url;
 
     const playPauseIcon =
         player.status === "playing" ? (
@@ -128,18 +132,18 @@ const Player = ({ currentTrack, shuffle }) => {
                                 <Marquee>
                                     {currentTrack.album
                                         ? htmlDecode(currentTrack.album)
-                                        : "No Album"}
+                                        : currentTrack.podcast}
                                 </Marquee>
                             </div>
                             <div id="player-artist-title" className="marquee">
                                 <Marquee>
-                                    {currentTrack.artist
-                                        ? htmlDecode(currentTrack.artist)
-                                        : "No Artist"}
-                                    {" " + htmlDecode("&mdash;") + " "}
-                                    {currentTrack.title
-                                        ? htmlDecode(currentTrack.title)
-                                        : "No Title"}
+                                    {currentTrack.artist && currentTrack.title
+                                        ? htmlDecode(currentTrack.artist) +
+                                          " " +
+                                          htmlDecode("&mdash;") +
+                                          " " +
+                                          htmlDecode(currentTrack.title)
+                                        : currentTrack.title}
                                 </Marquee>
                             </div>
                         </div>

@@ -61,4 +61,21 @@ export const Soprano = {
         });
         return response.data;
     },
+    searchPodcastEpisode: async function (term) {
+        const response = await axios.get(
+            "https://listen-api.listennotes.com/api/v2/search",
+            {
+                headers: {
+                    "X-ListenAPI-Key": process.env.MIX_LISTEN_API_KEY,
+                },
+                params: {
+                    q: term,
+                    type: "episode",
+                    sort_by_date: 1,
+                },
+                withCredentials: false,
+            }
+        );
+        return response.data;
+    },
 };
