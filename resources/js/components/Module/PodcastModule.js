@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import SearchInput from "./SearchInput";
 import { Soprano } from "../Library/Soprano";
 import { SopranoContext } from "../Context/SopranoContext";
+import { htmlDecode } from "../Utilities/Tools";
 
 const PodcastModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -73,11 +74,13 @@ const PodcastModule = () => {
                                         alt="podcast cover"
                                     />
                                     <div className="media-body">
-                                        <h5 className="mt-0 underline">
-                                            {result.title}
+                                        <h4 className="mt-0">
+                                            {htmlDecode(result.podcast)}
+                                        </h4>
+                                        <h5 className="mt-1">
+                                            {htmlDecode(result.title)}
                                         </h5>
-                                        <h5 className="mt-1">{result.album}</h5>
-                                        {result.description}
+                                        {htmlDecode(result.description)}
                                     </div>
                                 </div>
                             </>
