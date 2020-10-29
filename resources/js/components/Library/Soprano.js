@@ -81,4 +81,18 @@ export const Soprano = {
         );
         return response.data;
     },
+    getPlaylists: async function () {
+        const response = await axios.get("/api/playlist", {
+            withCredentials: true,
+        });
+        return response.data;
+    },
+    addPlaylist: async function (name) {
+        const response = await axios.post(
+            "/api/playlist",
+            { name },
+            { withCredentials: true }
+        );
+        return response.data;
+    },
 };

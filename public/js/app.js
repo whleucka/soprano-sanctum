@@ -81037,6 +81037,68 @@ var Soprano = {
     }
 
     return searchPodcastEpisode;
+  }(),
+  getPlaylists: function () {
+    var _getPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              _context11.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist", {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context11.sent;
+              return _context11.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }));
+
+    function getPlaylists() {
+      return _getPlaylists.apply(this, arguments);
+    }
+
+    return getPlaylists;
+  }(),
+  addPlaylist: function () {
+    var _addPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(name) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              _context12.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist", {
+                name: name
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context12.sent;
+              return _context12.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12);
+    }));
+
+    function addPlaylist(_x9) {
+      return _addPlaylist.apply(this, arguments);
+    }
+
+    return addPlaylist;
   }()
 };
 
