@@ -6,7 +6,6 @@ import Avatar from "react-avatar";
 
 const Menu = ({ playlists }) => {
     const { state, dispatch } = useContext(SopranoContext);
-
     return (
         <nav id="sidebar" className="text-center">
             <ul className="navbar-nav">
@@ -59,21 +58,24 @@ const Menu = ({ playlists }) => {
                     <FontAwesome name="plus" className="mr-2 sidebar-icon" />
                     <span className="link-toggle">Create Playlist</span>
                 </li>
-                {playlists.length > 0 &&
-                    playlists.map((playlist, i) => {
-                        return (
-                            <li className="navbar-item" key={i}>
-                                <Avatar
-                                    className="grid-icon sidebar-icon mr-2"
-                                    title={playlist.name}
-                                    name={playlist.name}
-                                />
-                                <span className="link-toggle">
-                                    {playlist.name}
-                                </span>
-                            </li>
-                        );
-                    })}
+                <div id="sidebar-playlist-cont">
+                    {playlists.length > 0 &&
+                        playlists.map((playlist, i) => {
+                            return (
+                                <li className="navbar-item" key={i}>
+                                    <Avatar
+                                        size={42}
+                                        className="sidebar-icon playlist-avatar mr-2"
+                                        title={playlist.name}
+                                        name={playlist.name}
+                                    />
+                                    <span className="link-toggle">
+                                        {playlist.name}
+                                    </span>
+                                </li>
+                            );
+                        })}
+                </div>
             </ul>
             <CreatePlaylistModal />
         </nav>

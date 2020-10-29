@@ -80631,18 +80631,21 @@ var Menu = function Menu(_ref) {
     className: "mr-2 sidebar-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "link-toggle"
-  }, "Create Playlist")), playlists.length > 0 && playlists.map(function (playlist, i) {
+  }, "Create Playlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "sidebar-playlist-cont"
+  }, playlists.length > 0 && playlists.map(function (playlist, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "navbar-item",
       key: i
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      className: "grid-icon sidebar-icon mr-2",
+      size: 42,
+      className: "sidebar-icon playlist-avatar mr-2",
       title: playlist.name,
       name: playlist.name
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "link-toggle"
     }, playlist.name));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreatePlaylistModal, null));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreatePlaylistModal, null));
 };
 
 var CreatePlaylistModal = function CreatePlaylistModal() {

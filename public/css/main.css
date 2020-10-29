@@ -312,7 +312,10 @@ ul.navbar-nav a:hover {
 .sweet-loading > * {
     margin: 0 auto;
 }
-
+#sidebar-playlist-cont {
+    height: 51vh;
+    overflow-y: auto;
+}
 @media (max-width: 575.98px) {
 }
 
