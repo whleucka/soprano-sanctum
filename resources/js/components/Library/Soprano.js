@@ -95,4 +95,10 @@ export const Soprano = {
         );
         return response.data;
     },
+    removePlaylist: async function (id) {
+        const response = await axios.delete(`/api/playlist/${id}`, {
+            withCredentials: true,
+        });
+        return response.data;
+    },
 };

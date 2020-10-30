@@ -81203,6 +81203,36 @@ var Soprano = {
     }
 
     return addPlaylist;
+  }(),
+  removePlaylist: function () {
+    var _removePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(id) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              _context13.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/playlist/".concat(id), {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context13.sent;
+              return _context13.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context13.stop();
+          }
+        }
+      }, _callee13);
+    }));
+
+    function removePlaylist(_x10) {
+      return _removePlaylist.apply(this, arguments);
+    }
+
+    return removePlaylist;
   }()
 };
 
@@ -81306,6 +81336,7 @@ var Directory = function Directory(_ref) {
       setScanning = _useState6[1];
 
   var handleRemoveDirectory = function handleRemoveDirectory(e) {
+    e.preventDefault();
     var id = parseInt(e.currentTarget.id);
     _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].removeDirectory(id).then(function (res) {
       dispatch({
@@ -81487,23 +81518,45 @@ var PlaylistModule = function PlaylistModule(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+
+
 
 
 var PlaylistsModule = function PlaylistsModule(_ref) {
   var playlists = _ref.playlists;
+
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
+  var handleDelete = function handleDelete(e) {
+    e.preventDefault();
+    var id = parseInt(e.currentTarget.id);
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].removePlaylist(id).then(function (res) {
+      dispatch({
+        type: "removePlaylist",
+        payload: id
+      });
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "playlists-module"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     id: "tbl-playlists",
     className: "w-100 table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, playlists.length > 0 && playlists.map(function (playlist) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, playlists.length > 0 && playlists.map(function (playlist, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+      key: i
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "border-0"
     }, playlist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "text-right border-0"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "btn btn-sm btn-secondary mr-1"
-    }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      id: playlist.id,
+      onClick: handleDelete,
       className: "btn btn-sm btn-danger mr-1"
     }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-success"

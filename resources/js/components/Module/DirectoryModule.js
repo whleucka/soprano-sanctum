@@ -57,6 +57,7 @@ const Directory = ({ directory }) => {
     const [scanning, setScanning] = useState(false);
 
     const handleRemoveDirectory = (e) => {
+        e.preventDefault();
         const id = parseInt(e.currentTarget.id);
         Soprano.removeDirectory(id).then((res) => {
             dispatch({ type: "removeDirectory", payload: id });
