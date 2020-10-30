@@ -204,6 +204,17 @@ ul.navbar-nav a:hover {
     width: 1%;
 }
 
+.progress {
+    width: 100%;
+    position: absolute;
+    bottom: 100px;
+    height: 5px;
+}
+#progress {
+    width: 100%;
+    z-index: 9990;
+}
+
 .table {
     width: 100%;
 }

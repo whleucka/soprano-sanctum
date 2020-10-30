@@ -4,6 +4,8 @@ import { htmlDecode } from "../Utilities/Tools";
 import Marquee from "react-double-marquee";
 import { SopranoContext } from "../Context/SopranoContext";
 
+let progressTimer = null;
+
 const Player = ({ currentTrack, shuffle }) => {
     const { state, dispatch } = useContext(SopranoContext);
     const [player, setPlayer] = useState({
@@ -15,6 +17,7 @@ const Player = ({ currentTrack, shuffle }) => {
             ...player,
             status: "error",
         });
+        resetProgress();
     };
 
     const handleLoadingTrack = () => {
@@ -25,10 +28,12 @@ const Player = ({ currentTrack, shuffle }) => {
     };
 
     const handleNextTrack = () => {
+        resetProgress();
         dispatch({ type: shuffle ? "shuffleTrack" : "nextTrack" });
     };
 
     const handlePrevTrack = () => {
+        resetProgress();
         dispatch({ type: shuffle ? "shuffleTrack" : "prevTrack" });
     };
 
@@ -59,6 +64,61 @@ const Player = ({ currentTrack, shuffle }) => {
         dispatch({ type: "toggleRepeat" });
     };
 
+    const resetProgress = () => {
+        const progress = document.getElementById("progress");
+        progress.style.width = "0%";
+    };
+
+    const startProgress = (max_seconds) => {
+        const progress = document.getElementById("progress");
+        const audio = document.getElementById("audio");
+        if (max_seconds > 0) {
+            progressTimer = setInterval(function () {
+                if (!audio.paused) {
+                    const currTime = parseFloat(audio.currentTime);
+                    const end = parseFloat(max_seconds);
+                    const pct = ((currTime / end) * 100).toFixed(2);
+                    //console.log({ currTime, end, pct });
+                    progress.style.width = pct + "%";
+                }
+            }, 250);
+        }
+    };
+
+    const startPlayback = (max_seconds) => {
+        const audio = document.getElementById("audio");
+        const progress = document.getElementById("progress");
+        let seconds = 0;
+        const pad = function (num, size) {
+            return ("000" + num).slice(size * -1);
+        };
+        if (playtime && max_seconds > 0) {
+            playtime.innerText = "0:00";
+            playbackTimer = setInterval(function () {
+                if (!audio.paused) {
+                    if (seconds < max_seconds) {
+                        seconds++;
+                    } else {
+                        return;
+                    }
+                    let time = parseFloat(seconds).toFixed(3);
+                    let _hours = Math.floor(time / 60 / 60);
+                    let _minutes = Math.floor(time / 60) % 60;
+                    let _seconds = Math.floor(time - _minutes * 60);
+                    let output = "";
+                    if (_hours) output += pad(_hours, 1) + ":";
+                    output += pad(_minutes, 1) + ":" + pad(_seconds, 2);
+                    playtime.innerText = output;
+                }
+            }, 1000);
+        }
+    };
+
+    const setTimer = (max_seconds) => {
+        console.log("Max seconds", max_seconds);
+        startProgress(max_seconds);
+    };
+
     let trackUrl =
         typeof currentTrack !== "undefined" && currentTrack.fingerprint
             ? `/api/track/stream/${currentTrack.fingerprint}`
@@ -77,6 +137,15 @@ const Player = ({ currentTrack, shuffle }) => {
 
     const shuffleClass = shuffle ? "text-success" : "";
 
+    const cover_src = Object.entries(currentTrack).length
+        ? currentTrack.cover
+        : "/img/no-album.png";
+
+    const progressExtra =
+        player.status === "playing"
+            ? "bg-success progress-bar-animated"
+            : "bg-secondary";
+
     useEffect(() => {
         const audio = document.getElementById("audio");
         audio.onplay = handlePlayTrack;
@@ -94,98 +163,127 @@ const Player = ({ currentTrack, shuffle }) => {
             audio.pause();
         }
     }, [player]);
-    const cover_src = Object.entries(currentTrack).length
-        ? currentTrack.cover
-        : "/img/no-album.png";
+
+    useEffect(() => {
+        clearInterval(progressTimer);
+        if (state.currentTrack) setTimer(state.currentTrack.playtime_seconds);
+    }, [state.currentIndex, state.currentTrack]);
+
     return (
-        <div id="player">
-            <audio id="audio" src={trackUrl} autoPlay />
-            <div className="media">
-                <img
-                    data-toggle="modal"
-                    data-target="#coverModal"
-                    id="player-cover-art"
-                    className="d-flex mr-3"
-                    alt="album cover"
-                    src={cover_src}
+        <>
+            <div className="progress bg-dark">
+                <div
+                    id="progress"
+                    className={
+                        "progress-bar progress-bar-striped " + progressExtra
+                    }
+                    role="progressbar"
+                    aria-valuenow="75"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style={{ width: 0 }}
                 />
-                <div id="player-cont" className="media-body">
-                    {player.status === "idle" && (
-                        <>
-                            <div id="player-album">
-                                <img
-                                    src="/img/music.png"
-                                    alt="soprano"
-                                    style={{ height: "13px" }}
-                                    className="music-note mr-2"
+            </div>
+            <div id="player">
+                <audio id="audio" src={trackUrl} autoPlay />
+                <div className="media">
+                    <img
+                        data-toggle="modal"
+                        data-target="#coverModal"
+                        id="player-cover-art"
+                        className="d-flex mr-3"
+                        alt="album cover"
+                        src={cover_src}
+                    />
+                    <div id="player-cont" className="media-body">
+                        {player.status === "idle" && (
+                            <>
+                                <div id="player-album">
+                                    <img
+                                        src="/img/music.png"
+                                        alt="soprano"
+                                        style={{ height: "13px" }}
+                                        className="music-note mr-2"
+                                    />
+                                    <span>Soprano</span>
+                                </div>
+                                <div>
+                                    <span>&nbsp;</span>
+                                </div>
+                            </>
+                        )}
+                        {player.status !== "idle" &&
+                            player.status !== "loading" && (
+                                <div>
+                                    <div id="player-album" className="marquee">
+                                        <Marquee>
+                                            {currentTrack.album
+                                                ? htmlDecode(currentTrack.album)
+                                                : currentTrack.podcast}
+                                        </Marquee>
+                                    </div>
+                                    <div
+                                        id="player-artist-title"
+                                        className="marquee"
+                                    >
+                                        <Marquee>
+                                            {currentTrack.artist &&
+                                            currentTrack.title
+                                                ? htmlDecode(
+                                                      currentTrack.artist
+                                                  ) +
+                                                  " " +
+                                                  htmlDecode("&mdash;") +
+                                                  " " +
+                                                  htmlDecode(currentTrack.title)
+                                                : currentTrack.title}
+                                        </Marquee>
+                                    </div>
+                                </div>
+                            )}
+                        <div id="player-controls" className="d-flex">
+                            <button
+                                className="btn player-btn"
+                                onClick={handlePrevTrack}
+                                disabled={
+                                    !state.playlist.length ? "disabled" : ""
+                                }
+                            >
+                                <FontAwesome name="step-backward" />
+                            </button>
+                            <button
+                                className="btn player-btn"
+                                onClick={handlePlayPauseTrack}
+                                disabled={
+                                    player.status === "idle" ? "disabled" : ""
+                                }
+                            >
+                                {playPauseIcon}
+                            </button>
+                            <button
+                                className="btn player-btn"
+                                onClick={handleNextTrack}
+                                disabled={
+                                    !state.playlist.length ? "disabled" : ""
+                                }
+                            >
+                                <FontAwesome name="step-forward" />
+                            </button>
+                            <button
+                                className="btn player-btn"
+                                onClick={handleToggleShuffle}
+                            >
+                                <FontAwesome
+                                    className={shuffleClass}
+                                    name="random"
                                 />
-                                <span>Soprano</span>
-                            </div>
-                            <div>
-                                <span>&nbsp;</span>
-                            </div>
-                        </>
-                    )}
-                    {player.status !== "idle" && player.status !== "loading" && (
-                        <div>
-                            <div id="player-album" className="marquee">
-                                <Marquee>
-                                    {currentTrack.album
-                                        ? htmlDecode(currentTrack.album)
-                                        : currentTrack.podcast}
-                                </Marquee>
-                            </div>
-                            <div id="player-artist-title" className="marquee">
-                                <Marquee>
-                                    {currentTrack.artist && currentTrack.title
-                                        ? htmlDecode(currentTrack.artist) +
-                                          " " +
-                                          htmlDecode("&mdash;") +
-                                          " " +
-                                          htmlDecode(currentTrack.title)
-                                        : currentTrack.title}
-                                </Marquee>
-                            </div>
+                            </button>
                         </div>
-                    )}
-                    <div id="player-controls" className="d-flex">
-                        <button
-                            className="btn player-btn"
-                            onClick={handlePrevTrack}
-                            disabled={!state.playlist.length ? "disabled" : ""}
-                        >
-                            <FontAwesome name="step-backward" />
-                        </button>
-                        <button
-                            className="btn player-btn"
-                            onClick={handlePlayPauseTrack}
-                            disabled={
-                                player.status === "idle" ? "disabled" : ""
-                            }
-                        >
-                            {playPauseIcon}
-                        </button>
-                        <button
-                            className="btn player-btn"
-                            onClick={handleNextTrack}
-                            disabled={!state.playlist.length ? "disabled" : ""}
-                        >
-                            <FontAwesome name="step-forward" />
-                        </button>
-                        <button
-                            className="btn player-btn"
-                            onClick={handleToggleShuffle}
-                        >
-                            <FontAwesome
-                                className={shuffleClass}
-                                name="random"
-                            />
-                        </button>
                     </div>
                 </div>
+                <CoverModal currentTrack={currentTrack} cover_src={cover_src} />
             </div>
-            <CoverModal currentTrack={currentTrack} cover_src={cover_src} />
-        </div>
+        </>
     );
 };
 

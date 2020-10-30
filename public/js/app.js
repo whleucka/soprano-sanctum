@@ -80297,6 +80297,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var progressTimer = null;
 
 var Player = function Player(_ref) {
   var currentTrack = _ref.currentTrack,
@@ -80317,6 +80318,7 @@ var Player = function Player(_ref) {
     setPlayer(_objectSpread(_objectSpread({}, player), {}, {
       status: "error"
     }));
+    resetProgress();
   };
 
   var handleLoadingTrack = function handleLoadingTrack() {
@@ -80326,12 +80328,14 @@ var Player = function Player(_ref) {
   };
 
   var handleNextTrack = function handleNextTrack() {
+    resetProgress();
     dispatch({
       type: shuffle ? "shuffleTrack" : "nextTrack"
     });
   };
 
   var handlePrevTrack = function handlePrevTrack() {
+    resetProgress();
     dispatch({
       type: shuffle ? "shuffleTrack" : "prevTrack"
     });
@@ -80365,6 +80369,69 @@ var Player = function Player(_ref) {
     });
   };
 
+  var resetProgress = function resetProgress() {
+    var progress = document.getElementById("progress");
+    progress.style.width = "0%";
+  };
+
+  var startProgress = function startProgress(max_seconds) {
+    var progress = document.getElementById("progress");
+    var audio = document.getElementById("audio");
+
+    if (max_seconds > 0) {
+      progressTimer = setInterval(function () {
+        if (!audio.paused) {
+          var currTime = parseFloat(audio.currentTime);
+          var end = parseFloat(max_seconds);
+          var pct = (currTime / end * 100).toFixed(2); //console.log({ currTime, end, pct });
+
+          progress.style.width = pct + "%";
+        }
+      }, 250);
+    }
+  };
+
+  var startPlayback = function startPlayback(max_seconds) {
+    var audio = document.getElementById("audio");
+    var progress = document.getElementById("progress");
+    var seconds = 0;
+
+    var pad = function pad(num, size) {
+      return ("000" + num).slice(size * -1);
+    };
+
+    if (playtime && max_seconds > 0) {
+      playtime.innerText = "0:00";
+      playbackTimer = setInterval(function () {
+        if (!audio.paused) {
+          if (seconds < max_seconds) {
+            seconds++;
+          } else {
+            return;
+          }
+
+          var time = parseFloat(seconds).toFixed(3);
+
+          var _hours = Math.floor(time / 60 / 60);
+
+          var _minutes = Math.floor(time / 60) % 60;
+
+          var _seconds = Math.floor(time - _minutes * 60);
+
+          var output = "";
+          if (_hours) output += pad(_hours, 1) + ":";
+          output += pad(_minutes, 1) + ":" + pad(_seconds, 2);
+          playtime.innerText = output;
+        }
+      }, 1000);
+    }
+  };
+
+  var setTimer = function setTimer(max_seconds) {
+    console.log("Max seconds", max_seconds);
+    startProgress(max_seconds);
+  };
+
   var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null; // Override if podcast
 
   if (typeof currentTrack !== "undefined" && currentTrack.podcast_url) trackUrl = currentTrack.podcast_url;
@@ -80374,6 +80441,8 @@ var Player = function Player(_ref) {
     name: "play"
   });
   var shuffleClass = shuffle ? "text-success" : "";
+  var cover_src = Object.entries(currentTrack).length ? currentTrack.cover : "/img/no-album.png";
+  var progressExtra = player.status === "playing" ? "bg-success progress-bar-animated" : "bg-secondary";
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     var audio = document.getElementById("audio");
     audio.onplay = handlePlayTrack;
@@ -80391,8 +80460,23 @@ var Player = function Player(_ref) {
       audio.pause();
     }
   }, [player]);
-  var cover_src = Object.entries(currentTrack).length ? currentTrack.cover : "/img/no-album.png";
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    clearInterval(progressTimer);
+    if (state.currentTrack) setTimer(state.currentTrack.playtime_seconds);
+  }, [state.currentIndex, state.currentTrack]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress bg-dark"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "progress",
+    className: "progress-bar progress-bar-striped " + progressExtra,
+    role: "progressbar",
+    "aria-valuenow": "75",
+    "aria-valuemin": "0",
+    "aria-valuemax": "100",
+    style: {
+      width: 0
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
     id: "audio",
@@ -80453,7 +80537,7 @@ var Player = function Player(_ref) {
   }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CoverModal, {
     currentTrack: currentTrack,
     cover_src: cover_src
-  }));
+  })));
 };
 
 var CoverModal = function CoverModal(_ref2) {
