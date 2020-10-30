@@ -80740,6 +80740,7 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
           payload: res
         });
         document.getElementById("addPlaylistModalClose").click();
+        setName("");
       })["catch"](function (err) {
         if (err.response && err.response.status === 422) {
           setErrors(err.response.data);
@@ -80784,7 +80785,8 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
     },
     className: "form-control",
     id: "name",
-    placeholder: "Mix 2004..."
+    placeholder: "Mix 2004...",
+    required: true
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

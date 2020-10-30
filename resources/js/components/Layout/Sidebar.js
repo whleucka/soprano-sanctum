@@ -116,6 +116,7 @@ const CreatePlaylistModal = () => {
                     console.log(res);
                     dispatch({ type: "addPlaylist", payload: res });
                     document.getElementById("addPlaylistModalClose").click();
+                    setName("");
                 })
                 .catch((err) => {
                     if (err.response && err.response.status === 422) {
@@ -157,6 +158,7 @@ const CreatePlaylistModal = () => {
                                 className="form-control"
                                 id="name"
                                 placeholder="Mix 2004..."
+                                required
                             />
                         </div>
                     </div>
