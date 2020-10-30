@@ -21,7 +21,7 @@ const PodcastModule = () => {
         setTerm(input);
     };
 
-    const searchEpisode = (searchTerm) => {
+    const searchEpisode = (searchTerm, append = true) => {
         if (searchTerm.trim() !== "") {
             setLoading(true);
             Soprano.searchPodcastEpisode(term, offset, sortByDate).then(
@@ -43,7 +43,8 @@ const PodcastModule = () => {
                         };
                         podcasts.push(podcast);
                     });
-                    setResults([...results, ...podcasts]);
+                    if (append) setResults([...results, ...podcasts]);
+                    else setResults(podcasts);
                     setOffset(res.next_offset);
                     setTotal(res.total);
                     setCount(res.count);
@@ -55,18 +56,23 @@ const PodcastModule = () => {
         }
     };
 
+    const resetPodcasts = () => {
+        setResults([]);
+        setOffset(0);
+        setTotal(0);
+        setNoResults(false);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        searchEpisode(term);
+        resetPodcasts();
+        searchEpisode(term, false);
     };
 
     const handleClear = (e) => {
         e.preventDefault();
-        setResults([]);
-        setOffset(0);
-        setTotal(0);
+        resetPodcasts();
         setTerm("");
-        setNoResults(false);
     };
     const description_length = 600;
     return (

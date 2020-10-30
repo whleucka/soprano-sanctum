@@ -81606,6 +81606,8 @@ var PodcastModule = function PodcastModule() {
   };
 
   var searchEpisode = function searchEpisode(searchTerm) {
+    var append = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
     if (searchTerm.trim() !== "") {
       setLoading(true);
       _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].searchPodcastEpisode(term, offset, sortByDate).then(function (res) {
@@ -81626,7 +81628,7 @@ var PodcastModule = function PodcastModule() {
           };
           podcasts.push(podcast);
         });
-        setResults([].concat(_toConsumableArray(results), podcasts));
+        if (append) setResults([].concat(_toConsumableArray(results), podcasts));else setResults(podcasts);
         setOffset(res.next_offset);
         setTotal(res.total);
         setCount(res.count);
@@ -81637,18 +81639,23 @@ var PodcastModule = function PodcastModule() {
     }
   };
 
+  var resetPodcasts = function resetPodcasts() {
+    setResults([]);
+    setOffset(0);
+    setTotal(0);
+    setNoResults(false);
+  };
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    searchEpisode(term);
+    resetPodcasts();
+    searchEpisode(term, false);
   };
 
   var handleClear = function handleClear(e) {
     e.preventDefault();
-    setResults([]);
-    setOffset(0);
-    setTotal(0);
+    resetPodcasts();
     setTerm("");
-    setNoResults(false);
   };
 
   var description_length = 600;
