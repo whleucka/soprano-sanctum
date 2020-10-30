@@ -317,7 +317,7 @@ ul.navbar-nav a:hover {
     width: 190px;
     min-width: 190px;
     padding-top: 2px;
-    padding-left: 20px;
+    padding-left: 22px;
     background-color: #111;
 }
 
@@ -348,13 +348,14 @@ ul.navbar-nav a:hover {
         width: 75px;
         min-width: 75px;
         text-align: center;
+        padding-left: 0;
     }
     .sidebar-icon {
         margin-right: 0 !important;
     }
     .navbar {
         margin: 0;
-        padding: 0 24px;
+        padding: 0 16px;
     }
     .grid-icon {
         height: 85px !important;
@@ -364,7 +365,6 @@ ul.navbar-nav a:hover {
         display: none;
     }
     #sidebar > ul.navbar-nav li.navbar-item span {
-        /*font-size: 1.4em;*/
         padding: 8px 0;
     }
     .navbar-brand img {
