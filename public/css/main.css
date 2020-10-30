@@ -260,8 +260,8 @@ ul.navbar-nav a:hover {
     height: 12px;
 }
 .podcast-cover {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
 }
 
 .underline {
@@ -280,6 +280,14 @@ ul.navbar-nav a:hover {
 .podcast-details {
     max-height: 200px;
     overflow-y: auto;
+}
+
+.podcast-details h4 {
+    font-size: 1.3em;
+}
+
+.podcast-details h5 {
+    font-size: 1.1em;
 }
 
 /**

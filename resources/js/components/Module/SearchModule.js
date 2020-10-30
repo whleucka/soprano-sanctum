@@ -94,7 +94,8 @@ const SearchModule = () => {
                             className="btn btn-sm btn-success"
                             onClick={handleCopyPlaylist}
                         >
-                            <FontAwesome name="play" />
+                            <FontAwesome name="play" className="mr-2" />{" "}
+                            Playlist
                         </button>
                     </div>
                 )}

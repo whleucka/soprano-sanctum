@@ -81514,7 +81514,7 @@ var PodcastModule = function PodcastModule() {
     id: "search-cont",
     className: "pt-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SearchInput__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    placeholder: "Search for podcasts or episodes",
+    placeholder: "Podcasts or episodes",
     inputValue: term,
     handleInput: handleInput,
     handleSubmit: handleSubmit,
@@ -81572,7 +81572,11 @@ var SearchResults = function SearchResults(_ref) {
   }), hasMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: loadMore,
+    onClick: function onClick(e) {
+      e.preventDefault();
+      loadMore();
+      document.getElementsByClassName("content")[0].scrollBy(0, window.scrollY - 100);
+    },
     className: "btn btn-success"
   }, "Load More")));
 };
@@ -81801,8 +81805,9 @@ var SearchModule = function SearchModule() {
     className: "btn btn-sm btn-success",
     onClick: handleCopyPlaylist
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    name: "play"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
+    name: "play",
+    className: "mr-2"
+  }), " ", "Playlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
     results: results
   })));
 };

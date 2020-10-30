@@ -73,7 +73,7 @@ const PodcastModule = () => {
         <>
             <div id="search-cont" className="pt-2">
                 <SearchInput
-                    placeholder="Search for podcasts or episodes"
+                    placeholder="Podcasts or episodes"
                     inputValue={term}
                     handleInput={handleInput}
                     handleSubmit={handleSubmit}
@@ -140,7 +140,16 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                 })}
             {hasMore && (
                 <div className="text-center">
-                    <button onClick={loadMore} className="btn btn-success">
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            loadMore();
+                            document
+                                .getElementsByClassName("content")[0]
+                                .scrollBy(0, window.scrollY - 100);
+                        }}
+                        className="btn btn-success"
+                    >
                         Load More
                     </button>
                 </div>
