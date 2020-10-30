@@ -1,13 +1,13 @@
 import React from "react";
 import PlaylistModule from "../Module/PlaylistModule";
 
-const Playlist = ({ tracks }) => {
+const Home = ({ tracks }) => {
     return (
-        <section id="playlist" className="content">
-            <h1>Playlist</h1>
+        <section id="home" className="content">
+            <h1>Current Playlist</h1>
             <PlaylistModule tracks={tracks} />
         </section>
     );
 };
 
-export default Playlist;
+export default Home;

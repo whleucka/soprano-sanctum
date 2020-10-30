@@ -133,6 +133,7 @@ const AddDirectory = ({ hideAddDirectory }) => {
     };
 
     const handleAddDirectory = (e) => {
+        e.preventDefault();
         if (path) {
             Soprano.addDirectory(path)
                 .then((res) => {

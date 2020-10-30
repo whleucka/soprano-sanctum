@@ -25,6 +25,6 @@ Route::middleware(['guest'])->group(function() {
 Route::middleware(['auth'])->group(function() {
     // App
     Route::get('/{app}', [AppController::class, 'index'])
-        ->where('app', '(home|admin|podcasts|settings|search)')
+        ->where('app', '(home|admin|podcasts|playlists|settings|search)')
         ->name('home');
 });

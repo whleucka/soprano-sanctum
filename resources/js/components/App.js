@@ -5,10 +5,11 @@ import { Soprano } from "./Library/Soprano";
 import { SopranoContext } from "./Context/SopranoContext";
 import Search from "./Layout/Search";
 import Menu from "./Layout/Sidebar";
-import Playlist from "./Layout/Playlist";
+import Home from "./Layout/Home";
 import Admin from "./Layout/Admin";
 import Player from "./Layout/Player";
 import Podcasts from "./Layout/Podcasts";
+import Playlists from "./Layout/Playlists";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const initialState = {
@@ -29,6 +30,9 @@ const App = () => {
         Soprano.getUser().then((res) =>
             dispatch({ type: "initUser", payload: res })
         );
+        Soprano.getPlaylists().then((res) =>
+            dispatch({ type: "getPlaylists", payload: res })
+        );
     }, []);
 
     useEffect(() => {
@@ -46,7 +50,10 @@ const App = () => {
                 <Menu playlists={state.playlists} />
                 <Switch>
                     <Route path="/home">
-                        <Playlist tracks={state.playlist} />
+                        <Home tracks={state.playlist} />
+                    </Route>
+                    <Route path="/playlists">
+                        <Playlists playlists={state.playlists} />
                     </Route>
                     <Route path="/search">
                         <Search />

@@ -80071,11 +80071,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 /* harmony import */ var _Layout_Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Layout/Search */ "./resources/js/components/Layout/Search.js");
 /* harmony import */ var _Layout_Sidebar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Layout/Sidebar */ "./resources/js/components/Layout/Sidebar.js");
-/* harmony import */ var _Layout_Playlist__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Layout/Playlist */ "./resources/js/components/Layout/Playlist.js");
+/* harmony import */ var _Layout_Home__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Layout/Home */ "./resources/js/components/Layout/Home.js");
 /* harmony import */ var _Layout_Admin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Layout/Admin */ "./resources/js/components/Layout/Admin.js");
 /* harmony import */ var _Layout_Player__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Layout/Player */ "./resources/js/components/Layout/Player.js");
 /* harmony import */ var _Layout_Podcasts__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Layout/Podcasts */ "./resources/js/components/Layout/Podcasts.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _Layout_Playlists__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Layout/Playlists */ "./resources/js/components/Layout/Playlists.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -80087,6 +80088,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -80126,6 +80128,12 @@ var App = function App() {
         payload: res
       });
     });
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getPlaylists().then(function (res) {
+      return dispatch({
+        type: "getPlaylists",
+        payload: res
+      });
+    });
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (state.playlist.length > 0) dispatch({
@@ -80141,17 +80149,21 @@ var App = function App() {
   }, [state, dispatch]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_4__["SopranoContext"].Provider, {
     value: ContextValue
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Sidebar__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Sidebar__WEBPACK_IMPORTED_MODULE_6__["default"], {
     playlists: state.playlists
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__["Route"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/home"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Playlist__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Home__WEBPACK_IMPORTED_MODULE_7__["default"], {
     tracks: state.playlist
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__["Route"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
+    path: "/playlists"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Playlists__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    playlists: state.playlists
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/search"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Search__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Search__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/podcasts"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Podcasts__WEBPACK_IMPORTED_MODULE_10__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Podcasts__WEBPACK_IMPORTED_MODULE_10__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/admin"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Admin__WEBPACK_IMPORTED_MODULE_8__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Player__WEBPACK_IMPORTED_MODULE_9__["default"], {
     shuffle: state.shuffle,
@@ -80213,6 +80225,35 @@ var Admin = function Admin() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Admin);
+
+/***/ }),
+
+/***/ "./resources/js/components/Layout/Home.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/Layout/Home.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Module/PlaylistModule */ "./resources/js/components/Module/PlaylistModule.js");
+
+
+
+var Home = function Home(_ref) {
+  var tracks = _ref.tracks;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+    id: "home",
+    className: "content"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current Playlist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    tracks: tracks
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Home);
 
 /***/ }),
 
@@ -80457,10 +80498,10 @@ var CoverModal = function CoverModal(_ref2) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Layout/Playlist.js":
-/*!****************************************************!*\
-  !*** ./resources/js/components/Layout/Playlist.js ***!
-  \****************************************************/
+/***/ "./resources/js/components/Layout/Playlists.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Layout/Playlists.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80468,21 +80509,25 @@ var CoverModal = function CoverModal(_ref2) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Module/PlaylistModule */ "./resources/js/components/Module/PlaylistModule.js");
+/* harmony import */ var _Module_PlaylistsModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Module/PlaylistsModule */ "./resources/js/components/Module/PlaylistsModule.js");
+/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
 
 
 
-var Playlist = function Playlist(_ref) {
-  var tracks = _ref.tracks;
+
+var Playlists = function Playlists(_ref) {
+  var playlists = _ref.playlists;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-    id: "playlist",
+    id: "playlists",
     className: "content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Playlist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    tracks: tracks
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Playlists"), !playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_2__["Info"], {
+    msg: "No playlists created yet."
+  }), playlists.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistsModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    playlists: playlists
   }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Playlist);
+/* harmony default export */ __webpack_exports__["default"] = (Playlists);
 
 /***/ }),
 
@@ -80554,6 +80599,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 /* harmony import */ var react_avatar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-avatar */ "./node_modules/react-avatar/es/index.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var _Utilities_Errors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Utilities/Errors */ "./resources/js/components/Utilities/Errors.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -80572,6 +80619,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var Menu = function Menu(_ref) {
   var playlists = _ref.playlists;
 
@@ -80580,8 +80629,7 @@ var Menu = function Menu(_ref) {
       dispatch = _useContext.dispatch;
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-    id: "sidebar",
-    className: "text-center"
+    id: "sidebar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "navbar-nav"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -80593,7 +80641,16 @@ var Menu = function Menu(_ref) {
     className: "mr-2 sidebar-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "link-toggle"
-  }, "Playlist"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }, "Home"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/playlists"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "navbar-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    name: "list",
+    className: "mr-2 sidebar-icon"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "link-toggle"
+  }, "Playlists"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/search"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "navbar-item"
@@ -80623,7 +80680,7 @@ var Menu = function Menu(_ref) {
   }, "Admin")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "navbar-nav mt-3"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    className: "navbar-item",
+    className: "navbar-item mb-3",
     "data-toggle": "modal",
     "data-target": "#createPlaylistModal"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
@@ -80644,15 +80701,54 @@ var Menu = function Menu(_ref) {
       name: playlist.name
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "link-toggle"
-    }, playlist.name));
+    }, playlist.name.length > 12 ? playlist.name.substr(0, 12) + "..." : playlist.name));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreatePlaylistModal, null));
 };
 
 var CreatePlaylistModal = function CreatePlaylistModal() {
+  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+      state = _useContext2.state,
+      dispatch = _useContext2.dispatch;
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       name = _useState2[0],
       setName = _useState2[1];
+
+  var errorState = {
+    message: "",
+    errors: []
+  };
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(errorState),
+      _useState4 = _slicedToArray(_useState3, 2),
+      errors = _useState4[0],
+      setErrors = _useState4[1];
+
+  var resetErrors = function resetErrors() {
+    setErrors(errorState);
+  };
+
+  var handleAddPlaylist = function handleAddPlaylist(e) {
+    e.preventDefault();
+
+    if (name) {
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_5__["Soprano"].addPlaylist(name).then(function (res) {
+        console.log(res);
+        dispatch({
+          type: "addPlaylist",
+          payload: res
+        });
+        document.getElementById("addPlaylistModalClose").click();
+      })["catch"](function (err) {
+        if (err.response && err.response.status === 422) {
+          setErrors(err.response.data);
+        }
+      });
+    } else {
+      resetErrors();
+    }
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal",
@@ -80673,7 +80769,10 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
     id: "modalTitle"
   }, "Create Playlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-body"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Errors__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    message: errors.message,
+    errors: errors.errors["name"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group text-left"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
     htmlFor: "name"
@@ -80685,15 +80784,17 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
     },
     className: "form-control",
     id: "name",
-    placeholder: "Awesome Playlist 2004"
+    placeholder: "Mix 2004..."
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "modal-footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
+    id: "addPlaylistModalClose",
     className: "btn btn-sm btn-secondary",
     "data-dismiss": "modal"
   }, "Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
+    onClick: handleAddPlaylist,
     className: "btn btn-sm btn-success"
   }, "Save changes")))));
 };
@@ -81289,6 +81390,8 @@ var AddDirectory = function AddDirectory(_ref2) {
   };
 
   var handleAddDirectory = function handleAddDirectory(e) {
+    e.preventDefault();
+
     if (path) {
       _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].addDirectory(path).then(function (res) {
         dispatch({
@@ -81370,6 +81473,45 @@ var PlaylistModule = function PlaylistModule(_ref) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PlaylistModule);
+
+/***/ }),
+
+/***/ "./resources/js/components/Module/PlaylistsModule.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/Module/PlaylistsModule.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var PlaylistsModule = function PlaylistsModule(_ref) {
+  var playlists = _ref.playlists;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "playlists-module"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+    id: "tbl-playlists",
+    className: "w-100 table"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, playlists.length > 0 && playlists.map(function (playlist) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      className: "border-0"
+    }, playlist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      className: "text-right border-0"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "btn btn-sm btn-secondary mr-1"
+    }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "btn btn-sm btn-danger mr-1"
+    }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "btn btn-sm btn-success"
+    }, "Play")));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PlaylistsModule);
 
 /***/ }),
 
@@ -82097,6 +82239,23 @@ function SopranoReducer(state, action) {
     case "changeTrack":
       return _objectSpread(_objectSpread({}, state), {}, {
         currentTrack: state.playlist[action.payload]
+      });
+
+    case "getPlaylists":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        playlists: action.payload
+      });
+
+    case "addPlaylist":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        playlists: [].concat(_toConsumableArray(state.playlists), [action.payload])
+      });
+
+    case "removePlaylist":
+      return _objectSpread(_objectSpread({}, state), {}, {
+        playlists: state.playlists.filter(function (playlist) {
+          return playlist.id != action.payload;
+        })
       });
 
     default:

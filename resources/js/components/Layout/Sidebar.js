@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import FontAwesome from "react-fontawesome";
 import { SopranoContext } from "../Context/SopranoContext";
 import Avatar from "react-avatar";
+import { Soprano } from "../Library/Soprano";
+import Errors from "../Utilities/Errors";
 
 const Menu = ({ playlists }) => {
     const { state, dispatch } = useContext(SopranoContext);
     return (
-        <nav id="sidebar" className="text-center">
+        <nav id="sidebar">
             <ul className="navbar-nav">
                 <Link to="/home">
                     <li className="navbar-item">
@@ -15,7 +17,16 @@ const Menu = ({ playlists }) => {
                             name="headphones"
                             className="mr-2 sidebar-icon"
                         />
-                        <span className="link-toggle">Playlist</span>
+                        <span className="link-toggle">Home</span>
+                    </li>
+                </Link>
+                <Link to="/playlists">
+                    <li className="navbar-item">
+                        <FontAwesome
+                            name="list"
+                            className="mr-2 sidebar-icon"
+                        />
+                        <span className="link-toggle">Playlists</span>
                     </li>
                 </Link>
                 <Link to="/search">
@@ -51,7 +62,7 @@ const Menu = ({ playlists }) => {
 
             <ul className="navbar-nav mt-3">
                 <li
-                    className="navbar-item"
+                    className="navbar-item mb-3"
                     data-toggle="modal"
                     data-target="#createPlaylistModal"
                 >
@@ -70,7 +81,10 @@ const Menu = ({ playlists }) => {
                                         name={playlist.name}
                                     />
                                     <span className="link-toggle">
-                                        {playlist.name}
+                                        {playlist.name.length > 12
+                                            ? playlist.name.substr(0, 12) +
+                                              "..."
+                                            : playlist.name}
                                     </span>
                                 </li>
                             );
@@ -83,7 +97,36 @@ const Menu = ({ playlists }) => {
 };
 
 const CreatePlaylistModal = () => {
+    const { state, dispatch } = useContext(SopranoContext);
     const [name, setName] = useState("");
+    const errorState = {
+        message: "",
+        errors: [],
+    };
+    const [errors, setErrors] = useState(errorState);
+    const resetErrors = () => {
+        setErrors(errorState);
+    };
+
+    const handleAddPlaylist = (e) => {
+        e.preventDefault();
+        if (name) {
+            Soprano.addPlaylist(name)
+                .then((res) => {
+                    console.log(res);
+                    dispatch({ type: "addPlaylist", payload: res });
+                    document.getElementById("addPlaylistModalClose").click();
+                })
+                .catch((err) => {
+                    if (err.response && err.response.status === 422) {
+                        setErrors(err.response.data);
+                    }
+                });
+        } else {
+            resetErrors();
+        }
+    };
+
     return (
         <div
             className="modal"
@@ -101,6 +144,10 @@ const CreatePlaylistModal = () => {
                         </h5>
                     </div>
                     <div className="modal-body">
+                        <Errors
+                            message={errors.message}
+                            errors={errors.errors["name"]}
+                        />
                         <div className="form-group text-left">
                             <label htmlFor="name">Name</label>
                             <input
@@ -109,13 +156,14 @@ const CreatePlaylistModal = () => {
                                 onChange={(e) => setName(e.currentTarget.value)}
                                 className="form-control"
                                 id="name"
-                                placeholder="Awesome Playlist 2004"
+                                placeholder="Mix 2004..."
                             />
                         </div>
                     </div>
                     <div className="modal-footer">
                         <button
                             type="button"
+                            id="addPlaylistModalClose"
                             className="btn btn-sm btn-secondary"
                             data-dismiss="modal"
                         >
@@ -123,6 +171,7 @@ const CreatePlaylistModal = () => {
                         </button>
                         <button
                             type="button"
+                            onClick={handleAddPlaylist}
                             className="btn btn-sm btn-success"
                         >
                             Save changes
