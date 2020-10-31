@@ -80610,9 +80610,7 @@ var Playlists = function Playlists() {
     className: "content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Playlists"), !state.playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_2__["Info"], {
     msg: "No playlists created yet."
-  }), state.playlists.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistsModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    playlists: playlists
-  }));
+  }), state.playlists.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistsModule__WEBPACK_IMPORTED_MODULE_1__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Playlists);

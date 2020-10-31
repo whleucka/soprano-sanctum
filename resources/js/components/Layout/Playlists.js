@@ -11,9 +11,7 @@ const Playlists = () => {
             {!state.playlists.length && (
                 <Info msg="No playlists created yet." />
             )}
-            {state.playlists.length > 0 && (
-                <PlaylistsModule playlists={playlists} />
-            )}
+            {state.playlists.length > 0 && <PlaylistsModule />}
         </section>
     );
 };
