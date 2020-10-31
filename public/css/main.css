@@ -408,6 +408,20 @@ ul.navbar-nav a:hover {
     .navbar-brand span {
         display: none;
     }
+
+    .search-album-cover {
+        height: 20px;
+    }
+    .search-row-cover {
+        margin-right: 10px;
+    }
+    .search-row-title,
+    .search-row-playtime-string {
+        font-size: 0.9em;
+    }
+    .resultRow {
+        padding: 0;
+    }
 }
 
 @media (max-width: 991.98px) {
