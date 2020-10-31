@@ -80328,14 +80328,12 @@ var Player = function Player(_ref) {
   };
 
   var handleNextTrack = function handleNextTrack() {
-    resetProgress();
     dispatch({
       type: shuffle ? "shuffleTrack" : "nextTrack"
     });
   };
 
   var handlePrevTrack = function handlePrevTrack() {
-    resetProgress();
     dispatch({
       type: shuffle ? "shuffleTrack" : "prevTrack"
     });
@@ -80448,7 +80446,18 @@ var Player = function Player(_ref) {
     audio.onpause = handlePauseTrack;
     audio.onload = handleLoadingTrack;
     audio.onerror = handleError;
-    audio.onended = handleNextTrack;
+
+    audio.onended = function () {
+      if (!state.playlist.length) {
+        resetProgress();
+        clearInterval(progressTimer);
+        setPlayer({
+          status: "idle"
+        });
+      } else {
+        handleNextTrack();
+      }
+    };
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     var audio = document.getElementById("audio");

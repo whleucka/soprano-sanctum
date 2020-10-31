@@ -28,12 +28,10 @@ const Player = ({ currentTrack, shuffle }) => {
     };
 
     const handleNextTrack = () => {
-        resetProgress();
         dispatch({ type: shuffle ? "shuffleTrack" : "nextTrack" });
     };
 
     const handlePrevTrack = () => {
-        resetProgress();
         dispatch({ type: shuffle ? "shuffleTrack" : "prevTrack" });
     };
 
@@ -151,7 +149,15 @@ const Player = ({ currentTrack, shuffle }) => {
         audio.onpause = handlePauseTrack;
         audio.onload = handleLoadingTrack;
         audio.onerror = handleError;
-        audio.onended = handleNextTrack;
+        audio.onended = function () {
+            if (!state.playlist.length) {
+                resetProgress();
+                clearInterval(progressTimer);
+                setPlayer({ status: "idle" });
+            } else {
+                handleNextTrack();
+            }
+        };
     }, []);
 
     useEffect(() => {
