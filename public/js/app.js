@@ -80428,8 +80428,7 @@ var Player = function Player(_ref) {
   };
 
   var setTimer = function setTimer(max_seconds) {
-    console.log("Max seconds", max_seconds);
-    startProgress(max_seconds);
+    if (typeof max_seconds !== "undefined") startProgress(max_seconds);
   };
 
   var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null; // Override if podcast

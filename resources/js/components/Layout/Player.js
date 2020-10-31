@@ -115,8 +115,7 @@ const Player = ({ currentTrack, shuffle }) => {
     };
 
     const setTimer = (max_seconds) => {
-        console.log("Max seconds", max_seconds);
-        startProgress(max_seconds);
+        if (typeof max_seconds !== "undefined") startProgress(max_seconds);
     };
 
     let trackUrl =
