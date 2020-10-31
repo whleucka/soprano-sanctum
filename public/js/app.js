@@ -80367,6 +80367,19 @@ var Player = function Player(_ref) {
     });
   };
 
+  var onEnded = function onEnded() {
+    if (state.playlist.length > 0) {
+      handleNextTrack();
+      return;
+    }
+
+    resetProgress();
+    clearInterval(progressTimer);
+    setPlayer({
+      status: "idle"
+    });
+  };
+
   var resetProgress = function resetProgress() {
     var progress = document.getElementById("progress");
     progress.style.width = "0%";
@@ -80442,31 +80455,18 @@ var Player = function Player(_ref) {
   var progressExtra = player.status === "playing" ? "bg-success progress-bar-animated" : "bg-secondary";
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     var audio = document.getElementById("audio");
-    audio.onplay = handlePlayTrack;
-    audio.onpause = handlePauseTrack;
-    audio.onload = handleLoadingTrack;
-    audio.onerror = handleError;
-
-    audio.onended = function () {
-      if (!state.playlist.length) {
-        resetProgress();
-        clearInterval(progressTimer);
-        setPlayer({
-          status: "idle"
-        });
-      } else {
-        handleNextTrack();
-      }
-    };
-  }, []);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    var audio = document.getElementById("audio");
 
     if (player.status === "playing") {
       audio.play();
     } else {
       audio.pause();
     }
+
+    audio.onplay = handlePlayTrack;
+    audio.onpause = handlePauseTrack;
+    audio.onload = handleLoadingTrack;
+    audio.onerror = handleError;
+    audio.onended = onEnded;
   }, [player]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     clearInterval(progressTimer);

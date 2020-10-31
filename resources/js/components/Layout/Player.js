@@ -62,6 +62,16 @@ const Player = ({ currentTrack, shuffle }) => {
         dispatch({ type: "toggleRepeat" });
     };
 
+    const onEnded = () => {
+        if (state.playlist.length > 0) {
+            handleNextTrack();
+            return;
+        }
+        resetProgress();
+        clearInterval(progressTimer);
+        setPlayer({ status: "idle" });
+    };
+
     const resetProgress = () => {
         const progress = document.getElementById("progress");
         progress.style.width = "0%";
@@ -145,28 +155,16 @@ const Player = ({ currentTrack, shuffle }) => {
 
     useEffect(() => {
         const audio = document.getElementById("audio");
-        audio.onplay = handlePlayTrack;
-        audio.onpause = handlePauseTrack;
-        audio.onload = handleLoadingTrack;
-        audio.onerror = handleError;
-        audio.onended = function () {
-            if (!state.playlist.length) {
-                resetProgress();
-                clearInterval(progressTimer);
-                setPlayer({ status: "idle" });
-            } else {
-                handleNextTrack();
-            }
-        };
-    }, []);
-
-    useEffect(() => {
-        const audio = document.getElementById("audio");
         if (player.status === "playing") {
             audio.play();
         } else {
             audio.pause();
         }
+        audio.onplay = handlePlayTrack;
+        audio.onpause = handlePauseTrack;
+        audio.onload = handleLoadingTrack;
+        audio.onerror = handleError;
+        audio.onended = onEnded;
     }, [player]);
 
     useEffect(() => {
