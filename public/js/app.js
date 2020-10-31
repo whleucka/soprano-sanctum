@@ -80594,18 +80594,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Module_PlaylistsModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Module/PlaylistsModule */ "./resources/js/components/Module/PlaylistsModule.js");
 /* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 
 
 
 
-var Playlists = function Playlists(_ref) {
-  var playlists = _ref.playlists;
+
+var Playlists = function Playlists() {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     id: "playlists",
     className: "content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Playlists"), !playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_2__["Info"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Playlists"), !state.playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_2__["Info"], {
     msg: "No playlists created yet."
-  }), playlists.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistsModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }), state.playlists.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistsModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
     playlists: playlists
   }));
 };
@@ -80815,7 +80820,6 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
 
     if (name) {
       _Library_Soprano__WEBPACK_IMPORTED_MODULE_5__["Soprano"].addPlaylist(name).then(function (res) {
-        console.log(res);
         dispatch({
           type: "addPlaylist",
           payload: res
@@ -82284,8 +82288,9 @@ var TrackRow = function TrackRow(_ref) {
   }, !state.playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "dropdown-item disabled",
     href: "#"
-  }, "No playlists added yet."), state.playlists.length > 0 && state.playlists.map(function (playlist) {
+  }, "No playlists added yet."), state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      key: i,
       className: "dropdown-item",
       href: "#"
     }, playlist.name);

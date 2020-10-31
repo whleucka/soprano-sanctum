@@ -48,9 +48,10 @@ const TrackRow = ({ type, track, index }) => {
                                     </a>
                                 )}
                                 {state.playlists.length > 0 &&
-                                    state.playlists.map((playlist) => {
+                                    state.playlists.map((playlist, i) => {
                                         return (
                                             <a
+                                                key={i}
                                                 className="dropdown-item"
                                                 href="#"
                                             >

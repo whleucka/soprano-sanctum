@@ -113,7 +113,6 @@ const CreatePlaylistModal = () => {
         if (name) {
             Soprano.addPlaylist(name)
                 .then((res) => {
-                    console.log(res);
                     dispatch({ type: "addPlaylist", payload: res });
                     document.getElementById("addPlaylistModalClose").click();
                     setName("");
