@@ -47,13 +47,13 @@ const App = () => {
     return (
         <SopranoContext.Provider value={ContextValue}>
             <Router>
-                <Menu playlists={state.playlists} />
+                <Menu />
                 <Switch>
                     <Route path="/home">
-                        <Home tracks={state.playlist} />
+                        <Home />
                     </Route>
                     <Route path="/playlists">
-                        <Playlists playlists={state.playlists} />
+                        <Playlists />
                     </Route>
                     <Route path="/search">
                         <Search />

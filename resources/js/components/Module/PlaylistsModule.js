@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { SopranoContext } from "../Context/SopranoContext";
 import { Soprano } from "../Library/Soprano";
 
-const PlaylistsModule = ({ playlists }) => {
+const PlaylistsModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
 
     const handleDelete = (e) => {
@@ -17,8 +17,8 @@ const PlaylistsModule = ({ playlists }) => {
         <div id="playlists-module">
             <table id="tbl-playlists" className="w-100 table">
                 <tbody>
-                    {playlists.length > 0 &&
-                        playlists.map((playlist, i) => {
+                    {state.playlists.length > 0 &&
+                        state.playlists.map((playlist, i) => {
                             return (
                                 <tr key={i}>
                                     <td className="border-0">

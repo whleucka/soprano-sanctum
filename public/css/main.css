@@ -306,8 +306,31 @@ ul.navbar-nav a:hover {
 .search-row-cover {
     margin-right: 10px;
 }
+.search-row-title {
+    font-size: 1.2em;
+    line-height: 40px;
+}
+.search-row-playtime-string {
+    line-height: 40px;
+}
+.dropright > .dropdown-toggle {
+    color: #666;
+}
+.dropright > .dropdown-toggle:hover {
+    color: #fff;
+}
 .grid-icon:hover {
     cursor: pointer;
+}
+
+.dropright a:link,
+.dropright a:visited {
+    color: #555;
+}
+
+.dropright a:link:hover,
+.dropright a:visited:hover {
+    color: #222;
 }
 
 /**

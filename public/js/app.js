@@ -80149,17 +80149,11 @@ var App = function App() {
   }, [state, dispatch]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_4__["SopranoContext"].Provider, {
     value: ContextValue
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Sidebar__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    playlists: state.playlists
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Sidebar__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/home"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Home__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    tracks: state.playlist
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Home__WEBPACK_IMPORTED_MODULE_7__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/playlists"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Playlists__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    playlists: state.playlists
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Playlists__WEBPACK_IMPORTED_MODULE_11__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/search"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Layout_Search__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__["Route"], {
     path: "/podcasts"
@@ -80243,14 +80237,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Home = function Home(_ref) {
-  var tracks = _ref.tracks;
+var Home = function Home() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     id: "home",
     className: "content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current Playlist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    tracks: tracks
-  }));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current Playlist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_PlaylistModule__WEBPACK_IMPORTED_MODULE_1__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Home);
@@ -80713,9 +80704,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Menu = function Menu(_ref) {
-  var playlists = _ref.playlists;
-
+var Menu = function Menu() {
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
@@ -80782,7 +80771,7 @@ var Menu = function Menu(_ref) {
     className: "link-toggle"
   }, "Create Playlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "sidebar-playlist-cont"
-  }, playlists.length > 0 && playlists.map(function (playlist, i) {
+  }, state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "navbar-item",
       key: i
@@ -81578,14 +81567,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _TrackRow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TrackRow */ "./resources/js/components/Module/TrackRow.js");
 /* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 
 
 
 
-var PlaylistModule = function PlaylistModule(_ref) {
-  var tracks = _ref.tracks;
-  var hasResults = tracks.length > 0;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && tracks.map(function (track, i) {
+
+var PlaylistModule = function PlaylistModule() {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
+  var hasResults = state.playlist.length > 0;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && state.playlist.map(function (track, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_1__["default"], {
       type: "playlist",
       index: i,
@@ -81618,9 +81612,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var PlaylistsModule = function PlaylistsModule(_ref) {
-  var playlists = _ref.playlists;
-
+var PlaylistsModule = function PlaylistsModule() {
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
@@ -81641,7 +81633,7 @@ var PlaylistsModule = function PlaylistsModule(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     id: "tbl-playlists",
     className: "w-100 table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, playlists.length > 0 && playlists.map(function (playlist, i) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: i
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
@@ -82273,11 +82265,31 @@ var TrackRow = function TrackRow(_ref) {
     className: "d-flex"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "search-row-cover"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "btn-group dropright"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    className: "btn dropdown-toggle",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "search-album-cover",
     src: track.cover,
     alt: "cover"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    title: track.album,
+    className: "dropdown-menu",
+    "x-placement": "right-start"
+  }, !state.playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "dropdown-item disabled",
+    href: "#"
+  }, "No playlists added yet."), state.playlists.length > 0 && state.playlists.map(function (playlist) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      className: "dropdown-item",
+      href: "#"
+    }, playlist.name);
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     onClick: handleClick,
     className: "search-row-title truncate w-100"
   }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(track.artist), " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])("&mdash;") + " ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__["htmlDecode"])(track.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

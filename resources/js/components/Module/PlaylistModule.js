@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import TrackRow from "./TrackRow";
 import { Alert } from "../Utilities/Alerts";
+import { SopranoContext } from "../Context/SopranoContext";
 
-const PlaylistModule = ({ tracks }) => {
-    const hasResults = tracks.length > 0;
+const PlaylistModule = () => {
+    const { state, dispatch } = useContext(SopranoContext);
+    const hasResults = state.playlist.length > 0;
     return (
         <>
             {hasResults &&
-                tracks.map((track, i) => {
+                state.playlist.map((track, i) => {
                     return (
                         <TrackRow
                             type={"playlist"}

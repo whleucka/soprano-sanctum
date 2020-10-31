@@ -6,7 +6,7 @@ import Avatar from "react-avatar";
 import { Soprano } from "../Library/Soprano";
 import Errors from "../Utilities/Errors";
 
-const Menu = ({ playlists }) => {
+const Menu = () => {
     const { state, dispatch } = useContext(SopranoContext);
     return (
         <nav id="sidebar">
@@ -70,8 +70,8 @@ const Menu = ({ playlists }) => {
                     <span className="link-toggle">Create Playlist</span>
                 </li>
                 <div id="sidebar-playlist-cont">
-                    {playlists.length > 0 &&
-                        playlists.map((playlist, i) => {
+                    {state.playlists.length > 0 &&
+                        state.playlists.map((playlist, i) => {
                             return (
                                 <li className="navbar-item" key={i}>
                                     <Avatar

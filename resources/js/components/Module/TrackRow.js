@@ -20,11 +20,46 @@ const TrackRow = ({ type, track, index }) => {
             <div className="col">
                 <div className="d-flex">
                     <div className="search-row-cover">
-                        <img
-                            className="search-album-cover"
-                            src={track.cover}
-                            alt="cover"
-                        />
+                        <div className="btn-group dropright">
+                            <button
+                                type="button"
+                                className="btn dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                                <img
+                                    className="search-album-cover"
+                                    src={track.cover}
+                                    alt="cover"
+                                />
+                            </button>
+                            <div
+                                title={track.album}
+                                className="dropdown-menu"
+                                x-placement="right-start"
+                            >
+                                {!state.playlists.length && (
+                                    <a
+                                        className="dropdown-item disabled"
+                                        href="#"
+                                    >
+                                        No playlists added yet.
+                                    </a>
+                                )}
+                                {state.playlists.length > 0 &&
+                                    state.playlists.map((playlist) => {
+                                        return (
+                                            <a
+                                                className="dropdown-item"
+                                                href="#"
+                                            >
+                                                {playlist.name}
+                                            </a>
+                                        );
+                                    })}
+                            </div>
+                        </div>
                     </div>
                     <div
                         onClick={handleClick}
