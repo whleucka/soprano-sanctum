@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Playlist;
+use App\Models\PlaylistTrack;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -70,6 +71,28 @@ class PlaylistController extends Controller
         $this->authorize('delete', $playlist);
         $playlist->delete();
         return response([], 204);
+    }
+
+    public function track_toggle(Playlist $playlist) 
+    {
+        $this->authorize('update', $playlist);
+        $data = $this->validateTrack(); 
+        $target = PlaylistTrack::where(['playlist_id' => $playlist->id, 'track_id' => $data['track_id']])->first();
+        if ($target) {
+            $target->delete();
+            return ['toggle' => 0];
+        } else {
+            $data['playlist_id'] = $playlist->id;
+            PlaylistTrack::factory()->create($data);
+            return ['toggle' => 1];
+        }     
+    }
+
+    public function validateTrack()
+    {
+        return request()->validate([
+            'track_id' => ['required', 'integer'],
+        ]);
     }
     
     public function validatePlaylist()

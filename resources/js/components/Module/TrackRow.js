@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { SopranoContext } from "../Context/SopranoContext";
 import { htmlDecode } from "../Utilities/Tools";
+import { Soprano } from "../Library/Soprano";
 
 const TrackRow = ({ type, track, index }) => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -15,6 +16,13 @@ const TrackRow = ({ type, track, index }) => {
             dispatch({ type: "changeTrack", payload: index });
         }
     };
+
+    const handleToggleTrackPlaylist = (e, trackId, playlistId) => {
+        Soprano.toggleTrackPlaylist(trackId, playlistId).then((res) => {
+            console.log(res);
+        });
+    };
+
     return (
         <div className="row resultRow">
             <div className="col">
@@ -54,6 +62,13 @@ const TrackRow = ({ type, track, index }) => {
                                                 key={i}
                                                 className="dropdown-item"
                                                 href="#"
+                                                onClick={(e) =>
+                                                    handleToggleTrackPlaylist(
+                                                        e,
+                                                        track.id,
+                                                        playlist.id
+                                                    )
+                                                }
                                             >
                                                 {playlist.name}
                                             </a>

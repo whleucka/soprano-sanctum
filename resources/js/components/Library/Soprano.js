@@ -61,26 +61,6 @@ export const Soprano = {
         });
         return response.data;
     },
-    searchPodcastEpisode: async function (term, offset, sortByDate) {
-        const response = await axios.get(
-            "https://listen-api.listennotes.com/api/v2/search",
-            {
-                headers: {
-                    "X-ListenAPI-Key": process.env.MIX_LISTEN_API_KEY,
-                },
-                params: {
-                    q: term,
-                    type: "episode",
-                    language: "English",
-                    region: "ca,us,gb,au,nz",
-                    sort_by_date: sortByDate,
-                    offset,
-                },
-                withCredentials: false,
-            }
-        );
-        return response.data;
-    },
     getPlaylists: async function () {
         const response = await axios.get("/api/playlist", {
             withCredentials: true,
@@ -99,6 +79,37 @@ export const Soprano = {
         const response = await axios.delete(`/api/playlist/${id}`, {
             withCredentials: true,
         });
+        return response.data;
+    },
+    toggleTrackPlaylist: async function (trackId, playlistId) {
+        const response = await axios.post(
+            `/api/playlist/${playlistId}/track`,
+            { track_id: trackId },
+            { withCredentials: true }
+        );
+        return response.data;
+    },
+};
+
+export const ListenNotes = {
+    searchEpisode: async function (term, offset, sortByDate) {
+        const response = await axios.get(
+            "https://listen-api.listennotes.com/api/v2/search",
+            {
+                headers: {
+                    "X-ListenAPI-Key": process.env.MIX_LISTEN_API_KEY,
+                },
+                params: {
+                    q: term,
+                    type: "episode",
+                    language: "English",
+                    region: "ca,us,gb,au,nz",
+                    sort_by_date: sortByDate,
+                    offset,
+                },
+                withCredentials: false,
+            }
+        );
         return response.data;
     },
 };

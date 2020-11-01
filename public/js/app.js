@@ -80892,12 +80892,13 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
 /*!****************************************************!*\
   !*** ./resources/js/components/Library/Soprano.js ***!
   \****************************************************/
-/*! exports provided: Soprano */
+/*! exports provided: Soprano, ListenNotes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Soprano", function() { return Soprano; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListenNotes", function() { return ListenNotes; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -81186,14 +81187,140 @@ var Soprano = {
 
     return getYears;
   }(),
-  searchPodcastEpisode: function () {
-    var _searchPodcastEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(term, offset, sortByDate) {
+  getPlaylists: function () {
+    var _getPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
               _context10.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist", {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context10.sent;
+              return _context10.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }));
+
+    function getPlaylists() {
+      return _getPlaylists.apply(this, arguments);
+    }
+
+    return getPlaylists;
+  }(),
+  addPlaylist: function () {
+    var _addPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(name) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              _context11.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist", {
+                name: name
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context11.sent;
+              return _context11.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }));
+
+    function addPlaylist(_x6) {
+      return _addPlaylist.apply(this, arguments);
+    }
+
+    return addPlaylist;
+  }(),
+  removePlaylist: function () {
+    var _removePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(id) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              _context12.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/playlist/".concat(id), {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context12.sent;
+              return _context12.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12);
+    }));
+
+    function removePlaylist(_x7) {
+      return _removePlaylist.apply(this, arguments);
+    }
+
+    return removePlaylist;
+  }(),
+  toggleTrackPlaylist: function () {
+    var _toggleTrackPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(trackId, playlistId) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              _context13.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist/".concat(playlistId, "/track"), {
+                track_id: trackId
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context13.sent;
+              return _context13.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context13.stop();
+          }
+        }
+      }, _callee13);
+    }));
+
+    function toggleTrackPlaylist(_x8, _x9) {
+      return _toggleTrackPlaylist.apply(this, arguments);
+    }
+
+    return toggleTrackPlaylist;
+  }()
+};
+var ListenNotes = {
+  searchEpisode: function () {
+    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14(term, offset, sortByDate) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee14$(_context14) {
+        while (1) {
+          switch (_context14.prev = _context14.next) {
+            case 0:
+              _context14.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
                 headers: {
                   "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
@@ -81210,114 +81337,22 @@ var Soprano = {
               });
 
             case 2:
-              response = _context10.sent;
-              return _context10.abrupt("return", response.data);
+              response = _context14.sent;
+              return _context14.abrupt("return", response.data);
 
             case 4:
             case "end":
-              return _context10.stop();
+              return _context14.stop();
           }
         }
-      }, _callee10);
+      }, _callee14);
     }));
 
-    function searchPodcastEpisode(_x6, _x7, _x8) {
-      return _searchPodcastEpisode.apply(this, arguments);
+    function searchEpisode(_x10, _x11, _x12) {
+      return _searchEpisode.apply(this, arguments);
     }
 
-    return searchPodcastEpisode;
-  }(),
-  getPlaylists: function () {
-    var _getPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
-        while (1) {
-          switch (_context11.prev = _context11.next) {
-            case 0:
-              _context11.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist", {
-                withCredentials: true
-              });
-
-            case 2:
-              response = _context11.sent;
-              return _context11.abrupt("return", response.data);
-
-            case 4:
-            case "end":
-              return _context11.stop();
-          }
-        }
-      }, _callee11);
-    }));
-
-    function getPlaylists() {
-      return _getPlaylists.apply(this, arguments);
-    }
-
-    return getPlaylists;
-  }(),
-  addPlaylist: function () {
-    var _addPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(name) {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
-        while (1) {
-          switch (_context12.prev = _context12.next) {
-            case 0:
-              _context12.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist", {
-                name: name
-              }, {
-                withCredentials: true
-              });
-
-            case 2:
-              response = _context12.sent;
-              return _context12.abrupt("return", response.data);
-
-            case 4:
-            case "end":
-              return _context12.stop();
-          }
-        }
-      }, _callee12);
-    }));
-
-    function addPlaylist(_x9) {
-      return _addPlaylist.apply(this, arguments);
-    }
-
-    return addPlaylist;
-  }(),
-  removePlaylist: function () {
-    var _removePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(id) {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
-        while (1) {
-          switch (_context13.prev = _context13.next) {
-            case 0:
-              _context13.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/playlist/".concat(id), {
-                withCredentials: true
-              });
-
-            case 2:
-              response = _context13.sent;
-              return _context13.abrupt("return", response.data);
-
-            case 4:
-            case "end":
-              return _context13.stop();
-          }
-        }
-      }, _callee13);
-    }));
-
-    function removePlaylist(_x10) {
-      return _removePlaylist.apply(this, arguments);
-    }
-
-    return removePlaylist;
+    return searchEpisode;
   }()
 };
 
@@ -81751,7 +81786,7 @@ var PodcastModule = function PodcastModule() {
 
     if (searchTerm.trim() !== "") {
       setLoading(true);
-      _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].searchPodcastEpisode(term, offset, sortByDate).then(function (res) {
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["ListenNotes"].searchEpisode(term, offset, sortByDate).then(function (res) {
         if (!res.count) setNoResults(true);
         var podcast_results = res.results;
         var podcasts = [];
@@ -82230,6 +82265,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
 /* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+
 
 
 
@@ -82257,6 +82294,12 @@ var TrackRow = function TrackRow(_ref) {
         payload: index
       });
     }
+  };
+
+  var handleToggleTrackPlaylist = function handleToggleTrackPlaylist(e, trackId, playlistId) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].toggleTrackPlaylist(trackId, playlistId).then(function (res) {
+      console.log(res);
+    });
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -82290,7 +82333,10 @@ var TrackRow = function TrackRow(_ref) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
       key: i,
       className: "dropdown-item",
-      href: "#"
+      href: "#",
+      onClick: function onClick(e) {
+        return handleToggleTrackPlaylist(e, track.id, playlist.id);
+      }
     }, playlist.name);
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     onClick: handleClick,
@@ -82426,6 +82472,12 @@ function SopranoReducer(state, action) {
           return playlist.id != action.payload;
         })
       });
+
+    case "addTrackPlaylist":
+      return {};
+
+    case "removeTrackPlaylist":
+      return {};
 
     default:
       return state;

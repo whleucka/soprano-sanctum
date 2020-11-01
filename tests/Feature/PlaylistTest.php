@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Models\Directory;
+use App\Models\Track;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -63,5 +65,44 @@ class PlaylistTest extends TestCase
         $this->user->playlists()->create($payload);
         $response = $this->json('DELETE', route('playlist.destroy', $this->user->playlists->first()->id));
         $response->assertNoContent();
+    }
+    
+    /**
+     * @test
+     */
+    public function a_track_can_be_added_to_a_playlist()
+    {
+        Sanctum::actingAs($this->user);
+        $this->user->directories()->create(['path' => env('MUSIC_DIR'), 'user_id' => $this->user->id]);
+        $response = $this->json('POST', route('track.synch'), [
+            'filepath' => env('TRACK_PATH')
+        ]);
+        $track_id = ($response['id']);
+        $response = $this->json('POST', route('playlist.store'), ['name' => "My super cool playlist"]);
+        $playlist_id = ($response['id']);
+        $response = $this->json('POST', route('playlist.track_toggle', $playlist_id), ['track_id' => $track_id]);
+        $response->assertOk();
+        $response->assertExactJson(['toggle' => 1]);
+    }
+
+    /**
+     * @test
+     */
+    public function a_track_can_be_removed_from_a_playlist()
+    {
+        Sanctum::actingAs($this->user);
+        $this->user->directories()->create(['path' => env('MUSIC_DIR'), 'user_id' => $this->user->id]);
+        $response = $this->json('POST', route('track.synch'), [
+            'filepath' => env('TRACK_PATH')
+        ]);
+        $track_id = ($response['id']);
+        $response = $this->json('POST', route('playlist.store'), ['name' => "My super cool playlist"]);
+        $playlist_id = ($response['id']);
+        $response = $this->json('POST', route('playlist.track_toggle', $playlist_id), ['track_id' => $track_id]);
+        $response->assertOk();
+        $response->assertExactJson(['toggle' => 1]);
+        $response = $this->json('POST', route('playlist.track_toggle', $playlist_id), ['track_id' => $track_id]);
+        $response->assertOk();
+        $response->assertExactJson(['toggle' => 0]);
     }
 }

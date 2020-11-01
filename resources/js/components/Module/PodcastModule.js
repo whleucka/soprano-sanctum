@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import SearchInput from "./SearchInput";
-import { Soprano } from "../Library/Soprano";
+import { ListenNotes } from "../Library/Soprano";
 import { SopranoContext } from "../Context/SopranoContext";
 import { BarSpinner } from "../Utilities/Spinner";
 import { htmlDecode } from "../Utilities/Tools";
@@ -24,33 +24,31 @@ const PodcastModule = () => {
     const searchEpisode = (searchTerm, append = true) => {
         if (searchTerm.trim() !== "") {
             setLoading(true);
-            Soprano.searchPodcastEpisode(term, offset, sortByDate).then(
-                (res) => {
-                    if (!res.count) setNoResults(true);
-                    const podcast_results = res.results;
-                    let podcasts = [];
-                    podcast_results.map((result) => {
-                        const podcast = {
-                            cover: result.image,
-                            podcast: result.podcast.title_original,
-                            publisher: result.podcast.publisher_original,
-                            created: result.pub_date_ms,
-                            title: result.title_original,
-                            description: result.description_original,
-                            link: result.link,
-                            podcast_url: result.audio,
-                            playtime_seconds: result.audio_length_sec,
-                        };
-                        podcasts.push(podcast);
-                    });
-                    if (append) setResults([...results, ...podcasts]);
-                    else setResults(podcasts);
-                    setOffset(res.next_offset);
-                    setTotal(res.total);
-                    setCount(res.count);
-                    setLoading(false);
-                }
-            );
+            ListenNotes.searchEpisode(term, offset, sortByDate).then((res) => {
+                if (!res.count) setNoResults(true);
+                const podcast_results = res.results;
+                let podcasts = [];
+                podcast_results.map((result) => {
+                    const podcast = {
+                        cover: result.image,
+                        podcast: result.podcast.title_original,
+                        publisher: result.podcast.publisher_original,
+                        created: result.pub_date_ms,
+                        title: result.title_original,
+                        description: result.description_original,
+                        link: result.link,
+                        podcast_url: result.audio,
+                        playtime_seconds: result.audio_length_sec,
+                    };
+                    podcasts.push(podcast);
+                });
+                if (append) setResults([...results, ...podcasts]);
+                else setResults(podcasts);
+                setOffset(res.next_offset);
+                setTotal(res.total);
+                setCount(res.count);
+                setLoading(false);
+            });
         } else {
             setTerm("");
         }
