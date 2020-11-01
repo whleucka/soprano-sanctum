@@ -89,6 +89,13 @@ export const Soprano = {
         );
         return response.data;
     },
+    getTrackPlaylists: async function (fingerprint) {
+        const response = await axios.get(
+            `/api/track/${fingerprint}/playlists`,
+            { withCredentials: true }
+        );
+        return response.data;
+    },
 };
 
 export const ListenNotes = {

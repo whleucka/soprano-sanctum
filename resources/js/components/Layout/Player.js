@@ -174,7 +174,7 @@ const Player = ({ currentTrack, shuffle }) => {
 
     return (
         <>
-            <div className="progress bg-dark">
+            <div className="progress progress-player bg-dark">
                 <div
                     id="progress"
                     className={
