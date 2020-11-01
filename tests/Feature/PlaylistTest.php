@@ -105,4 +105,12 @@ class PlaylistTest extends TestCase
         $response->assertOk();
         $response->assertExactJson(['toggle' => 0]);
     }
+
+    /**
+     * @test
+     */
+    public function a_user_can_retrieve_a_list_of_playlists_for_a_given_track()
+    {
+
+    }
 }

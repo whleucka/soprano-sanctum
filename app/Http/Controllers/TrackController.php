@@ -2,27 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PlaylistTrack;
 use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TrackController extends Controller
 {
-    public function validateFilePath()
-    {
-        return request()->validate([
-            'filepath' => [
-                'required', 
-                'string', 
-                function($attribute, $value, $fail) {
-                    if (!file_exists($value)) {
-                        $fail("Path not found");
-                    }
-                }
-            ]
-        ]);
-    }
-    
     public function stream(Track $track)
     {
         $path = ($track->fileformat !== 'mp3') ?
@@ -62,6 +48,32 @@ class TrackController extends Controller
             ]
         ]);
     }
+    
+    public function validateFilePath()
+    {
+        return request()->validate([
+            'filepath' => [
+                'required', 
+                'string', 
+                function($attribute, $value, $fail) {
+                    if (!file_exists($value)) {
+                        $fail("Path not found");
+                    }
+                }
+            ]
+        ]);
+    }
+
+    public function playlists(Track $track)
+    {
+        $this->authorize('viewAny', Track::class);
+        $output = [];
+        foreach (request()->user()->playlists as $playlist) {
+            $in_playlist = PlaylistTrack::where(['playlist_id', $playlist->id, 'track_id', $track->id])->first();
+            $output[$playlist->id] = ($in_playlist);
+        }
+        return $output;
+    } 
 
     public function search(Request $request)
     {

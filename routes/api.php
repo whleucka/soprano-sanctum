@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/track/genres', [TrackController::class, 'genres'])->name('track.genres');
     Route::get('/track/years', [TrackController::class, 'years'])->name('track.years');
     Route::get('/track/stream/{track:fingerprint}', [TrackController::class, 'stream'])->name('track.stream');
+    Route::get('/track/{track:fingerprint}/playlists', [TrackController::class, 'playlists'])->name('track.playlists');
 
     // Playlist
     Route::get('/playlist', [PlaylistController::class, 'index'])->name('playlist.index');
