@@ -77,7 +77,7 @@ class PlaylistController extends Controller
     {
         $this->authorize('update', $playlist);
         $data = $this->validateTrack(); 
-        $target = PlaylistTrack::where(['playlist_id' => $playlist->id, 'track_id' => $data['track_id']])->first();
+        $target = PlaylistTrack::where('playlist_id', '=', $playlist->id)->where('track_id', '=', $data['track_id'])->first();
         if ($target) {
             $target->delete();
             return ['toggle' => 0];

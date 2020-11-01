@@ -69,8 +69,8 @@ class TrackController extends Controller
         $this->authorize('viewAny', Track::class);
         $output = [];
         foreach (request()->user()->playlists as $playlist) {
-            $in_playlist = PlaylistTrack::where(['playlist_id', $playlist->id, 'track_id', $track->id])->first();
-            $output[$playlist->id] = ($in_playlist);
+            $in_playlist = PlaylistTrack::where('playlist_id', '=', $playlist->id)->where('track_id', '=', $track->id)->first();
+            $output[$playlist->id] = ($in_playlist) ? 1 : 0;
         }
         return $output;
     } 
