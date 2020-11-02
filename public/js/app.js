@@ -80712,8 +80712,17 @@ var Menu = function Menu() {
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
+
   var handleCopyPlaylist = function handleCopyPlaylist(e) {
-    console.log("oh hi!");
+    var playlist_id = e.currentTarget.id;
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_5__["Soprano"].loadPlaylist(playlist_id).then(function (res) {
+      dispatch({
+        type: "copyPlaylist",
+        payload: res
+      });
+      history.push("/home");
+    });
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -80781,6 +80790,7 @@ var Menu = function Menu() {
   }, state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "navbar-item",
+      id: playlist.id,
       onClick: handleCopyPlaylist,
       key: i
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -80902,7 +80912,7 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Soprano", function() { return Soprano; });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Soprano", function() { return Soprano; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListenNotes", function() { return ListenNotes; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -81345,30 +81355,17 @@ var Soprano = {
     }
 
     return getTrackPlaylists;
-  }()
-};
-var ListenNotes = {
-  searchEpisode: function () {
-    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15(term, offset, sortByDate) {
+  }(),
+  loadPlaylist: function () {
+    var _loadPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15(playlistId) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee15$(_context15) {
         while (1) {
           switch (_context15.prev = _context15.next) {
             case 0:
               _context15.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
-                headers: {
-                  "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
-                },
-                params: {
-                  q: term,
-                  type: "episode",
-                  language: "English",
-                  region: "ca,us,gb,au,nz",
-                  sort_by_date: sortByDate,
-                  offset: offset
-                },
-                withCredentials: false
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist/".concat(playlistId, "/load"), {
+                withCredentials: true
               });
 
             case 2:
@@ -81383,13 +81380,57 @@ var ListenNotes = {
       }, _callee15);
     }));
 
-    function searchEpisode(_x11, _x12, _x13) {
+    function loadPlaylist(_x11) {
+      return _loadPlaylist.apply(this, arguments);
+    }
+
+    return loadPlaylist;
+  }()
+};
+var ListenNotes = {
+  searchEpisode: function () {
+    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16(term, offset, sortByDate) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee16$(_context16) {
+        while (1) {
+          switch (_context16.prev = _context16.next) {
+            case 0:
+              _context16.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
+                headers: {
+                  "X-ListenAPI-Key": process.env.MIX_LISTEN_API_KEY
+                },
+                params: {
+                  q: term,
+                  type: "episode",
+                  language: "English",
+                  region: "ca,us,gb,au,nz",
+                  sort_by_date: sortByDate,
+                  offset: offset
+                },
+                withCredentials: false
+              });
+
+            case 2:
+              response = _context16.sent;
+              return _context16.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context16.stop();
+          }
+        }
+      }, _callee16);
+    }));
+
+    function searchEpisode(_x12, _x13, _x14) {
       return _searchEpisode.apply(this, arguments);
     }
 
     return searchEpisode;
   }()
 };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -81676,23 +81717,27 @@ var PlaylistModule = function PlaylistModule() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
-/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+
 
 
 
 
 var PlaylistsModule = function PlaylistsModule() {
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_0__["useHistory"])();
 
   var handleDelete = function handleDelete(e) {
     e.preventDefault();
     var id = parseInt(e.currentTarget.id);
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].removePlaylist(id).then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].removePlaylist(id).then(function (res) {
       dispatch({
         type: "removePlaylist",
         payload: id
@@ -81700,26 +81745,39 @@ var PlaylistsModule = function PlaylistsModule() {
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  var handleCopyPlaylist = function handleCopyPlaylist(e) {
+    var playlist_id = e.currentTarget.id;
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].loadPlaylist(playlist_id).then(function (res) {
+      dispatch({
+        type: "copyPlaylist",
+        payload: res
+      });
+      history.push("/home");
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "playlists-module"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
     id: "tbl-playlists",
     className: "w-100 table"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
       key: i
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
       className: "border-0"
-    }, playlist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+    }, playlist.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
       className: "text-right border-0"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
       id: playlist.id,
       onClick: handleDelete,
       className: "btn btn-sm btn-danger mr-1"
-    }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      id: playlist.id,
+      onClick: handleCopyPlaylist,
       className: "btn btn-sm btn-success"
     }, "Play")));
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null))));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PlaylistsModule);
@@ -82779,8 +82837,8 @@ var mod = function mod(x, n) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/whleucka/Projects/Laravel/soprano-sanctum/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/whleucka/Projects/Laravel/soprano-sanctum/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/whleucka/Data/www/soprano-sanctum/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/whleucka/Data/www/soprano-sanctum/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

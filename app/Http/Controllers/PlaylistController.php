@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TrackResource;
 use App\Models\Playlist;
 use App\Models\PlaylistTrack;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class PlaylistController extends Controller
@@ -87,6 +89,12 @@ class PlaylistController extends Controller
             return ['toggle' => 1];
         }     
     }
+
+    public function load(Playlist $playlist) 
+    {
+        $this->authorize('view', $playlist);
+        return $playlist->tracks;
+   }
 
     public function validateTrack()
     {

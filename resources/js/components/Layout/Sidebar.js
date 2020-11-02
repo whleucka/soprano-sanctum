@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import FontAwesome from "react-fontawesome";
 import { SopranoContext } from "../Context/SopranoContext";
 import Avatar from "react-avatar";
@@ -8,9 +8,13 @@ import Errors from "../Utilities/Errors";
 
 const Menu = () => {
     const { state, dispatch } = useContext(SopranoContext);
-
+    const history = useHistory();
     const handleCopyPlaylist = (e) => {
-        console.log("oh hi!");
+        const playlist_id = e.currentTarget.id;
+        Soprano.loadPlaylist(playlist_id).then((res) => {
+            dispatch({ type: "copyPlaylist", payload: res });
+            history.push("/home");
+        });
     };
 
     return (
@@ -80,6 +84,7 @@ const Menu = () => {
                             return (
                                 <li
                                     className="navbar-item"
+                                    id={playlist.id}
                                     onClick={handleCopyPlaylist}
                                     key={i}
                                 >

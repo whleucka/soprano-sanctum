@@ -1,15 +1,25 @@
+import { useHistory } from "react-router-dom";
 import React, { useContext, useState } from "react";
 import { SopranoContext } from "../Context/SopranoContext";
 import { Soprano } from "../Library/Soprano";
 
 const PlaylistsModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
+    const history = useHistory();
 
     const handleDelete = (e) => {
         e.preventDefault();
         const id = parseInt(e.currentTarget.id);
         Soprano.removePlaylist(id).then((res) => {
             dispatch({ type: "removePlaylist", payload: id });
+        });
+    };
+
+    const handleCopyPlaylist = (e) => {
+        const playlist_id = e.currentTarget.id;
+        Soprano.loadPlaylist(playlist_id).then((res) => {
+            dispatch({ type: "copyPlaylist", payload: res });
+            history.push("/home");
         });
     };
 
@@ -32,7 +42,11 @@ const PlaylistsModule = () => {
                                         >
                                             Delete
                                         </button>
-                                        <button className="btn btn-sm btn-success">
+                                        <button
+                                            id={playlist.id}
+                                            onClick={handleCopyPlaylist}
+                                            className="btn btn-sm btn-success"
+                                        >
                                             Play
                                         </button>
                                     </td>

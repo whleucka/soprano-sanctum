@@ -96,6 +96,12 @@ export const Soprano = {
         );
         return response.data;
     },
+    loadPlaylist: async function (playlistId) {
+        const response = await axios.get(`/api/playlist/${playlistId}/load`, {
+            withCredentials: true,
+        });
+        return response.data;
+    },
 };
 
 export const ListenNotes = {
