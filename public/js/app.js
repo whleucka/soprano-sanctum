@@ -80136,10 +80136,12 @@ var App = function App() {
     });
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (state.playlist.length > 0) dispatch({
-      type: "changeTrack",
-      payload: state.currentIndex
-    });
+    if (state.playlist.length > 0) {
+      dispatch({
+        type: "changeTrack",
+        payload: state.currentIndex
+      });
+    }
   }, [state.currentIndex]);
   var ContextValue = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
     return {
@@ -80433,6 +80435,28 @@ var Player = function Player(_ref) {
     if (typeof max_seconds !== "undefined") startProgress(max_seconds);
   };
 
+  var mediaSessionMeta = function mediaSessionMeta(title, artist, album, cover_src) {
+    if (cover_src && "mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new window.MediaMetadata({
+        title: title,
+        artist: artist,
+        album: album,
+        artwork: [{
+          src: cover_src,
+          sizes: "256x256",
+          type: "image/jpeg"
+        }]
+      });
+      navigator.mediaSession.setActionHandler("play", handlePlayTrack);
+      navigator.mediaSession.setActionHandler("pause", handlePauseTrack);
+      /*navigator.mediaSession.setActionHandler('seekbackward', function() {});
+      navigator.mediaSession.setActionHandler('seekforward', function() {});*/
+
+      navigator.mediaSession.setActionHandler("previoustrack", handlePrevTrack);
+      navigator.mediaSession.setActionHandler("nexttrack", handleNextTrack);
+    }
+  };
+
   var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null; // Override if podcast
 
   if (typeof currentTrack !== "undefined" && currentTrack.podcast_url) trackUrl = currentTrack.podcast_url;
@@ -80461,7 +80485,11 @@ var Player = function Player(_ref) {
   }, [player]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     clearInterval(progressTimer);
-    if (state.currentTrack) setTimer(state.currentTrack.playtime_seconds);
+
+    if (state.currentTrack) {
+      setTimer(state.currentTrack.playtime_seconds);
+      mediaSessionMeta(state.currentTrack.title, state.currentTrack.artist, state.currentTrack.album, state.currentTrack.cover);
+    }
   }, [state.currentIndex, state.currentTrack]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "progress progress-player bg-dark"

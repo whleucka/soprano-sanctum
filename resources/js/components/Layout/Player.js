@@ -126,6 +126,31 @@ const Player = ({ currentTrack, shuffle }) => {
         if (typeof max_seconds !== "undefined") startProgress(max_seconds);
     };
 
+    const mediaSessionMeta = (title, artist, album, cover_src) => {
+        if (cover_src && "mediaSession" in navigator) {
+            navigator.mediaSession.metadata = new window.MediaMetadata({
+                title: title,
+                artist: artist,
+                album: album,
+                artwork: [
+                    { src: cover_src, sizes: "256x256", type: "image/jpeg" },
+                ],
+            });
+            navigator.mediaSession.setActionHandler("play", handlePlayTrack);
+            navigator.mediaSession.setActionHandler("pause", handlePauseTrack);
+            /*navigator.mediaSession.setActionHandler('seekbackward', function() {});
+            navigator.mediaSession.setActionHandler('seekforward', function() {});*/
+            navigator.mediaSession.setActionHandler(
+                "previoustrack",
+                handlePrevTrack
+            );
+            navigator.mediaSession.setActionHandler(
+                "nexttrack",
+                handleNextTrack
+            );
+        }
+    };
+
     let trackUrl =
         typeof currentTrack !== "undefined" && currentTrack.fingerprint
             ? `/api/track/stream/${currentTrack.fingerprint}`
@@ -169,7 +194,15 @@ const Player = ({ currentTrack, shuffle }) => {
 
     useEffect(() => {
         clearInterval(progressTimer);
-        if (state.currentTrack) setTimer(state.currentTrack.playtime_seconds);
+        if (state.currentTrack) {
+            setTimer(state.currentTrack.playtime_seconds);
+            mediaSessionMeta(
+                state.currentTrack.title,
+                state.currentTrack.artist,
+                state.currentTrack.album,
+                state.currentTrack.cover
+            );
+        }
     }, [state.currentIndex, state.currentTrack]);
 
     return (

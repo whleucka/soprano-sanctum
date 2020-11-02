@@ -36,8 +36,9 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        if (state.playlist.length > 0)
+        if (state.playlist.length > 0) {
             dispatch({ type: "changeTrack", payload: state.currentIndex });
+        }
     }, [state.currentIndex]);
 
     const ContextValue = useMemo(() => {
