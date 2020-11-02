@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TrackResource;
 use App\Models\PlaylistTrack;
 use App\Models\Track;
 use Illuminate\Http\Request;
@@ -87,7 +88,7 @@ class TrackController extends Controller
             ->orWhere('year', '=', $data['term'])
             ->orderBy('artist')->orderBy('album')
             ->get();
-        return $tracks;
+        return TrackResource::collection($tracks);
     }
 
     public function genres(Request $request)

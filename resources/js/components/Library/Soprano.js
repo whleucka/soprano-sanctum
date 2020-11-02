@@ -47,7 +47,7 @@ export const Soprano = {
             { term },
             { withCredentials: true }
         );
-        return response.data;
+        return response.data.data;
     },
     getGenres: async function () {
         const response = await axios.get("/api/track/genres", {
@@ -100,7 +100,7 @@ export const Soprano = {
         const response = await axios.get(`/api/playlist/${playlistId}/load`, {
             withCredentials: true,
         });
-        return response.data;
+        return response.data.data;
     },
 };
 

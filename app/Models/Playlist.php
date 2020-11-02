@@ -12,6 +12,6 @@ class Playlist extends Model
 
     public function tracks()
     {
-        return $this->belongsToMany(Track::class, 'playlist_tracks');
+        return $this->belongsToMany(Track::class, 'playlist_tracks')->orderBy('artist')->orderBy('album');
     }
 }

@@ -80912,7 +80912,7 @@ var CreatePlaylistModal = function CreatePlaylistModal() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Soprano", function() { return Soprano; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Soprano", function() { return Soprano; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListenNotes", function() { return ListenNotes; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -81126,7 +81126,7 @@ var Soprano = {
 
             case 2:
               response = _context7.sent;
-              return _context7.abrupt("return", response.data);
+              return _context7.abrupt("return", response.data.data);
 
             case 4:
             case "end":
@@ -81370,7 +81370,7 @@ var Soprano = {
 
             case 2:
               response = _context15.sent;
-              return _context15.abrupt("return", response.data);
+              return _context15.abrupt("return", response.data.data);
 
             case 4:
             case "end":
@@ -81398,7 +81398,7 @@ var ListenNotes = {
               _context16.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
                 headers: {
-                  "X-ListenAPI-Key": process.env.MIX_LISTEN_API_KEY
+                  "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
                 },
                 params: {
                   q: term,
@@ -81430,7 +81430,6 @@ var ListenNotes = {
     return searchEpisode;
   }()
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -82837,8 +82836,8 @@ var mod = function mod(x, n) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/whleucka/Data/www/soprano-sanctum/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/whleucka/Data/www/soprano-sanctum/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/whleucka/Projects/Laravel/soprano-sanctum/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/whleucka/Projects/Laravel/soprano-sanctum/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

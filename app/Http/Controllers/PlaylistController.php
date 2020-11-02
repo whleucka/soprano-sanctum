@@ -93,7 +93,7 @@ class PlaylistController extends Controller
     public function load(Playlist $playlist) 
     {
         $this->authorize('view', $playlist);
-        return $playlist->tracks;
+        return TrackResource::collection($playlist->tracks);
    }
 
     public function validateTrack()
