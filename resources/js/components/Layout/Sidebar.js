@@ -8,6 +8,11 @@ import Errors from "../Utilities/Errors";
 
 const Menu = () => {
     const { state, dispatch } = useContext(SopranoContext);
+
+    const handleCopyPlaylist = (e) => {
+        console.log("oh hi!");
+    };
+
     return (
         <nav id="sidebar">
             <ul className="navbar-nav">
@@ -73,7 +78,11 @@ const Menu = () => {
                     {state.playlists.length > 0 &&
                         state.playlists.map((playlist, i) => {
                             return (
-                                <li className="navbar-item" key={i}>
+                                <li
+                                    className="navbar-item"
+                                    onClick={handleCopyPlaylist}
+                                    key={i}
+                                >
                                     <Avatar
                                         size={42}
                                         className="sidebar-icon playlist-avatar mr-2"

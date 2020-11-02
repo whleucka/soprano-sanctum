@@ -80712,6 +80712,10 @@ var Menu = function Menu() {
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
+  var handleCopyPlaylist = function handleCopyPlaylist(e) {
+    console.log("oh hi!");
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     id: "sidebar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -80777,6 +80781,7 @@ var Menu = function Menu() {
   }, state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "navbar-item",
+      onClick: handleCopyPlaylist,
       key: i
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_4__["default"], {
       size: 42,
