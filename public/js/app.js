@@ -81494,7 +81494,11 @@ var DirectoryModule = function DirectoryModule() {
     onClick: function onClick() {
       setShowAddDirectory(!showAddDirectory);
     }
-  }, showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cancel"), !showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "minus"
+  }), " Cancel"), !showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    name: "plus"
+  }), " Add")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "mx-auto"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_5__["Info"], {
     classes: "mt-4 mb-1",
@@ -81551,8 +81555,8 @@ var Directory = function Directory(_ref) {
         var path_arr = path.split("/");
         var filename = path_arr[path_arr.length - 1];
         _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
-          console.log("Synchronizing ".concat(filename));
           var pct = i / count * 100;
+          console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
           setProgress(pct);
           if (i === paths.length - 1) setScanning(false);
         })["catch"](function (err) {
@@ -81572,13 +81576,13 @@ var Directory = function Directory(_ref) {
     onClick: handleScanDirectory
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "retweet"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }), " Scan"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     id: directory.id,
     className: "btn btn-sm btn-danger float-right",
     onClick: handleRemoveDirectory
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     name: "trash"
-  })))), scanning && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), " Delete"))), scanning && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "progress scan-progress"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "progress-bar",
@@ -81719,15 +81723,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
-/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+
 
 
 
 
 
 var PlaylistsModule = function PlaylistsModule() {
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
@@ -81736,7 +81743,7 @@ var PlaylistsModule = function PlaylistsModule() {
   var handleDelete = function handleDelete(e) {
     e.preventDefault();
     var id = parseInt(e.currentTarget.id);
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].removePlaylist(id).then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].removePlaylist(id).then(function (res) {
       dispatch({
         type: "removePlaylist",
         payload: id
@@ -81746,7 +81753,7 @@ var PlaylistsModule = function PlaylistsModule() {
 
   var handleCopyPlaylist = function handleCopyPlaylist(e) {
     var playlist_id = e.currentTarget.id;
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].loadPlaylist(playlist_id).then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].loadPlaylist(playlist_id).then(function (res) {
       dispatch({
         type: "copyPlaylist",
         payload: res
@@ -81771,11 +81778,15 @@ var PlaylistsModule = function PlaylistsModule() {
       id: playlist.id,
       onClick: handleDelete,
       className: "btn btn-sm btn-danger mr-1"
-    }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      name: "trash"
+    }), " Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
       id: playlist.id,
       onClick: handleCopyPlaylist,
       className: "btn btn-sm btn-success"
-    }, "Play")));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      name: "play"
+    }), " Load")));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null))));
 };
 

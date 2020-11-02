@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import React, { useContext, useState } from "react";
+import FontAwesome from "react-fontawesome";
 import { SopranoContext } from "../Context/SopranoContext";
 import { Soprano } from "../Library/Soprano";
 
@@ -40,14 +41,14 @@ const PlaylistsModule = () => {
                                             onClick={handleDelete}
                                             className="btn btn-sm btn-danger mr-1"
                                         >
-                                            Delete
+                                            <FontAwesome name="trash" /> Delete
                                         </button>
                                         <button
                                             id={playlist.id}
                                             onClick={handleCopyPlaylist}
                                             className="btn btn-sm btn-success"
                                         >
-                                            Play
+                                            <FontAwesome name="play" /> Load
                                         </button>
                                     </td>
                                 </tr>

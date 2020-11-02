@@ -23,8 +23,16 @@ const DirectoryModule = () => {
                     setShowAddDirectory(!showAddDirectory);
                 }}
             >
-                {showAddDirectory && <span>Cancel</span>}
-                {!showAddDirectory && <span>Add</span>}
+                {showAddDirectory && (
+                    <span>
+                        <FontAwesome name="minus" /> Cancel
+                    </span>
+                )}
+                {!showAddDirectory && (
+                    <span>
+                        <FontAwesome name="plus" /> Add
+                    </span>
+                )}
             </button>
             <h4>Directories</h4>
             {showAddDirectory && (
@@ -75,8 +83,10 @@ const Directory = ({ directory }) => {
                 const filename = path_arr[path_arr.length - 1];
                 Soprano.synchTrack(path)
                     .then((_res) => {
-                        console.log(`Synchronizing ${filename}`);
                         const pct = (i / count) * 100;
+                        console.log(
+                            `Synchronizing ${pct.toFixed(1)}% ${filename}`
+                        );
                         setProgress(pct);
                         if (i === paths.length - 1) setScanning(false);
                     })
@@ -97,14 +107,14 @@ const Directory = ({ directory }) => {
                         className="btn btn-sm btn-primary float-right"
                         onClick={handleScanDirectory}
                     >
-                        <FontAwesome name="retweet" />
+                        <FontAwesome name="retweet" /> Scan
                     </button>
                     <button
                         id={directory.id}
                         className="btn btn-sm btn-danger float-right"
                         onClick={handleRemoveDirectory}
                     >
-                        <FontAwesome name="trash" />
+                        <FontAwesome name="trash" /> Delete
                     </button>
                 </div>
             </div>
