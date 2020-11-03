@@ -64,7 +64,7 @@ class Track extends Model
             'bitrate' => (isset($data['bitrate'])) ? $data['bitrate'] : 0,
             'mime_type' => (isset($data['mime_type'])) ? $data['mime_type'] : '',
             'playtime_seconds' => (isset($data['playtime_seconds'])) ? $data['playtime_seconds'] : 0,
-            'playtime_string' => (isset($data['playltime_string'])) ? $data['playtime_string'] : '',
+            'playtime_string' => (isset($data['playtime_string'])) ? $data['playtime_string'] : '',
             'artist' => (isset($data['comments_html']['artist'])) ? $data['comments_html']['artist'][0] : 'No Artist',
             'album' => (isset($data['comments_html']['album'])) ? $data['comments_html']['album'][0] : 'No Album', 
             'title' => (isset($data['comments_html']['title'])) ? $data['comments_html']['title'][0] : 'No Title',
