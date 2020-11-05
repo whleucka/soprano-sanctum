@@ -82119,9 +82119,271 @@ var SearchInput = function SearchInput(_ref) {
   !*** ./resources/js/components/Module/SearchModule.js ***!
   \********************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/whleucka/Projects/Laravel/soprano-sanctum/resources/js/components/Module/SearchModule.js: Unsyntactic continue (195:43)\n\n\u001b[0m \u001b[90m 193 | \u001b[39m            \u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 194 | \u001b[39m                {years\u001b[33m.\u001b[39mmap((year\u001b[33m,\u001b[39m i) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 195 | \u001b[39m                    \u001b[36mif\u001b[39m (year\u001b[33m.\u001b[39mlength \u001b[33m!==\u001b[39m \u001b[35m4\u001b[39m) \u001b[36mcontinue\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 196 | \u001b[39m                    \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[0m \u001b[90m 197 | \u001b[39m                        \u001b[33m<\u001b[39m\u001b[33mAvatar\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 198 | \u001b[39m                            key\u001b[33m=\u001b[39m{i}\u001b[0m\n    at Object._raise (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:766:17)\n    at Object.raiseWithData (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:759:17)\n    at Object.raise (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:753:17)\n    at Object.verifyBreakContinue (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11690:12)\n    at Object.parseBreakContinueStatement (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11672:10)\n    at Object.parseStatementContent (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11447:21)\n    at Object.parseStatement (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11431:17)\n    at Object.parseIfStatement (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11785:28)\n    at Object.parseStatementContent (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11476:21)\n    at Object.parseStatement (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11431:17)\n    at Object.parseBlockOrModuleBlockBody (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:12013:25)\n    at Object.parseBlockBody (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11999:10)\n    at Object.parseBlock (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11983:10)\n    at Object.parseFunctionBody (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:10963:24)\n    at Object.parseArrowExpression (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:10932:10)\n    at Object.parseParenAndDistinguishExpression (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:10501:12)\n    at Object.parseExprAtom (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:10177:21)\n    at Object.parseExprAtom (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:4718:20)\n    at Object.parseExprSubscripts (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9844:23)\n    at Object.parseUpdate (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9824:21)\n    at Object.parseMaybeUnary (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9813:17)\n    at Object.parseExprOps (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9683:23)\n    at Object.parseMaybeConditional (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9657:23)\n    at Object.parseMaybeAssign (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9620:21)\n    at allowInAnd (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9586:39)\n    at Object.allowInAnd (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11303:12)\n    at Object.parseMaybeAssignAllowIn (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9586:17)\n    at Object.parseExprListItem (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:11051:18)\n    at Object.parseCallExpressionArguments (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:10053:22)\n    at Object.parseCoverCallAndAsyncArrowHead (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9960:29)\n    at Object.parseSubscript (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9896:19)\n    at Object.parseSubscripts (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9867:19)\n    at Object.parseExprSubscripts (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9850:17)\n    at Object.parseUpdate (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9824:21)\n    at Object.parseMaybeUnary (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9813:17)\n    at Object.parseExprOps (/home/whleucka/Projects/Laravel/soprano-sanctum/node_modules/@babel/parser/lib/index.js:9683:23)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var _TrackRow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TrackRow */ "./resources/js/components/Module/TrackRow.js");
+/* harmony import */ var _SearchInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SearchInput */ "./resources/js/components/Module/SearchInput.js");
+/* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
+/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
+/* harmony import */ var react_avatar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-avatar */ "./node_modules/react-avatar/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+var SearchModule = function SearchModule() {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
+      state = _useContext.state,
+      dispatch = _useContext.dispatch;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      term = _useState2[0],
+      setTerm = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      results = _useState6[0],
+      setResults = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      noResults = _useState8[0],
+      setNoResults = _useState8[1];
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["useHistory"])();
+
+  var search = function search(searchTerm) {
+    if (searchTerm.trim() !== "") {
+      setLoading(true);
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].search(searchTerm).then(function (res) {
+        if (!res.length) setNoResults(true);else setNoResults(false);
+        setResults(res);
+        setLoading(false);
+      });
+    } else {
+      setTerm("");
+    }
+  };
+
+  var handleInput = function handleInput(e) {
+    var input = e.currentTarget.value;
+    if (input.trim() !== "") setNoResults(false);
+    setTerm(input);
+  };
+
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    search(term);
+  };
+
+  var handleClear = function handleClear(e) {
+    e.preventDefault();
+    setResults([]);
+    setTerm("");
+    setNoResults(false);
+  };
+
+  var handleCopyPlaylist = function handleCopyPlaylist(e) {
+    e.preventDefault();
+    dispatch({
+      type: "copyPlaylist",
+      payload: results
+    });
+    dispatch({
+      type: "changeTrack",
+      payload: 0
+    });
+    history.push("/home");
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "search-cont",
+    className: "pt-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SearchInput__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    placeholder: "Artist, Album, Track, Genre...",
+    inputValue: term,
+    handleInput: handleInput,
+    handleSubmit: handleSubmit,
+    handleClear: handleClear
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "results-cont",
+    className: "mt-2"
+  }, noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__["Info"], {
+    msg: "No results found. Please search for an artist, album, track, or genre."
+  }), !loading && !term && !results.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Genres, {
+    handleClick: function handleClick(e, genre) {
+      e.preventDefault();
+      search(genre);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Years, {
+    handleClick: function handleClick(e, year) {
+      e.preventDefault();
+      search(year);
+    }
+  })), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_6__["BarSpinner"], {
+    width: "80%"
+  }), results.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "search-actions",
+    className: "py-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "btn btn-sm btn-success",
+    onClick: handleCopyPlaylist
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    name: "play",
+    className: "mr-2"
+  }), " ", "Playlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
+    results: results
+  })));
+};
+
+var SearchResults = function SearchResults(_ref) {
+  var results = _ref.results;
+  var hasResults = results.length > 0;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasResults && results.map(function (result, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      type: "search",
+      index: i,
+      track: result,
+      key: i
+    });
+  }));
+};
+
+var Genres = function Genres(_ref2) {
+  var handleClick = _ref2.handleClick;
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState10 = _slicedToArray(_useState9, 2),
+      genres = _useState10[0],
+      setGenres = _useState10[1];
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      loading = _useState12[0],
+      setLoading = _useState12[1];
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      noResults = _useState14[0],
+      setNoResults = _useState14[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setLoading(true);
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getGenres().then(function (res) {
+      if (!res.length) setNoResults(true);else setNoResults(false);
+      setGenres(res);
+      setLoading(false);
+    });
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+    id: "genre",
+    className: "mt-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Genre"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_6__["GridSpinner"], {
+    size: 14
+  }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__["Info"], {
+    msg: "No genres found."
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "genre-cont",
+    className: "d-flex justify-content-around flex-wrap"
+  }, genres.map(function (genre, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      key: i,
+      onClick: function onClick(e) {
+        handleClick(e, genre);
+      },
+      className: "grid-icon m-2",
+      title: name,
+      value: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_10__["htmlDecode"])(genre)
+    });
+  })));
+};
+
+var Years = function Years(_ref3) {
+  var handleClick = _ref3.handleClick;
+
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState16 = _slicedToArray(_useState15, 2),
+      years = _useState16[0],
+      setYears = _useState16[1];
+
+  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      loading = _useState18[0],
+      setLoading = _useState18[1];
+
+  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState20 = _slicedToArray(_useState19, 2),
+      noResults = _useState20[0],
+      setNoResults = _useState20[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setLoading(true);
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getYears().then(function (res) {
+      if (!res.length) setNoResults(true);else setNoResults(false);
+      setYears(res);
+      setLoading(false);
+    });
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+    id: "year",
+    className: "mt-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Year"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_6__["GridSpinner"], {
+    size: 14
+  }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__["Info"], {
+    msg: "No years found."
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "years-cont",
+    className: "d-flex justify-content-around flex-wrap"
+  }, years.map(function (year, i) {
+    if (year.length !== 4) return;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      key: i,
+      onClick: function onClick(e) {
+        handleClick(e, year);
+      },
+      className: "grid-icon m-2",
+      title: year,
+      value: year
+    });
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SearchModule);
 
 /***/ }),
 
