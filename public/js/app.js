@@ -81580,16 +81580,19 @@ var Directory = function Directory(_ref) {
       var count = res.count;
       var paths = res.paths;
       paths.map(function (path, i) {
+        var delay = 1000;
         var path_arr = path.split("/");
         var filename = path_arr[path_arr.length - 1];
-        _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
-          var pct = i / count * 100;
-          console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
-          setProgress(pct);
-          if (i === paths.length - 1) setScanning(false);
-        })["catch"](function (err) {
-          setScanning(false);
-        });
+        setTimeout(function (_) {
+          _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
+            var pct = i / count * 100;
+            console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
+            setProgress(pct);
+            if (i === paths.length - 1) setScanning(false);
+          })["catch"](function (err) {
+            setScanning(false);
+          });
+        }, delay);
       });
     });
   };
