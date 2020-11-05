@@ -8,6 +8,7 @@ import { BarSpinner, GridSpinner } from "../Utilities/Spinner";
 import { Info } from "../Utilities/Alerts";
 import Avatar from "react-avatar";
 import { useHistory } from "react-router-dom";
+import { htmlDecode } from "../Utilities/Tools";
 
 const SearchModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -157,7 +158,7 @@ const Genres = ({ handleClick }) => {
                             }}
                             className="grid-icon m-2"
                             title={name}
-                            value={genre}
+                            value={htmlDecode(genre)}
                         />
                     );
                 })}
