@@ -192,6 +192,7 @@ const Years = ({ handleClick }) => {
                 className="d-flex justify-content-around flex-wrap"
             >
                 {years.map((year, i) => {
+                    if (year.length !== 4) continue;
                     return (
                         <Avatar
                             key={i}
