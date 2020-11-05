@@ -81587,47 +81587,35 @@ var Directory = function Directory(_ref) {
       setScanning(true);
       var count = res.count;
       var paths = res.paths;
-      paths.map(function (path, i) {
-        var delay = 1000;
-        var path_arr = path.split("/");
-        var filename = path_arr[path_arr.length - 1];
+      paths.map( /*#__PURE__*/function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(path, i) {
+          var path_arr, filename;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  path_arr = path.split("/");
+                  filename = path_arr[path_arr.length - 1];
+                  _context.next = 4;
+                  return _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].synchTrack(path).then(function (_res) {
+                    var pct = i / count * 100;
+                    console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
+                    setProgress(pct);
+                    if (i === paths.length - 1) setScanning(false);
+                  });
 
-        var timer = function timer(ms) {
-          return new Promise(function (res) {
-            return setTimeout(res, ms);
-          });
-        };
-
-        function synch() {
-          return _synch.apply(this, arguments);
-        }
-
-        function _synch() {
-          _synch = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].synchTrack(path).then(function (_res) {
-                      var pct = i / count * 100;
-                      console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
-                      setProgress(pct);
-                    });
-                    _context.next = 3;
-                    return timer(delay);
-
-                  case 3:
-                  case "end":
-                    return _context.stop();
-                }
+                case 4:
+                case "end":
+                  return _context.stop();
               }
-            }, _callee);
-          }));
-          return _synch.apply(this, arguments);
-        }
+            }
+          }, _callee);
+        }));
 
-        synch();
-      });
+        return function (_x, _x2) {
+          return _ref2.apply(this, arguments);
+        };
+      }());
     });
   };
 
@@ -81658,8 +81646,8 @@ var Directory = function Directory(_ref) {
   })));
 };
 
-var AddDirectory = function AddDirectory(_ref2) {
-  var hideAddDirectory = _ref2.hideAddDirectory;
+var AddDirectory = function AddDirectory(_ref3) {
+  var hideAddDirectory = _ref3.hideAddDirectory;
 
   var _useContext3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
       state = _useContext3.state,
