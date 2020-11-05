@@ -81580,7 +81580,7 @@ var Directory = function Directory(_ref) {
       var count = res.count;
       var paths = res.paths;
       paths.map(function (path, i) {
-        var delay = 1000;
+        var delay = 2500;
         var path_arr = path.split("/");
         var filename = path_arr[path_arr.length - 1];
         setTimeout(function (_) {

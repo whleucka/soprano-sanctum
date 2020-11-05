@@ -79,7 +79,7 @@ const Directory = ({ directory }) => {
             const count = res.count;
             const paths = res.paths;
             paths.map((path, i) => {
-                const delay = 1000;
+                const delay = 2500;
                 const path_arr = path.split("/");
                 const filename = path_arr[path_arr.length - 1];
                 setTimeout((_) => {
