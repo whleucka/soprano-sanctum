@@ -18,7 +18,7 @@ class CreateTracksTable extends Migration
             $table->char('fingerprint', 32)
                   ->unique()
                   ->index();
-            $table->string('filenamepath');
+            $table->mediumText('filenamepath');
             $table->string('filename');
             $table->string('filepath');
             $table->string('fileformat');
