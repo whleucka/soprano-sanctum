@@ -53,6 +53,7 @@ class Track extends Model
         $id3 = new getID3;
         $data = $id3->analyze($filepath);
         getid3_lib::CopyTagsToComments($data);
+       
         return [
             'fingerprint' => md5($data['filenamepath']),
             'filenamepath' => $data['filenamepath'],
@@ -70,7 +71,7 @@ class Track extends Model
             'title' => (isset($data['comments_html']['title'])) ? $data['comments_html']['title'][0] : 'No Title',
             'year' => (isset($data['comments_html']['year'])) ? $data['comments_html']['year'][0] : '',
             'number' => (isset($data['comments_html']['track_number'])) ? $data['comments_html']['track_number'][0] : '',
-            'genre' => (isset($data['comments_html']['genre'])) ? implode(',', str_replace('-', ' ', strtoupper($data['comments_html']['genre']))) : '',
+            'genre' => (isset($data['comments_html']['genre'])) ? strtoupper(implode(',', str_replace('-', ' ', $data['comments_html']['genre']))) : '',
         ];
     }
 
