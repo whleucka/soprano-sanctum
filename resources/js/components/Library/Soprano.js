@@ -1,32 +1,5 @@
 import axios from "axios";
 
-function promiseDebounce(fn, delay, count) {
-    var working = 0,
-        queue = [];
-    function work() {
-        if (queue.length === 0 || working === count) return;
-        working++;
-        Promise.delay(delay)
-            .tap(function () {
-                working--;
-            })
-            .then(work);
-        var next = queue.shift();
-        next[2](fn.apply(next[0], next[1]));
-    }
-    return function debounced() {
-        var args = arguments;
-        return new Promise(
-            function (resolve) {
-                queue.push([this, args, resolve]);
-                if (working < count) work();
-            }.bind(this)
-        );
-    };
-}
-
-axios.post = promiseDebounce(axios.post, 1000, 2);
-
 export const Soprano = {
     getUser: async function () {
         const response = await axios.get("/api/user", {
@@ -61,11 +34,9 @@ export const Soprano = {
         return response.data;
     },
     synchTrack: async function (path) {
-        const response = await axios.post(
-            "/api/track",
-            { filepath: path },
-            { withCredentials: true }
-        );
+        const response = await axios
+            .post("/api/track", { filepath: path }, { withCredentials: true })
+            .then(await wait(50));
         return response.data;
     },
     search: async function (term) {
@@ -130,6 +101,12 @@ export const Soprano = {
         return response.data.data;
     },
 };
+
+function wait(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 
 export const ListenNotes = {
     searchEpisode: async function (term, offset, sortByDate) {

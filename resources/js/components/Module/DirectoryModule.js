@@ -72,23 +72,27 @@ const Directory = ({ directory }) => {
         });
     };
 
+    const doRequests = async (count, paths) => {
+        for (let i = 0; i < count; i++) {
+            const path = paths[i];
+            const path_arr = path.split("/");
+            const filename = path_arr[path_arr.length - 1];
+            await Soprano.synchTrack(path).then((_res) => {
+                const pct = (i / count) * 100;
+                console.log(`Synchronizing ${pct.toFixed(1)}% ${filename}`);
+                setProgress(pct);
+                if (i === count - 1) setScanning(false);
+            });
+        }
+    };
+
     const handleScanDirectory = (e) => {
         const id = parseInt(e.currentTarget.id);
-        Soprano.scanDirectory(id).then((res) => {
+        Soprano.scanDirectory(id).then(async (res) => {
             setScanning(true);
             const count = res.count;
             const paths = res.paths;
-            for (let i = 0; i < count; i++) {
-                const path = paths[i];
-                const path_arr = path.split("/");
-                const filename = path_arr[path_arr.length - 1];
-                Soprano.synchTrack(path).then((_res) => {
-                    const pct = (i / count) * 100;
-                    console.log(`Synchronizing ${pct.toFixed(1)}% ${filename}`);
-                    setProgress(pct);
-                    if (i === count - 1) setScanning(false);
-                });
-            }
+            doRequests(count, paths);
         });
     };
 

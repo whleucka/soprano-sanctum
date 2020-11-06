@@ -80953,31 +80953,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-
-function promiseDebounce(fn, delay, count) {
-  var working = 0,
-      queue = [];
-
-  function work() {
-    if (queue.length === 0 || working === count) return;
-    working++;
-    Promise.delay(delay).tap(function () {
-      working--;
-    }).then(work);
-    var next = queue.shift();
-    next[2](fn.apply(next[0], next[1]));
-  }
-
-  return function debounced() {
-    var args = arguments;
-    return new Promise(function (resolve) {
-      queue.push([this, args, resolve]);
-      if (working < count) work();
-    }.bind(this));
-  };
-}
-
-axios__WEBPACK_IMPORTED_MODULE_1___default.a.post = promiseDebounce(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post, 1000, 2);
 var Soprano = {
   getUser: function () {
     var _getUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -81138,18 +81113,24 @@ var Soprano = {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              _context6.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track", {
+              _context6.t0 = axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track", {
                 filepath: path
               }, {
                 withCredentials: true
               });
+              _context6.next = 3;
+              return wait(50);
 
-            case 2:
+            case 3:
+              _context6.t1 = _context6.sent;
+              _context6.next = 6;
+              return _context6.t0.then.call(_context6.t0, _context6.t1);
+
+            case 6:
               response = _context6.sent;
               return _context6.abrupt("return", response.data);
 
-            case 4:
+            case 8:
             case "end":
               return _context6.stop();
           }
@@ -81440,6 +81421,13 @@ var Soprano = {
     return loadPlaylist;
   }()
 };
+
+function wait(ms) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, ms);
+  });
+}
+
 var ListenNotes = {
   searchEpisode: function () {
     var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16(term, offset, sortByDate) {
@@ -81495,14 +81483,22 @@ var ListenNotes = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
-/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
-/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
-/* harmony import */ var _Utilities_Errors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Errors */ "./resources/js/components/Utilities/Errors.js");
-/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var _Utilities_Errors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Utilities/Errors */ "./resources/js/components/Utilities/Errors.js");
+/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -81523,47 +81519,47 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var DirectoryModule = function DirectoryModule() {
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
       showAddDirectory = _useState2[0],
       setShowAddDirectory = _useState2[1];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getDirectories().then(function (res) {
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].getDirectories().then(function (res) {
       dispatch({
         type: "getDirectories",
         payload: res
       });
     });
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "directories"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     className: "btn btn-sm float-right mr-2 btn-success",
     onClick: function onClick() {
       setShowAddDirectory(!showAddDirectory);
     }
-  }, showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  }, showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "minus"
-  }), " Cancel"), !showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  }), " Cancel"), !showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "plus"
-  }), " Add")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Directories"), showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), " Add")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Directories"), showAddDirectory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "mx-auto"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_5__["Info"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_6__["Info"], {
     classes: "mt-4 mb-1",
     msg: "Add a directory path that is located on the server. Press the scan button when you're ready to synchronize the database. Accepted formats are mp3, m4a, flac, ogg."
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "pb-3 pt-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AddDirectory, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AddDirectory, {
     hideAddDirectory: function hideAddDirectory() {
       setShowAddDirectory(false);
     }
   }))), state.directories && state.directories.length > 0 && state.directories.map(function (directory, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Directory, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Directory, {
       key: i,
       directory: directory
     });
@@ -81573,16 +81569,16 @@ var DirectoryModule = function DirectoryModule() {
 var Directory = function Directory(_ref) {
   var directory = _ref.directory;
 
-  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
       state = _useContext2.state,
       dispatch = _useContext2.dispatch;
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(0),
       _useState4 = _slicedToArray(_useState3, 2),
       progress = _useState4[0],
       setProgress = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState6 = _slicedToArray(_useState5, 2),
       scanning = _useState6[0],
       setScanning = _useState6[1];
@@ -81590,7 +81586,7 @@ var Directory = function Directory(_ref) {
   var handleRemoveDirectory = function handleRemoveDirectory(e) {
     e.preventDefault();
     var id = parseInt(e.currentTarget.id);
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].removeDirectory(id).then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].removeDirectory(id).then(function (res) {
       dispatch({
         type: "removeDirectory",
         payload: id
@@ -81598,50 +81594,113 @@ var Directory = function Directory(_ref) {
     });
   };
 
+  var doRequests = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(count, paths) {
+      var _loop, i;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _loop = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _loop(i) {
+                var path, path_arr, filename;
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        path = paths[i];
+                        path_arr = path.split("/");
+                        filename = path_arr[path_arr.length - 1];
+                        _context.next = 5;
+                        return _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].synchTrack(path).then(function (_res) {
+                          var pct = i / count * 100;
+                          console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
+                          setProgress(pct);
+                          if (i === count - 1) setScanning(false);
+                        });
+
+                      case 5:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _loop);
+              });
+              i = 0;
+
+            case 2:
+              if (!(i < count)) {
+                _context2.next = 7;
+                break;
+              }
+
+              return _context2.delegateYield(_loop(i), "t0", 4);
+
+            case 4:
+              i++;
+              _context2.next = 2;
+              break;
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function doRequests(_x, _x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
   var handleScanDirectory = function handleScanDirectory(e) {
     var id = parseInt(e.currentTarget.id);
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].scanDirectory(id).then(function (res) {
-      setScanning(true);
-      var count = res.count;
-      var paths = res.paths;
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].scanDirectory(id).then( /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
+        var count, paths;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                setScanning(true);
+                count = res.count;
+                paths = res.paths;
+                doRequests(count, paths);
 
-      var _loop = function _loop(i) {
-        var path = paths[i];
-        var path_arr = path.split("/");
-        var filename = path_arr[path_arr.length - 1];
-        _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
-          var pct = i / count * 100;
-          console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
-          setProgress(pct);
-          if (i === count - 1) setScanning(false);
-        });
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x3) {
+        return _ref3.apply(this, arguments);
       };
-
-      for (var i = 0; i < count; i++) {
-        _loop(i);
-      }
-    });
+    }());
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "truncate dir-path w-100 pt-1"
-  }, directory.path, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, directory.path, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "directory-actions d-inline"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     id: directory.id,
     className: "btn btn-sm btn-primary float-right",
     onClick: handleScanDirectory
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "retweet"
-  }), " Scan"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }), " Scan"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     id: directory.id,
     className: "btn btn-sm btn-danger float-right",
     onClick: handleRemoveDirectory
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
     name: "trash"
-  }), " Delete"))), scanning && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), " Delete"))), scanning && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "progress scan-progress"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "progress-bar",
     role: "progressbar",
     style: {
@@ -81650,14 +81709,14 @@ var Directory = function Directory(_ref) {
   })));
 };
 
-var AddDirectory = function AddDirectory(_ref2) {
-  var hideAddDirectory = _ref2.hideAddDirectory;
+var AddDirectory = function AddDirectory(_ref4) {
+  var hideAddDirectory = _ref4.hideAddDirectory;
 
-  var _useContext3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+  var _useContext3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
       state = _useContext3.state,
       dispatch = _useContext3.dispatch;
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState8 = _slicedToArray(_useState7, 2),
       path = _useState8[0],
       setPath = _useState8[1];
@@ -81667,7 +81726,7 @@ var AddDirectory = function AddDirectory(_ref2) {
     errors: []
   };
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(errorState),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(errorState),
       _useState10 = _slicedToArray(_useState9, 2),
       errors = _useState10[0],
       setErrors = _useState10[1];
@@ -81680,7 +81739,7 @@ var AddDirectory = function AddDirectory(_ref2) {
     e.preventDefault();
 
     if (path) {
-      _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].addDirectory(path).then(function (res) {
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].addDirectory(path).then(function (res) {
         dispatch({
           type: "addDirectory",
           payload: res
@@ -81698,16 +81757,16 @@ var AddDirectory = function AddDirectory(_ref2) {
     }
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Errors__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Errors__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: errors.message,
     errors: errors.errors["path"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "input-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "input-group-prepend"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
     className: "input-group-text"
-  }, "Path")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Path")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     className: "form-control",
     value: path,
@@ -81715,9 +81774,9 @@ var AddDirectory = function AddDirectory(_ref2) {
     onChange: function onChange(e) {
       setPath(e.currentTarget.value);
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "input-group-append"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     onClick: handleAddDirectory,
     className: "btn btn-sm btn-secondary"
   }, "Save"))));
