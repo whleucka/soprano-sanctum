@@ -129,9 +129,9 @@ const Player = ({ currentTrack, shuffle }) => {
     const mediaSessionMeta = (title, artist, album, cover_src) => {
         if (cover_src && "mediaSession" in navigator) {
             navigator.mediaSession.metadata = new window.MediaMetadata({
-                title: title,
-                artist: artist,
-                album: album,
+                title: htmlDecode(title),
+                artist: htmlDecode(artist),
+                album: htmlDecode(album),
                 artwork: [
                     { src: cover_src, sizes: "256x256", type: "image/jpeg" },
                 ],
