@@ -15,7 +15,7 @@ const TrackRow = ({ type, track, index }) => {
                 payload: track,
             });
         } else if (type === "playlist") {
-            dispatch({ type: "changeTrack", payload: index });
+            dispatch({ type: "setCurrentIndex", payload: index });
         }
     };
 

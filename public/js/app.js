@@ -82538,7 +82538,7 @@ var TrackRow = function TrackRow(_ref) {
       });
     } else if (type === "playlist") {
       dispatch({
-        type: "changeTrack",
+        type: "setCurrentIndex",
         payload: index
       });
     }
