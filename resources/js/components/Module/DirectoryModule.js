@@ -81,7 +81,7 @@ const Directory = ({ directory }) => {
             paths.map((path, i) => {
                 const path_arr = path.split("/");
                 const filename = path_arr[path_arr.length - 1];
-                const delay = 3000;
+                const delay = 10000;
                 setTimeout((_) => {
                     Soprano.synchTrack(path).then((_res) => {
                         const pct = (i / count) * 100;

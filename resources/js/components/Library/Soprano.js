@@ -34,12 +34,11 @@ export const Soprano = {
         return response.data;
     },
     synchTrack: async function (path) {
-        const response = await axios
-            .post("/api/track", { filepath: path }, { withCredentials: true })
-            .then(async (res) => {
-                await sleep(3000);
-                return res.data;
-            });
+        const response = await axios.post(
+            "/api/track",
+            { filepath: path },
+            { withCredentials: true }
+        );
         return response.data;
     },
     search: async function (term) {
@@ -103,12 +102,6 @@ export const Soprano = {
         });
         return response.data.data;
     },
-};
-
-const sleep = (delay) => {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, delay);
-    });
 };
 
 export const ListenNotes = {

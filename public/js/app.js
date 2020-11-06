@@ -81107,52 +81107,29 @@ var Soprano = {
     return scanDirectory;
   }(),
   synchTrack: function () {
-    var _synchTrack = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(path) {
+    var _synchTrack = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(path) {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              _context7.next = 2;
+              _context6.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track", {
                 filepath: path
               }, {
                 withCredentials: true
-              }).then( /*#__PURE__*/function () {
-                var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(res) {
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
-                    while (1) {
-                      switch (_context6.prev = _context6.next) {
-                        case 0:
-                          _context6.next = 2;
-                          return sleep(3000);
-
-                        case 2:
-                          return _context6.abrupt("return", res.data);
-
-                        case 3:
-                        case "end":
-                          return _context6.stop();
-                      }
-                    }
-                  }, _callee6);
-                }));
-
-                return function (_x5) {
-                  return _ref.apply(this, arguments);
-                };
-              }());
+              });
 
             case 2:
-              response = _context7.sent;
-              return _context7.abrupt("return", response.data);
+              response = _context6.sent;
+              return _context6.abrupt("return", response.data);
 
             case 4:
             case "end":
-              return _context7.stop();
+              return _context6.stop();
           }
         }
-      }, _callee7);
+      }, _callee6);
     }));
 
     function synchTrack(_x4) {
@@ -81162,13 +81139,13 @@ var Soprano = {
     return synchTrack;
   }(),
   search: function () {
-    var _search = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(term) {
+    var _search = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(term) {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
-              _context8.next = 2;
+              _context7.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track/search", {
                 term: term
               }, {
@@ -81176,8 +81153,38 @@ var Soprano = {
               });
 
             case 2:
+              response = _context7.sent;
+              return _context7.abrupt("return", response.data.data);
+
+            case 4:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }));
+
+    function search(_x5) {
+      return _search.apply(this, arguments);
+    }
+
+    return search;
+  }(),
+  getGenres: function () {
+    var _getGenres = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/genres", {
+                withCredentials: true
+              });
+
+            case 2:
               response = _context8.sent;
-              return _context8.abrupt("return", response.data.data);
+              return _context8.abrupt("return", response.data);
 
             case 4:
             case "end":
@@ -81187,21 +81194,21 @@ var Soprano = {
       }, _callee8);
     }));
 
-    function search(_x6) {
-      return _search.apply(this, arguments);
+    function getGenres() {
+      return _getGenres.apply(this, arguments);
     }
 
-    return search;
+    return getGenres;
   }(),
-  getGenres: function () {
-    var _getGenres = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+  getYears: function () {
+    var _getYears = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
         while (1) {
           switch (_context9.prev = _context9.next) {
             case 0:
               _context9.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/genres", {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/years", {
                 withCredentials: true
               });
 
@@ -81217,21 +81224,21 @@ var Soprano = {
       }, _callee9);
     }));
 
-    function getGenres() {
-      return _getGenres.apply(this, arguments);
+    function getYears() {
+      return _getYears.apply(this, arguments);
     }
 
-    return getGenres;
+    return getYears;
   }(),
-  getYears: function () {
-    var _getYears = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
+  getPlaylists: function () {
+    var _getPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
               _context10.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/years", {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist", {
                 withCredentials: true
               });
 
@@ -81247,21 +81254,23 @@ var Soprano = {
       }, _callee10);
     }));
 
-    function getYears() {
-      return _getYears.apply(this, arguments);
+    function getPlaylists() {
+      return _getPlaylists.apply(this, arguments);
     }
 
-    return getYears;
+    return getPlaylists;
   }(),
-  getPlaylists: function () {
-    var _getPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
+  addPlaylist: function () {
+    var _addPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(name) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
         while (1) {
           switch (_context11.prev = _context11.next) {
             case 0:
               _context11.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist", {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist", {
+                name: name
+              }, {
                 withCredentials: true
               });
 
@@ -81277,23 +81286,21 @@ var Soprano = {
       }, _callee11);
     }));
 
-    function getPlaylists() {
-      return _getPlaylists.apply(this, arguments);
+    function addPlaylist(_x6) {
+      return _addPlaylist.apply(this, arguments);
     }
 
-    return getPlaylists;
+    return addPlaylist;
   }(),
-  addPlaylist: function () {
-    var _addPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(name) {
+  removePlaylist: function () {
+    var _removePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(id) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
         while (1) {
           switch (_context12.prev = _context12.next) {
             case 0:
               _context12.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist", {
-                name: name
-              }, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/playlist/".concat(id), {
                 withCredentials: true
               });
 
@@ -81309,21 +81316,23 @@ var Soprano = {
       }, _callee12);
     }));
 
-    function addPlaylist(_x7) {
-      return _addPlaylist.apply(this, arguments);
+    function removePlaylist(_x7) {
+      return _removePlaylist.apply(this, arguments);
     }
 
-    return addPlaylist;
+    return removePlaylist;
   }(),
-  removePlaylist: function () {
-    var _removePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(id) {
+  toggleTrackPlaylist: function () {
+    var _toggleTrackPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(trackId, playlistId) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
         while (1) {
           switch (_context13.prev = _context13.next) {
             case 0:
               _context13.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/playlist/".concat(id), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist/".concat(playlistId, "/track"), {
+                track_id: trackId
+              }, {
                 withCredentials: true
               });
 
@@ -81339,23 +81348,21 @@ var Soprano = {
       }, _callee13);
     }));
 
-    function removePlaylist(_x8) {
-      return _removePlaylist.apply(this, arguments);
+    function toggleTrackPlaylist(_x8, _x9) {
+      return _toggleTrackPlaylist.apply(this, arguments);
     }
 
-    return removePlaylist;
+    return toggleTrackPlaylist;
   }(),
-  toggleTrackPlaylist: function () {
-    var _toggleTrackPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14(trackId, playlistId) {
+  getTrackPlaylists: function () {
+    var _getTrackPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14(fingerprint) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee14$(_context14) {
         while (1) {
           switch (_context14.prev = _context14.next) {
             case 0:
               _context14.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist/".concat(playlistId, "/track"), {
-                track_id: trackId
-              }, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/".concat(fingerprint, "/playlists"), {
                 withCredentials: true
               });
 
@@ -81371,27 +81378,27 @@ var Soprano = {
       }, _callee14);
     }));
 
-    function toggleTrackPlaylist(_x9, _x10) {
-      return _toggleTrackPlaylist.apply(this, arguments);
+    function getTrackPlaylists(_x10) {
+      return _getTrackPlaylists.apply(this, arguments);
     }
 
-    return toggleTrackPlaylist;
+    return getTrackPlaylists;
   }(),
-  getTrackPlaylists: function () {
-    var _getTrackPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15(fingerprint) {
+  loadPlaylist: function () {
+    var _loadPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15(playlistId) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee15$(_context15) {
         while (1) {
           switch (_context15.prev = _context15.next) {
             case 0:
               _context15.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/".concat(fingerprint, "/playlists"), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist/".concat(playlistId, "/load"), {
                 withCredentials: true
               });
 
             case 2:
               response = _context15.sent;
-              return _context15.abrupt("return", response.data);
+              return _context15.abrupt("return", response.data.data);
 
             case 4:
             case "end":
@@ -81401,59 +81408,22 @@ var Soprano = {
       }, _callee15);
     }));
 
-    function getTrackPlaylists(_x11) {
-      return _getTrackPlaylists.apply(this, arguments);
-    }
-
-    return getTrackPlaylists;
-  }(),
-  loadPlaylist: function () {
-    var _loadPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16(playlistId) {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee16$(_context16) {
-        while (1) {
-          switch (_context16.prev = _context16.next) {
-            case 0:
-              _context16.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist/".concat(playlistId, "/load"), {
-                withCredentials: true
-              });
-
-            case 2:
-              response = _context16.sent;
-              return _context16.abrupt("return", response.data.data);
-
-            case 4:
-            case "end":
-              return _context16.stop();
-          }
-        }
-      }, _callee16);
-    }));
-
-    function loadPlaylist(_x12) {
+    function loadPlaylist(_x11) {
       return _loadPlaylist.apply(this, arguments);
     }
 
     return loadPlaylist;
   }()
 };
-
-var sleep = function sleep(delay) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay);
-  });
-};
-
 var ListenNotes = {
   searchEpisode: function () {
-    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee17(term, offset, sortByDate) {
+    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16(term, offset, sortByDate) {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee17$(_context17) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee16$(_context16) {
         while (1) {
-          switch (_context17.prev = _context17.next) {
+          switch (_context16.prev = _context16.next) {
             case 0:
-              _context17.next = 2;
+              _context16.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
                 headers: {
                   "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
@@ -81470,18 +81440,18 @@ var ListenNotes = {
               });
 
             case 2:
-              response = _context17.sent;
-              return _context17.abrupt("return", response.data);
+              response = _context16.sent;
+              return _context16.abrupt("return", response.data);
 
             case 4:
             case "end":
-              return _context17.stop();
+              return _context16.stop();
           }
         }
-      }, _callee17);
+      }, _callee16);
     }));
 
-    function searchEpisode(_x13, _x14, _x15) {
+    function searchEpisode(_x12, _x13, _x14) {
       return _searchEpisode.apply(this, arguments);
     }
 
@@ -81612,7 +81582,7 @@ var Directory = function Directory(_ref) {
       paths.map(function (path, i) {
         var path_arr = path.split("/");
         var filename = path_arr[path_arr.length - 1];
-        var delay = 3000;
+        var delay = 10000;
         setTimeout(function (_) {
           _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
             var pct = i / count * 100;
