@@ -81119,7 +81119,7 @@ var Soprano = {
                 withCredentials: true
               });
               _context6.next = 3;
-              return wait(50);
+              return wait(10);
 
             case 3:
               _context6.t1 = _context6.sent;

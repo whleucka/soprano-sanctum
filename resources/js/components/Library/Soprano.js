@@ -36,7 +36,7 @@ export const Soprano = {
     synchTrack: async function (path) {
         const response = await axios
             .post("/api/track", { filepath: path }, { withCredentials: true })
-            .then(await wait(50));
+            .then(await wait(10));
         return response.data;
     },
     search: async function (term) {
