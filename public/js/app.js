@@ -80953,6 +80953,31 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+
+function promiseDebounce(fn, delay, count) {
+  var working = 0,
+      queue = [];
+
+  function work() {
+    if (queue.length === 0 || working === count) return;
+    working++;
+    Promise.delay(delay).tap(function () {
+      working--;
+    }).then(work);
+    var next = queue.shift();
+    next[2](fn.apply(next[0], next[1]));
+  }
+
+  return function debounced() {
+    var args = arguments;
+    return new Promise(function (resolve) {
+      queue.push([this, args, resolve]);
+      if (working < count) work();
+    }.bind(this));
+  };
+}
+
+axios__WEBPACK_IMPORTED_MODULE_1___default.a.post = promiseDebounce(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post, 1000, 2);
 var Soprano = {
   getUser: function () {
     var _getUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
