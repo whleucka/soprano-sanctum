@@ -81579,19 +81579,22 @@ var Directory = function Directory(_ref) {
       setScanning(true);
       var count = res.count;
       var paths = res.paths;
-      paths.map(function (path, i) {
+
+      var _loop = function _loop(i) {
+        var path = paths[i];
         var path_arr = path.split("/");
         var filename = path_arr[path_arr.length - 1];
-        var delay = 10000;
-        setTimeout(function (_) {
-          _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
-            var pct = i / count * 100;
-            console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
-            setProgress(pct);
-            if (i === count - 1) setScanning(false);
-          });
-        }, delay);
-      });
+        _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].synchTrack(path).then(function (_res) {
+          var pct = i / count * 100;
+          console.log("Synchronizing ".concat(pct.toFixed(1), "% ").concat(filename));
+          setProgress(pct);
+          if (i === count - 1) setScanning(false);
+        });
+      };
+
+      for (var i = 0; i < count; i++) {
+        _loop(i);
+      }
     });
   };
 

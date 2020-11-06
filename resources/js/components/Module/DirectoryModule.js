@@ -78,21 +78,17 @@ const Directory = ({ directory }) => {
             setScanning(true);
             const count = res.count;
             const paths = res.paths;
-            paths.map((path, i) => {
+            for (let i = 0; i < count; i++) {
+                const path = paths[i];
                 const path_arr = path.split("/");
                 const filename = path_arr[path_arr.length - 1];
-                const delay = 10000;
-                setTimeout((_) => {
-                    Soprano.synchTrack(path).then((_res) => {
-                        const pct = (i / count) * 100;
-                        console.log(
-                            `Synchronizing ${pct.toFixed(1)}% ${filename}`
-                        );
-                        setProgress(pct);
-                        if (i === count - 1) setScanning(false);
-                    });
-                }, delay);
-            });
+                Soprano.synchTrack(path).then((_res) => {
+                    const pct = (i / count) * 100;
+                    console.log(`Synchronizing ${pct.toFixed(1)}% ${filename}`);
+                    setProgress(pct);
+                    if (i === count - 1) setScanning(false);
+                });
+            }
         });
     };
 
