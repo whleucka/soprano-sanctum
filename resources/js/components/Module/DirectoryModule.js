@@ -82,8 +82,8 @@ const Directory = ({ directory }) => {
                 const path_arr = path.split("/");
                 const filename = path_arr[path_arr.length - 1];
                 const delay = 3000;
-                setTimeout(async (_) => {
-                    await Soprano.synchTrack(path).then((_res) => {
+                setTimeout((_) => {
+                    Soprano.synchTrack(path).then((_res) => {
                         const pct = (i / count) * 100;
                         console.log(
                             `Synchronizing ${pct.toFixed(1)}% ${filename}`
