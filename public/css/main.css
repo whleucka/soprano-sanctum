@@ -98,6 +98,13 @@ a:active {
     color: springgreen;
 }
 
+.dropdown-menu a {
+    color: #666;
+}
+.dropdown-menu a:hover {
+    color: #222;
+}
+
 ul.navbar-nav a {
     color: #666;
 }
@@ -304,9 +311,6 @@ ul.navbar-nav a:hover {
     height: 24px;
 }
 .search-row-cover {
-    margin-right: 10px;
-}
-#search-actions > button {
     margin-right: 10px;
 }
 .dropright > .dropdown-toggle {

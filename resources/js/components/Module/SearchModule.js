@@ -58,8 +58,16 @@ const SearchModule = () => {
         history.push("/home");
     };
 
-    const handleSavePlaylist = (e) => {
+    const handleAddToPlaylist = async (e) => {
         e.preventDefault();
+        const playlist_id = e.currentTarget.id;
+        let insert_tracks = [];
+        results.map((track) => insert_tracks.push(track.id));
+        await Soprano.savePlaylist(playlist_id, insert_tracks);
+        await Soprano.loadPlaylist(playlist_id).then((res) => {
+            dispatch({ type: "copyPlaylist", payload: res });
+            history.push("/home");
+        });
     };
 
     return (
@@ -97,17 +105,59 @@ const SearchModule = () => {
                 {results.length > 0 && (
                     <div id="search-actions" className="py-2">
                         <button
-                            className="btn btn-sm btn-success"
+                            className="btn btn-sm btn-success mr-1"
                             onClick={handleCopyPlaylist}
                         >
                             <FontAwesome name="play" className="mr-2" />{" "}
                             Playlist
                         </button>
+                        <div
+                            className="dropdown mr-1"
+                            style={{ display: "inline" }}
+                        >
+                            <button
+                                className="btn btn-success btn-sm dropdown-toggle"
+                                type="button"
+                                id="playlistMenu"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                                <FontAwesome name="plus" className="mr-2" />{" "}
+                                Playlist
+                            </button>
+                            <div
+                                className="dropdown-menu"
+                                aria-labelledby="playlistMenu"
+                            >
+                                {state.playlists.length > 0 &&
+                                    state.playlists.map((playlist, i) => {
+                                        return (
+                                            <a
+                                                key={i}
+                                                onClick={handleAddToPlaylist}
+                                                id={playlist.id}
+                                                className="dropdown-item"
+                                                href="#!"
+                                            >
+                                                {playlist.name}
+                                            </a>
+                                        );
+                                    })}
+                                {!state.playlists.length && (
+                                    <a
+                                        className="dropdown-item disabled"
+                                        href="#!"
+                                    >
+                                        No playlists added yet
+                                    </a>
+                                )}
+                            </div>
+                        </div>
                         <button
                             data-toggle="modal"
                             data-target="#savePlaylistModal"
                             className="btn btn-sm btn-success"
-                            onClick={handleSavePlaylist}
                         >
                             <FontAwesome name="save" className="mr-2" />{" "}
                             Playlist
