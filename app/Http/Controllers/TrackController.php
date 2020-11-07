@@ -93,7 +93,7 @@ class TrackController extends Controller
 
     public function genres(Request $request)
     {
-        $genres_raw = DB::table('tracks')->distinct('genre')->get();
+        $genres_raw = DB::table('tracks')->distinct('genre')->orderBy('genre')->get();
         $genres = [];
         foreach ($genres_raw as $genre_raw) {
             $genre_array = explode(',', $genre_raw->genre);
