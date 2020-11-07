@@ -94,7 +94,28 @@ class PlaylistController extends Controller
     {
         $this->authorize('view', $playlist);
         return TrackResource::collection($playlist->tracks);
-   }
+    }
+
+    public function save(Playlist $playlist)
+    {
+        $this->authorize('update', $playlist);
+        $data = $this->validateTracks();
+        foreach ($data['tracks'] as $track) { 
+            $target = PlaylistTrack::where('playlist_id', '=', $playlist->id)->where('track_id', '=', $track)->first();
+            if (!$target) {
+                $new = ['track_id' => $track, 'playlist_id' => $playlist->id];
+                PlaylistTrack::factory()->create($new);
+            }
+        }        
+        return TrackResource::collection($playlist->tracks);
+    }
+
+    public function validateTracks()
+    {
+        return request()->validate([
+            'tracks' => ['required', 'array'],
+        ]);
+    }
 
     public function validateTrack()
     {

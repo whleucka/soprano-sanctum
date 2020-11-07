@@ -306,6 +306,9 @@ ul.navbar-nav a:hover {
 .search-row-cover {
     margin-right: 10px;
 }
+#search-actions > button {
+    margin-right: 10px;
+}
 .dropright > .dropdown-toggle {
     color: #666;
 }

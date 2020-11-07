@@ -9,6 +9,7 @@ import { Info } from "../Utilities/Alerts";
 import Avatar from "react-avatar";
 import { useHistory } from "react-router-dom";
 import { htmlDecode } from "../Utilities/Tools";
+import SavePlaylistModal from "./SavePlaylistModal";
 
 const SearchModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -57,6 +58,10 @@ const SearchModule = () => {
         history.push("/home");
     };
 
+    const handleSavePlaylist = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <>
             <div id="search-cont" className="pt-2">
@@ -98,9 +103,19 @@ const SearchModule = () => {
                             <FontAwesome name="play" className="mr-2" />{" "}
                             Playlist
                         </button>
+                        <button
+                            data-toggle="modal"
+                            data-target="#savePlaylistModal"
+                            className="btn btn-sm btn-success"
+                            onClick={handleSavePlaylist}
+                        >
+                            <FontAwesome name="save" className="mr-2" />{" "}
+                            Playlist
+                        </button>
                     </div>
                 )}
                 <SearchResults results={results} />
+                <SavePlaylistModal tracks={results} />
             </div>
         </>
     );

@@ -43,4 +43,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/playlist/{playlist}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
     Route::post('/playlist/{playlist}/track', [PlaylistController::class, 'track_toggle'])->name('playlist.track_toggle');
     Route::get('/playlist/{playlist}/load', [PlaylistController::class, 'load'])->name('playlist.load');
+    Route::post('/playlist/{playlist}/save', [PlaylistController::class, 'save'])->name('playlist.save');
 });

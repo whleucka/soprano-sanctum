@@ -100,6 +100,14 @@ export const Soprano = {
         });
         return response.data.data;
     },
+    savePlaylist: async function (playlistId, tracks) {
+        const response = await axios.post(
+            `/api/playlist/${playlistId}/save`,
+            { tracks },
+            { withCredentials: true }
+        );
+        return response.data.data;
+    },
 };
 
 function wait(ms) {
