@@ -1,7 +1,7 @@
 # Soprano
 
-<a href='https://github.com/whleucka/soprano-sanctum/blob/master/LICENSE' rel='License'>![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)</a>
-<a href='https://github.com/whleucka/soprano-sanctum/issues' rel='Issues'>![GitHub issues](https://img.shields.io/github/issues/whleucka/soprano)</a>
+<a href='https://choosealicense.com/licenses/mit/' rel='License'>![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)</a>
+<a href='https://github.com/whleucka/soprano-sanctum/issues' rel='Issues'>![GitHub issues](https://img.shields.io/github/issues/whleucka/soprano-sanctum)</a>
 <a href='https://discord.com/channels/760550600777138258' rel='Discord Server'>![Discord](https://img.shields.io/discord/760550600777138258)</a>
 
 Soprano is a client-server music playback system. The system is comprised of a Laravel API backend with a React JS frontend.
