@@ -122,24 +122,25 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 alt="podcast cover"
                             />
                             <div className="media-body podcast-details">
-                                <button
-                                    className="btn btn-sm btn-success podcast-play"
-                                    onClick={() => {
-                                        dispatch({
-                                            type: "playTrack",
-                                            payload: result,
-                                        });
-                                    }}
-                                >
-                                    <FontAwesome name="play" />
-                                </button>
-                                <h4 className="mt-0">
-                                    <strong>
-                                        {htmlDecode(result.podcast)}
-                                    </strong>
-                                </h4>
-                                <h5
-                                    className="mt-1 cursor"
+                                <div className="podcast-name">
+                                    <button
+                                        className="btn btn-sm btn-success podcast-play"
+                                        onClick={() => {
+                                            dispatch({
+                                                type: "playTrack",
+                                                payload: result,
+                                            });
+                                        }}
+                                    >
+                                        <FontAwesome name="play" />
+                                    </button>
+                                    <h4 className="mt-0">
+                                        <strong>
+                                            {htmlDecode(result.podcast)}
+                                        </strong>
+                                    </h4>
+                                </div>
+                                <div
                                     onClick={(e) => {
                                         e.preventDefault();
                                         const target =
@@ -150,9 +151,12 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                             target.style.display = "none";
                                         }
                                     }}
+                                    className="podcast-title"
                                 >
-                                    {htmlDecode(result.title)}
-                                </h5>
+                                    <h5 className="mt-1 cursor">
+                                        {htmlDecode(result.title)}
+                                    </h5>
+                                </div>
                                 <div
                                     className="podcast-description"
                                     style={{ display: "none" }}

@@ -82160,6 +82160,8 @@ var SearchResults = function SearchResults(_ref) {
       alt: "podcast cover"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "media-body podcast-details"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "podcast-name"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-success podcast-play",
       onClick: function onClick() {
@@ -82172,8 +82174,7 @@ var SearchResults = function SearchResults(_ref) {
       name: "play"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
       className: "mt-0"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-      className: "mt-1 cursor",
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       onClick: function onClick(e) {
         e.preventDefault();
         var target = e.currentTarget.nextElementSibling;
@@ -82183,8 +82184,11 @@ var SearchResults = function SearchResults(_ref) {
         } else {
           target.style.display = "none";
         }
-      }
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      },
+      className: "podcast-title"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+      className: "mt-1 cursor"
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "podcast-description",
       style: {
         display: "none"
