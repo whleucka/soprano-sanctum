@@ -81370,7 +81370,7 @@ var ListenNotes = {
                   q: term,
                   type: "episode",
                   language: "English",
-                  region: "ca,us,gb,au,nz",
+                  region: "ca,us,gb",
                   sort_by_date: sortByDate,
                   offset: offset
                 },
@@ -82111,7 +82111,6 @@ var PodcastModule = function PodcastModule() {
     setTerm("");
   };
 
-  var description_length = 600;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "search-cont",
     className: "pt-2"
@@ -82150,6 +82149,7 @@ var SearchResults = function SearchResults(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, results.length > 0 && results.map(function (result, i) {
     var publish_date = new Date(result.created);
+    var playtime = new Date(result.playtime_seconds * 1000).toISOString().substr(11, 8);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: i,
       className: "media cursor my-4 p-2",
@@ -82190,7 +82190,7 @@ var SearchResults = function SearchResults(_ref) {
       style: {
         display: "none"
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date.toLocaleDateString(), " ", publish_date.toLocaleTimeString())));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date.toLocaleDateString(), " ", publish_date.toLocaleTimeString(), " ", playtime !== "00:00:00" ? "| " + playtime : "")));
   }), hasMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

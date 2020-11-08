@@ -128,7 +128,7 @@ export const ListenNotes = {
                     q: term,
                     type: "episode",
                     language: "English",
-                    region: "ca,us,gb,au,nz",
+                    region: "ca,us,gb",
                     sort_by_date: sortByDate,
                     offset,
                 },

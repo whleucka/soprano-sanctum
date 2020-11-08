@@ -73,7 +73,6 @@ const PodcastModule = () => {
         resetPodcasts();
         setTerm("");
     };
-    const description_length = 600;
     return (
         <>
             <div id="search-cont" className="pt-2">
@@ -111,6 +110,9 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
             {results.length > 0 &&
                 results.map((result, i) => {
                     const publish_date = new Date(result.created);
+                    const playtime = new Date(result.playtime_seconds * 1000)
+                        .toISOString()
+                        .substr(11, 8);
                     return (
                         <div
                             key={i}
@@ -158,7 +160,10 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 </div>
                                 <small>
                                     {publish_date.toLocaleDateString()}{" "}
-                                    {publish_date.toLocaleTimeString()}
+                                    {publish_date.toLocaleTimeString()}{" "}
+                                    {playtime !== "00:00:00"
+                                        ? "| " + playtime
+                                        : ""}
                                 </small>
                             </div>
                         </div>
