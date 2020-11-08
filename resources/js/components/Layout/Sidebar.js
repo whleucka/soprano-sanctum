@@ -95,8 +95,8 @@ const Menu = () => {
                                         name={playlist.name}
                                     />
                                     <span className="link-toggle">
-                                        {playlist.name.length > 11
-                                            ? playlist.name.substr(0, 11) +
+                                        {playlist.name.length > 10
+                                            ? playlist.name.substr(0, 10) +
                                               "..."
                                             : playlist.name}
                                     </span>

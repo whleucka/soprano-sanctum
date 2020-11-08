@@ -80816,7 +80816,7 @@ var Menu = function Menu() {
       name: playlist.name
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "link-toggle"
-    }, playlist.name.length > 11 ? playlist.name.substr(0, 11) + "..." : playlist.name));
+    }, playlist.name.length > 10 ? playlist.name.substr(0, 10) + "..." : playlist.name));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Module_CreatePlaylistModal__WEBPACK_IMPORTED_MODULE_6__["default"], null));
 };
 
