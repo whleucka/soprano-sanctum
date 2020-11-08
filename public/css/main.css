@@ -285,7 +285,7 @@ ul.navbar-nav a:hover {
 }
 
 .podcast-details {
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -295,6 +295,15 @@ ul.navbar-nav a:hover {
 
 .podcast-details h5 {
     font-size: 1.1em;
+}
+.podcast-play {
+    height: 60px;
+    width: 60px;
+    margin: 5px 0 10px 10px;
+    float: right;
+}
+.podcast-description {
+    padding-top: 20px;
 }
 
 /**

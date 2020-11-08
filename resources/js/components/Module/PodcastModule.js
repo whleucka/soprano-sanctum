@@ -4,6 +4,7 @@ import { ListenNotes } from "../Library/Soprano";
 import { SopranoContext } from "../Context/SopranoContext";
 import { BarSpinner } from "../Utilities/Spinner";
 import { htmlDecode } from "../Utilities/Tools";
+import FontAwesome from "react-fontawesome";
 
 const PodcastModule = () => {
     const [term, setTerm] = useState("");
@@ -113,12 +114,16 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                     return (
                         <div
                             key={i}
-                            className="media cursor my-4"
-                            onClick={() => {
-                                dispatch({
-                                    type: "playTrack",
-                                    payload: result,
-                                });
+                            className="media cursor my-4 p-2"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const self = e.currentTarget;
+                                const target = self.childNodes[1].childNodes[3];
+                                if (target.style.display === "none") {
+                                    target.style.display = "block";
+                                } else {
+                                    target.style.display = "none";
+                                }
                             }}
                         >
                             <img
@@ -128,12 +133,29 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 alt="podcast cover"
                             />
                             <div className="media-body podcast-details">
+                                <button
+                                    className="btn btn-sm btn-success podcast-play"
+                                    onClick={() => {
+                                        dispatch({
+                                            type: "playTrack",
+                                            payload: result,
+                                        });
+                                    }}
+                                >
+                                    <FontAwesome name="play" />
+                                </button>
                                 <h4 className="mt-0">
                                     {htmlDecode(result.podcast)}
                                 </h4>
                                 <h5 className="mt-1">
                                     {htmlDecode(result.title)}
                                 </h5>
+                                <div
+                                    className="podcast-description"
+                                    style={{ display: "none" }}
+                                >
+                                    <p>{htmlDecode(result.description)}</p>
+                                </div>
                                 <small>
                                     {publish_date.toLocaleDateString()}{" "}
                                     {publish_date.toLocaleTimeString()}
