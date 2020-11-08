@@ -297,9 +297,9 @@ ul.navbar-nav a:hover {
     font-size: 1.1em;
 }
 .podcast-play {
-    height: 60px;
-    width: 60px;
-    margin: 5px 0 10px 10px;
+    height: 45px;
+    width: 45px;
+    margin: 5px 0 20px 20px;
     float: right;
 }
 .podcast-description {
@@ -392,6 +392,11 @@ ul.navbar-nav a:hover {
 }
 
 @media (max-width: 767.98px) {
+    .podcast-cover,
+    .podcast-play {
+        width: 30px;
+        height: 30px;
+    }
     #sidebar {
         width: 75px;
         min-width: 75px;
