@@ -82152,7 +82152,7 @@ var SearchResults = function SearchResults(_ref) {
     var playtime = new Date(result.playtime_seconds * 1000).toISOString().substr(11, 8);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: i,
-      className: "media cursor my-4 p-2"
+      className: "media my-4 p-2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description),
       className: "d-flex podcast-cover mr-3",
@@ -82172,12 +82172,11 @@ var SearchResults = function SearchResults(_ref) {
       name: "play"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
       className: "mt-0"
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-      className: "mt-1",
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+      className: "mt-1 cursor",
       onClick: function onClick(e) {
         e.preventDefault();
-        var self = e.currentTarget;
-        var target = self.childNodes[1].childNodes[3];
+        var target = e.currentTarget.nextElementSibling;
 
         if (target.style.display === "none") {
           target.style.display = "block";
@@ -82190,7 +82189,7 @@ var SearchResults = function SearchResults(_ref) {
       style: {
         display: "none"
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date.toLocaleDateString(), " ", publish_date.toLocaleTimeString(), " ", playtime !== "00:00:00" ? "| " + playtime : "")));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date.toLocaleDateString(), " ", publish_date.toLocaleTimeString(), " ", playtime !== "00:00:00" ? "| " + playtime : "")))));
   }), hasMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

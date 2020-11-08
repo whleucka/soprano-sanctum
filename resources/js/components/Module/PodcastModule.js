@@ -114,7 +114,7 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                         .toISOString()
                         .substr(11, 8);
                     return (
-                        <div key={i} className="media cursor my-4 p-2">
+                        <div key={i} className="media my-4 p-2">
                             <img
                                 title={htmlDecode(result.description)}
                                 className="d-flex podcast-cover mr-3"
@@ -134,15 +134,16 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                     <FontAwesome name="play" />
                                 </button>
                                 <h4 className="mt-0">
-                                    {htmlDecode(result.podcast)}
+                                    <strong>
+                                        {htmlDecode(result.podcast)}
+                                    </strong>
                                 </h4>
                                 <h5
-                                    className="mt-1"
+                                    className="mt-1 cursor"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        const self = e.currentTarget;
                                         const target =
-                                            self.childNodes[1].childNodes[3];
+                                            e.currentTarget.nextElementSibling;
                                         if (target.style.display === "none") {
                                             target.style.display = "block";
                                         } else {
@@ -158,13 +159,17 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 >
                                     <p>{htmlDecode(result.description)}</p>
                                 </div>
-                                <small>
-                                    {publish_date.toLocaleDateString()}{" "}
-                                    {publish_date.toLocaleTimeString()}{" "}
-                                    {playtime !== "00:00:00"
-                                        ? "| " + playtime
-                                        : ""}
-                                </small>
+                                <div>
+                                    <p>
+                                        <small>
+                                            {publish_date.toLocaleDateString()}{" "}
+                                            {publish_date.toLocaleTimeString()}{" "}
+                                            {playtime !== "00:00:00"
+                                                ? "| " + playtime
+                                                : ""}
+                                        </small>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     );
