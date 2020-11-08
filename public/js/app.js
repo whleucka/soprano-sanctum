@@ -80487,8 +80487,10 @@ var Player = function Player(_ref) {
     clearInterval(progressTimer);
 
     if (state.currentTrack) {
+      var _state$currentTrack$a, _state$currentTrack$a2;
+
       setTimer(state.currentTrack.playtime_seconds);
-      mediaSessionMeta(state.currentTrack.title, state.currentTrack.artist, state.currentTrack.album, state.currentTrack.cover);
+      mediaSessionMeta(state.currentTrack.title, (_state$currentTrack$a = state.currentTrack.artist) !== null && _state$currentTrack$a !== void 0 ? _state$currentTrack$a : "", (_state$currentTrack$a2 = state.currentTrack.album) !== null && _state$currentTrack$a2 !== void 0 ? _state$currentTrack$a2 : state.currentTrack.podcast, state.currentTrack.cover);
     }
   }, [state.currentIndex, state.currentTrack]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

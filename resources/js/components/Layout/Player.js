@@ -198,8 +198,8 @@ const Player = ({ currentTrack, shuffle }) => {
             setTimer(state.currentTrack.playtime_seconds);
             mediaSessionMeta(
                 state.currentTrack.title,
-                state.currentTrack.artist,
-                state.currentTrack.album,
+                state.currentTrack.artist ?? "",
+                state.currentTrack.album ?? state.currentTrack.podcast,
                 state.currentTrack.cover
             );
         }
