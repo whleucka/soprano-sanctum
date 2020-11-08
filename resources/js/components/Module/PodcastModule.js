@@ -114,20 +114,7 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                         .toISOString()
                         .substr(11, 8);
                     return (
-                        <div
-                            key={i}
-                            className="media cursor my-4 p-2"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                const self = e.currentTarget;
-                                const target = self.childNodes[1].childNodes[3];
-                                if (target.style.display === "none") {
-                                    target.style.display = "block";
-                                } else {
-                                    target.style.display = "none";
-                                }
-                            }}
-                        >
+                        <div key={i} className="media cursor my-4 p-2">
                             <img
                                 title={htmlDecode(result.description)}
                                 className="d-flex podcast-cover mr-3"
@@ -149,7 +136,20 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 <h4 className="mt-0">
                                     {htmlDecode(result.podcast)}
                                 </h4>
-                                <h5 className="mt-1">
+                                <h5
+                                    className="mt-1"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        const self = e.currentTarget;
+                                        const target =
+                                            self.childNodes[1].childNodes[3];
+                                        if (target.style.display === "none") {
+                                            target.style.display = "block";
+                                        } else {
+                                            target.style.display = "none";
+                                        }
+                                    }}
+                                >
                                     {htmlDecode(result.title)}
                                 </h5>
                                 <div

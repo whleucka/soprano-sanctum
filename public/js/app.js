@@ -82152,18 +82152,7 @@ var SearchResults = function SearchResults(_ref) {
     var playtime = new Date(result.playtime_seconds * 1000).toISOString().substr(11, 8);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: i,
-      className: "media cursor my-4 p-2",
-      onClick: function onClick(e) {
-        e.preventDefault();
-        var self = e.currentTarget;
-        var target = self.childNodes[1].childNodes[3];
-
-        if (target.style.display === "none") {
-          target.style.display = "block";
-        } else {
-          target.style.display = "none";
-        }
-      }
+      className: "media cursor my-4 p-2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description),
       className: "d-flex podcast-cover mr-3",
@@ -82184,7 +82173,18 @@ var SearchResults = function SearchResults(_ref) {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
       className: "mt-0"
     }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-      className: "mt-1"
+      className: "mt-1",
+      onClick: function onClick(e) {
+        e.preventDefault();
+        var self = e.currentTarget;
+        var target = self.childNodes[1].childNodes[3];
+
+        if (target.style.display === "none") {
+          target.style.display = "block";
+        } else {
+          target.style.display = "none";
+        }
+      }
     }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "podcast-description",
       style: {
