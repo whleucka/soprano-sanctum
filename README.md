@@ -8,6 +8,13 @@ Soprano is a client-server music playback system. The system is comprised of a L
 
 -   See a live demo [here](https://soprano.williamhleucka.com/)
 
+## Screenshots
+
+![alt text](https://ibb.co/5WSYdYM "Playlist")
+![alt text](https://ibb.co/Zm9b7xh "Podcasts")
+![alt text](https://ibb.co/jr9wwKw "Mobile Playlist")
+![alt text](https://ibb.co/2sPZRSk "Search Genres")
+
 ## Features
 
 -   User authentication
