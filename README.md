@@ -10,10 +10,10 @@ Soprano is a client-server music playback system. The system is comprised of a L
 
 ## Screenshots
 
-![alt text](https://ibb.co/5WSYdYM "Playlist")
-![alt text](https://ibb.co/Zm9b7xh "Podcasts")
-![alt text](https://ibb.co/jr9wwKw "Mobile Playlist")
-![alt text](https://ibb.co/2sPZRSk "Search Genres")
+![alt text](https://i.ibb.co/1fPs3sv/s1.png "Playlist")
+![alt text](https://i.ibb.co/m8pPg4H/s2.png "Podcasts")
+![alt text](https://i.ibb.co/BCH66D6/s3.png "Mobile Playlist")
+![alt text](https://i.ibb.co/yY54KpQ/s4.png "Search Genres")
 
 ## Features
 
