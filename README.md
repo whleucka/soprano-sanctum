@@ -4,7 +4,7 @@
 <a href='https://github.com/whleucka/soprano-sanctum/issues' rel='Issues'>![GitHub issues](https://img.shields.io/github/issues/whleucka/soprano-sanctum)</a>
 <a href='https://discord.com/channels/760550600777138258' rel='Discord Server'>![Discord](https://img.shields.io/discord/760550600777138258)</a>
 
-Soprano is a client-server music playback system. The system is comprised of a Laravel API backend with a React JS frontend.
+Soprano is a client-server music playback system. The system is built upon a Laravel API backend with a modern React JS frontend. Host your own Spotify&trade; clone and ditch the monthly subscription fee. Take control of your music library!
 
 -   See a live demo [here](https://soprano.williamhleucka.com/)
 
@@ -25,7 +25,6 @@ Soprano is a client-server music playback system. The system is comprised of a L
 -   On-the-fly transcoding
 -   Playback progress bar
 -   Album art
--   Admin abilities (add directory / scan directory)
 
 ## Installation
 
@@ -38,13 +37,15 @@ npm install
 
 ## Usage
 
--   Create a mysql database. Edit the .env and add your database name, user, password and port. After that, run the migrations.
+-   Copy the .env.example file to .env and add your db secrets / ListenNotes API key
+-   Create a mysql database.
+-   Run migrations.
 
 ```bash
 php artisan migrate
 ```
 
--   You can start up a development server! Try it out!
+-   You can start up a development server or deploy to a web server of your choice.
 
 ```bash
 npm run watch
@@ -61,7 +62,7 @@ UPDATE users SET is_admin=1 WHERE id = 'some_user_id'
 
 ### Tests
 
--   Run the feature / unit tests
+-   Run the feature tests
 
 ```php
 php artisan test
