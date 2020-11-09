@@ -88,10 +88,6 @@ export function SopranoReducer(state, action) {
                     (playlist) => playlist.id != action.payload
                 ),
             };
-        case "addTrackPlaylist":
-            return {};
-        case "removeTrackPlaylist":
-            return {};
         default:
             return state;
     }
