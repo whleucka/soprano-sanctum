@@ -19,6 +19,7 @@ class Track extends Model
     
     public function transcode(string $filepath)
     {
+        error_log("Transcoding {$filepath}" . PHP_EOL);
         $storage_dir = storage_path().'/app/public/transcode/';
         if (!file_exists($storage_dir)) {
             mkdir($storage_dir);

@@ -13,7 +13,7 @@ class TrackController extends Controller
     public function stream(Track $track)
     {
         $path = ($track->fileformat !== 'mp3') ?
-            $this->transcode($track->filenamepath) :
+            $track->transcode($track->filenamepath) :
             $track->filenamepath;
         $headers = [
             'Content-Type' => mime_content_type($path),
