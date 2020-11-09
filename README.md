@@ -37,7 +37,7 @@ npm install
 
 ## Usage
 
--   Copy the .env.example file to .env and add your db secrets / ListenNotes API key
+-   Copy the .env.example file to .env and add your db secrets / ListenNotes API key.
 -   Create a mysql database.
 -   Run migrations.
 
@@ -54,7 +54,7 @@ php artisan serve
 
 ### Note
 
--   In order to add music directories, you must first make yourself an admin. Here is a simple example:
+-   In order to add/synchronize music directories, you must first make yourself an admin. Here is a simple example:
 
 ```mysql
 UPDATE users SET is_admin=1 WHERE id = 'some_user_id'
@@ -71,7 +71,6 @@ php artisan test
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
 Please make sure to update tests as appropriate.
 
 ## License
