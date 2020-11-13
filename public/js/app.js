@@ -80458,16 +80458,28 @@ var Player = function Player(_ref) {
   };
 
   var handleProgressClick = function handleProgressClick(e) {
-    var audio = document.getElementById("audio");
-    var progress = document.getElementById("progress");
-    var width = window.innerWidth;
-    var position = e.clientX;
-    var pct = (parseInt(position) / parseInt(width) * 100).toFixed(1);
-    var playbackTime = state.currentTrack.playtime_seconds;
-    var currTime = audio.currentTime;
-    var newTime = pct / 100 * playbackTime;
-    audio.currentTime = newTime;
-    progress.style.width = pct + "%";
+    if (state.currentTrack.playtime_seconds) {
+      var audio = document.getElementById("audio");
+      var progress = document.getElementById("progress");
+      var width = window.innerWidth;
+      var position = e.clientX;
+      var pct = (parseInt(position) / parseInt(width) * 100).toFixed(1);
+      var playbackTime = state.currentTrack.playtime_seconds;
+      var currTime = audio.currentTime;
+      var newTime = pct / 100 * playbackTime;
+      audio.currentTime = newTime;
+      progress.style.width = pct + "%";
+    }
+  };
+
+  var handleProgressMouse = function handleProgressMouse(e) {
+    if (state.currentTrack.playtime_seconds) {
+      var progressMarker = document.getElementById("progressMarker");
+      var progress = document.getElementById("progress");
+      var position = e.clientX;
+      progressMarker.style.display = "block";
+      progressMarker.style.left = position + "px";
+    }
   };
 
   var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null; // Override if podcast
@@ -80509,6 +80521,11 @@ var Player = function Player(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "progressCont",
     onClick: handleProgressClick,
+    onMouseOver: handleProgressMouse,
+    onMouseLeave: function onMouseLeave(_) {
+      var progressMarker = document.getElementById("progressMarker");
+      progressMarker.style.display = "none";
+    },
     className: "progress progress-player bg-dark w-100"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "progress",
@@ -80520,6 +80537,12 @@ var Player = function Player(_ref) {
     style: {
       width: 0
     }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    id: "progressMarker",
+    style: {
+      display: "none"
+    },
+    name: "caret-down"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
@@ -82171,6 +82194,12 @@ var SearchResults = function SearchResults(_ref) {
       key: i,
       className: "media my-4 p-2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      onClick: function onClick() {
+        dispatch({
+          type: "playTrack",
+          payload: result
+        });
+      },
       title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description),
       className: "d-flex podcast-cover mr-3",
       src: result.cover,
@@ -82178,18 +82207,14 @@ var SearchResults = function SearchResults(_ref) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "media-body podcast-details"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "podcast-name"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "btn btn-sm btn-success podcast-play",
       onClick: function onClick() {
         dispatch({
           type: "playTrack",
           payload: result
         });
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_6___default.a, {
-      name: "play"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      },
+      className: "podcast-name"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
       className: "mt-0"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       onClick: function onClick(e) {

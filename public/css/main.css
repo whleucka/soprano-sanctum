@@ -205,6 +205,13 @@ ul.navbar-nav a:hover {
     width: 1%;
 }
 
+#progressMarker {
+    font-size: 1.5rem;
+    position: absolute;
+    color: limegreen;
+    top: -10px;
+}
+
 .progress-player {
     width: 100%;
     position: absolute;

@@ -152,16 +152,30 @@ const Player = ({ currentTrack, shuffle }) => {
     };
 
     const handleProgressClick = (e) => {
-        const audio = document.getElementById("audio");
-        const progress = document.getElementById("progress");
-        const width = window.innerWidth;
-        const position = e.clientX;
-        const pct = ((parseInt(position) / parseInt(width)) * 100).toFixed(1);
-        const playbackTime = state.currentTrack.playtime_seconds;
-        const currTime = audio.currentTime;
-        const newTime = (pct / 100) * playbackTime;
-        audio.currentTime = newTime;
-        progress.style.width = pct + "%";
+        if (state.currentTrack.playtime_seconds) {
+            const audio = document.getElementById("audio");
+            const progress = document.getElementById("progress");
+            const width = window.innerWidth;
+            const position = e.clientX;
+            const pct = ((parseInt(position) / parseInt(width)) * 100).toFixed(
+                1
+            );
+            const playbackTime = state.currentTrack.playtime_seconds;
+            const currTime = audio.currentTime;
+            const newTime = (pct / 100) * playbackTime;
+            audio.currentTime = newTime;
+            progress.style.width = pct + "%";
+        }
+    };
+
+    const handleProgressMouse = (e) => {
+        if (state.currentTrack.playtime_seconds) {
+            const progressMarker = document.getElementById("progressMarker");
+            const progress = document.getElementById("progress");
+            const position = e.clientX;
+            progressMarker.style.display = "block";
+            progressMarker.style.left = position + "px";
+        }
     };
 
     let trackUrl =
@@ -223,6 +237,13 @@ const Player = ({ currentTrack, shuffle }) => {
             <div
                 id="progressCont"
                 onClick={handleProgressClick}
+                onMouseOver={handleProgressMouse}
+                onMouseLeave={(_) => {
+                    const progressMarker = document.getElementById(
+                        "progressMarker"
+                    );
+                    progressMarker.style.display = "none";
+                }}
                 className="progress progress-player bg-dark w-100"
             >
                 <div
@@ -235,6 +256,11 @@ const Player = ({ currentTrack, shuffle }) => {
                     aria-valuemin="0"
                     aria-valuemax="100"
                     style={{ width: 0 }}
+                />
+                <FontAwesome
+                    id="progressMarker"
+                    style={{ display: "none" }}
+                    name="caret-down"
                 />
             </div>
             <div id="player">
