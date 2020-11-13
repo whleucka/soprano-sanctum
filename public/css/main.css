@@ -277,7 +277,7 @@ ul.navbar-nav a:hover {
 }
 
 .podcast-cover:hover {
-    cursor: hover;
+    cursor: pointer;
 }
 
 .underline {
