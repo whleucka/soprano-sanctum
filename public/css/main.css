@@ -161,7 +161,7 @@ ul.navbar-nav a:hover {
     height: 100px;
     width: 100%;
     z-index: 999;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     overflow: hidden;
 }
