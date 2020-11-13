@@ -221,7 +221,7 @@ ul.navbar-nav a:hover {
 
 .progress-player {
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 100px;
     height: 6px;
 }
