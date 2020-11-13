@@ -4,7 +4,10 @@ import { ListenNotes } from "../Library/Soprano";
 import { SopranoContext } from "../Context/SopranoContext";
 import { BarSpinner } from "../Utilities/Spinner";
 import { htmlDecode } from "../Utilities/Tools";
-import FontAwesome from "react-fontawesome";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+
+TimeAgo.addDefaultLocale(en);
 
 const PodcastModule = () => {
     const [term, setTerm] = useState("");
@@ -105,11 +108,12 @@ const PodcastModule = () => {
 
 const SearchResults = ({ results, hasMore, loadMore }) => {
     const { state, dispatch } = useContext(SopranoContext);
+    const timeAgo = new TimeAgo("en-US");
     return (
         <>
             {results.length > 0 &&
                 results.map((result, i) => {
-                    const publish_date = new Date(result.created);
+                    const publish_date = timeAgo.format(result.created);
                     const playtime = new Date(result.playtime_seconds * 1000)
                         .toISOString()
                         .substr(11, 8);
@@ -169,10 +173,9 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 <div>
                                     <p>
                                         <small>
-                                            {publish_date.toLocaleDateString()}{" "}
-                                            {publish_date.toLocaleTimeString()}{" "}
+                                            {publish_date}
                                             {playtime !== "00:00:00"
-                                                ? "| " + playtime
+                                                ? " | " + playtime
                                                 : ""}
                                         </small>
                                     </p>

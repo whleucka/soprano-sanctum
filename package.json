@@ -29,6 +29,7 @@
         "@fortawesome/free-brands-svg-icons": "^5.15.1",
         "@fortawesome/free-regular-svg-icons": "^5.15.1",
         "@fortawesome/free-solid-svg-icons": "^5.15.1",
+        "javascript-time-ago": "^2.3.3",
         "react-avatar": "^3.9.7",
         "react-double-marquee": "^1.0.6",
         "react-fontawesome": "^1.7.1",
