@@ -215,11 +215,16 @@ ul.navbar-nav a:hover {
     width: 100%;
     position: absolute;
     bottom: 100px;
-    height: 5px;
+    height: 7px;
 }
+
 #progress {
     width: 100%;
     z-index: 9990;
+}
+
+#progressCont {
+    cursor: pointer;
 }
 
 .table {

@@ -151,6 +151,19 @@ const Player = ({ currentTrack, shuffle }) => {
         }
     };
 
+    const handleProgressClick = (e) => {
+        const audio = document.getElementById("audio");
+        const progress = document.getElementById("progress");
+        const width = window.innerWidth;
+        const position = e.clientX;
+        const pct = ((parseInt(position) / parseInt(width)) * 100).toFixed(1);
+        const playbackTime = state.currentTrack.playtime_seconds;
+        const currTime = audio.currentTime;
+        const newTime = (pct / 100) * playbackTime;
+        audio.currentTime = newTime;
+        progress.style.width = pct + "%";
+    };
+
     let trackUrl =
         typeof currentTrack !== "undefined" && currentTrack.fingerprint
             ? `/api/track/stream/${currentTrack.fingerprint}`
@@ -207,7 +220,11 @@ const Player = ({ currentTrack, shuffle }) => {
 
     return (
         <>
-            <div className="progress progress-player bg-dark">
+            <div
+                id="progressCont"
+                onClick={handleProgressClick}
+                className="progress progress-player bg-dark w-100"
+            >
                 <div
                     id="progress"
                     className={

@@ -80457,6 +80457,19 @@ var Player = function Player(_ref) {
     }
   };
 
+  var handleProgressClick = function handleProgressClick(e) {
+    var audio = document.getElementById("audio");
+    var progress = document.getElementById("progress");
+    var width = window.innerWidth;
+    var position = e.clientX;
+    var pct = (parseInt(position) / parseInt(width) * 100).toFixed(1);
+    var playbackTime = state.currentTrack.playtime_seconds;
+    var currTime = audio.currentTime;
+    var newTime = pct / 100 * playbackTime;
+    audio.currentTime = newTime;
+    progress.style.width = pct + "%";
+  };
+
   var trackUrl = typeof currentTrack !== "undefined" && currentTrack.fingerprint ? "/api/track/stream/".concat(currentTrack.fingerprint) : null; // Override if podcast
 
   if (typeof currentTrack !== "undefined" && currentTrack.podcast_url) trackUrl = currentTrack.podcast_url;
@@ -80494,7 +80507,9 @@ var Player = function Player(_ref) {
     }
   }, [state.currentIndex, state.currentTrack]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "progress progress-player bg-dark"
+    id: "progressCont",
+    onClick: handleProgressClick,
+    className: "progress progress-player bg-dark w-100"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "progress",
     className: "progress-bar progress-bar-striped " + progressExtra,
@@ -83084,12 +83099,6 @@ function SopranoReducer(state, action) {
           return playlist.id != action.payload;
         })
       });
-
-    case "addTrackPlaylist":
-      return {};
-
-    case "removeTrackPlaylist":
-      return {};
 
     default:
       return state;
