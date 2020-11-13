@@ -116,6 +116,12 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                     return (
                         <div key={i} className="media my-4 p-2">
                             <img
+                                onClick={() => {
+                                    dispatch({
+                                        type: "playTrack",
+                                        payload: result,
+                                    });
+                                }}
                                 title={htmlDecode(result.description)}
                                 className="d-flex podcast-cover mr-3"
                                 src={result.cover}
