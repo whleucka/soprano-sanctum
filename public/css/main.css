@@ -382,7 +382,6 @@ ul.navbar-nav a:hover {
     padding-top: 2px;
     padding-left: 22px;
     background-color: #111;
-    overflow-y: hidden;
 }
 
 #sidebar .navbar-item {
