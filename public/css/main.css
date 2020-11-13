@@ -276,6 +276,10 @@ ul.navbar-nav a:hover {
     height: 100px;
 }
 
+.podcast-cover:hover {
+    cursor: hover;
+}
+
 .underline {
     text-decoration: underline;
 }
