@@ -289,11 +289,6 @@ ul.navbar-nav a:hover {
     color: #fff;
 }
 
-.podcast-details {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
 .podcast-details h4 {
     font-size: 1.3em;
 }
@@ -309,6 +304,8 @@ ul.navbar-nav a:hover {
 }
 .podcast-description {
     padding-top: 25px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 /**
@@ -399,8 +396,8 @@ ul.navbar-nav a:hover {
 @media (max-width: 767.98px) {
     .podcast-cover,
     .podcast-play {
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
     }
     #sidebar {
         width: 75px;
