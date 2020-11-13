@@ -1,9 +1,3 @@
-html {
-}
-
-body {
-}
-
 .marquee {
     width: 90%;
     white-space: nowrap;
@@ -271,6 +265,12 @@ ul.navbar-nav a:hover {
 #listennote {
     height: 12px;
 }
+
+.podcast-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .podcast-cover {
     width: 100px;
     height: 100px;

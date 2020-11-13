@@ -122,18 +122,15 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 alt="podcast cover"
                             />
                             <div className="media-body podcast-details">
-                                <div className="podcast-name">
-                                    <button
-                                        className="btn btn-sm btn-success podcast-play"
-                                        onClick={() => {
-                                            dispatch({
-                                                type: "playTrack",
-                                                payload: result,
-                                            });
-                                        }}
-                                    >
-                                        <FontAwesome name="play" />
-                                    </button>
+                                <div
+                                    onClick={() => {
+                                        dispatch({
+                                            type: "playTrack",
+                                            payload: result,
+                                        });
+                                    }}
+                                    className="podcast-name"
+                                >
                                     <h4 className="mt-0">
                                         <strong>
                                             {htmlDecode(result.podcast)}
