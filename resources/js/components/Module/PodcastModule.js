@@ -4,6 +4,7 @@ import { ListenNotes } from "../Library/Soprano";
 import { SopranoContext } from "../Context/SopranoContext";
 import { BarSpinner } from "../Utilities/Spinner";
 import { htmlDecode } from "../Utilities/Tools";
+import { Info } from "../Utilities/Alerts";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 
@@ -93,6 +94,7 @@ const PodcastModule = () => {
                         id="listennote"
                     />
                 </div>
+                {noResults && <Info msg="No podcasts found." />}
                 {loading && <BarSpinner width={"80%"} />}
                 <SearchResults
                     hasMore={offset < Math.floor(total / 10)}
