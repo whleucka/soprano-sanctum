@@ -58,7 +58,7 @@ body,
     color: white;
     background-color: #111;
     height: 100%;
-    padding-bottom: 100px;
+    padding-bottom: 110px;
 }
 
 main {
@@ -206,25 +206,26 @@ ul.navbar-nav a:hover {
 }
 
 #progressMarker {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     position: absolute;
     color: limegreen;
-    top: -10px;
+    bottom: 110px;
+    z-index: 1000;
 }
 
 .progress-player {
     width: 100%;
     position: absolute;
     bottom: 100px;
-    height: 7px;
+    height: 6px;
 }
 
 #progress {
     width: 100%;
-    z-index: 9990;
 }
 
 #progressCont {
+    width: 100%;
     cursor: pointer;
 }
 

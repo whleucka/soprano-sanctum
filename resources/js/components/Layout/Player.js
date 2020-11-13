@@ -152,7 +152,8 @@ const Player = ({ currentTrack, shuffle }) => {
     };
 
     const handleProgressClick = (e) => {
-        if (state.currentTrack.playtime_seconds) {
+        e.preventDefault();
+        if (player.status === "playing") {
             const audio = document.getElementById("audio");
             const progress = document.getElementById("progress");
             const width = window.innerWidth;
@@ -169,12 +170,13 @@ const Player = ({ currentTrack, shuffle }) => {
     };
 
     const handleProgressMouse = (e) => {
-        if (state.currentTrack.playtime_seconds) {
+        if (player.status === "playing") {
             const progressMarker = document.getElementById("progressMarker");
             const progress = document.getElementById("progress");
             const position = e.clientX;
             progressMarker.style.display = "block";
             progressMarker.style.left = position + "px";
+            console.log("MOVING POSITION: ", position);
         }
     };
 
@@ -238,7 +240,8 @@ const Player = ({ currentTrack, shuffle }) => {
                 id="progressCont"
                 onClick={handleProgressClick}
                 onMouseOver={handleProgressMouse}
-                onMouseLeave={(_) => {
+                onMouseOut={(e) => {
+                    e.preventDefault();
                     const progressMarker = document.getElementById(
                         "progressMarker"
                     );
@@ -246,6 +249,11 @@ const Player = ({ currentTrack, shuffle }) => {
                 }}
                 className="progress progress-player bg-dark w-100"
             >
+                <FontAwesome
+                    style={{ display: "none" }}
+                    id="progressMarker"
+                    name="caret-down"
+                />
                 <div
                     id="progress"
                     className={
@@ -256,11 +264,6 @@ const Player = ({ currentTrack, shuffle }) => {
                     aria-valuemin="0"
                     aria-valuemax="100"
                     style={{ width: 0 }}
-                />
-                <FontAwesome
-                    id="progressMarker"
-                    style={{ display: "none" }}
-                    name="caret-down"
                 />
             </div>
             <div id="player">

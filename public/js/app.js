@@ -80458,7 +80458,9 @@ var Player = function Player(_ref) {
   };
 
   var handleProgressClick = function handleProgressClick(e) {
-    if (state.currentTrack.playtime_seconds) {
+    e.preventDefault();
+
+    if (player.status === "playing") {
       var audio = document.getElementById("audio");
       var progress = document.getElementById("progress");
       var width = window.innerWidth;
@@ -80473,12 +80475,13 @@ var Player = function Player(_ref) {
   };
 
   var handleProgressMouse = function handleProgressMouse(e) {
-    if (state.currentTrack.playtime_seconds) {
+    if (player.status === "playing") {
       var progressMarker = document.getElementById("progressMarker");
       var progress = document.getElementById("progress");
       var position = e.clientX;
       progressMarker.style.display = "block";
       progressMarker.style.left = position + "px";
+      console.log("MOVING POSITION: ", position);
     }
   };
 
@@ -80522,12 +80525,19 @@ var Player = function Player(_ref) {
     id: "progressCont",
     onClick: handleProgressClick,
     onMouseOver: handleProgressMouse,
-    onMouseLeave: function onMouseLeave(_) {
+    onMouseOut: function onMouseOut(e) {
+      e.preventDefault();
       var progressMarker = document.getElementById("progressMarker");
       progressMarker.style.display = "none";
     },
     className: "progress progress-player bg-dark w-100"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    style: {
+      display: "none"
+    },
+    id: "progressMarker",
+    name: "caret-down"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "progress",
     className: "progress-bar progress-bar-striped " + progressExtra,
     role: "progressbar",
@@ -80537,12 +80547,6 @@ var Player = function Player(_ref) {
     style: {
       width: 0
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    id: "progressMarker",
-    style: {
-      display: "none"
-    },
-    name: "caret-down"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
