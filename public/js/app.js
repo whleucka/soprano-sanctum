@@ -84768,7 +84768,7 @@ var Soprano = {
                 withCredentials: true
               });
               _context6.next = 3;
-              return wait(2);
+              return wait(1);
 
             case 3:
               _context6.t1 = _context6.sent;
