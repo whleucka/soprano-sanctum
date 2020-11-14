@@ -239,14 +239,6 @@ const Player = ({ currentTrack, shuffle }) => {
             <div
                 id="progressCont"
                 onClick={handleProgressClick}
-                onMouseOver={handleProgressMouse}
-                onMouseOut={(e) => {
-                    e.preventDefault();
-                    const progressMarker = document.getElementById(
-                        "progressMarker"
-                    );
-                    progressMarker.style.display = "none";
-                }}
                 className="progress progress-player bg-dark w-100"
             >
                 <FontAwesome
