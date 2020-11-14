@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use App\Models\PlaylistTrack;
 
 class Directory extends Model
 {
@@ -42,6 +43,7 @@ class Directory extends Model
         $tracks = $this->tracks();
         foreach ($tracks as $track) {
             if (!file_exists($track->filenamepath)) {
+                PlaylistTrack::where('track_id', '=', $track->id)->delete();
                 $track->delete();
             }
         }
