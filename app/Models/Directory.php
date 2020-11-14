@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use App\Models\Track;
 use App\Models\PlaylistTrack;
 
 class Directory extends Model
@@ -40,7 +41,7 @@ class Directory extends Model
 
     public function removeOrphans()
     {
-        $tracks = $this->tracks();
+        $tracks = Track::all();
         foreach ($tracks as $track) {
             if (!file_exists($track->filenamepath)) {
                 PlaylistTrack::where('track_id', '=', $track->id)->delete();
