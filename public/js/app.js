@@ -84242,12 +84242,6 @@ var Player = function Player(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "progressCont",
     onClick: handleProgressClick,
-    onMouseOver: handleProgressMouse,
-    onMouseOut: function onMouseOut(e) {
-      e.preventDefault();
-      var progressMarker = document.getElementById("progressMarker");
-      progressMarker.style.display = "none";
-    },
     className: "progress progress-player bg-dark w-100"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
     style: {

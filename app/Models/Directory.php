@@ -33,6 +33,17 @@ class Directory extends Model
             }
         }
         $files['count'] = count($files['paths']);
+        $this->removeOrphans();
         return $files;
+    }
+
+    public function removeOrphans()
+    {
+        $tracks = $this->tracks();
+        foreach ($tracks as $track) {
+            if (!file_exists($track->filenamepath)) {
+                $track->delete();
+            }
+        }
     }
 }
