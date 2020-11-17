@@ -114,6 +114,14 @@ export const Soprano = {
         );
         return response.data.data;
     },
+    togglePodcast: async function (podcastId, title, image, publisher) {
+        const response = await axios.post(
+            `/api/podcast`,
+            { podcast_id: podcastId, title, image, publisher },
+            { withCredentials: true }
+        );
+        return response.data;
+    },
 };
 
 function wait(ms) {

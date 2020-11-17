@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
+import { Soprano } from "../Library/Soprano";
 import SearchInput from "./SearchInput";
+import FontAwesome from "react-fontawesome";
 import { ListenNotes } from "../Library/Soprano";
 import { SopranoContext } from "../Context/SopranoContext";
 import { BarSpinner } from "../Utilities/Spinner";
@@ -117,7 +119,6 @@ const PodcastModule = () => {
 
 const PodcastFavorites = () => {
     const { state, dispatch } = useContext(SopranoContext);
-    console.log(state.podcasts);
     return (
         <>
             <h3 className="mt-2">Favorites</h3>
@@ -164,10 +165,68 @@ const PodcastFavorites = () => {
 const SearchResults = ({ results, hasMore, loadMore }) => {
     const { state, dispatch } = useContext(SopranoContext);
     const timeAgo = new TimeAgo("en-US");
+    const podcast_ids = [];
+    state.podcasts.map((podcast) => podcast_ids.push(podcast.podcast_id));
+
+    const handleTogglePodcast = async (
+        e,
+        podcastId,
+        title,
+        image,
+        publisher
+    ) => {
+        e.preventDefault();
+        const target = e.currentTarget;
+        await Soprano.togglePodcast(podcastId, title, image, publisher).then(
+            (res) => {
+                if (res.toggle) {
+                    target.classList.remove("text-secondary");
+                    target.classList.add("text-danger");
+                } else {
+                    target.classList.add("text-secondary");
+                    target.classList.remove("text-danger");
+                }
+            }
+        );
+        await Soprano.getPodcasts().then((res) =>
+            dispatch({ type: "getPodcasts", payload: res })
+        );
+    };
+
     return (
         <>
             {results.length > 0 &&
                 results.map((result, i) => {
+                    const favorite_icon =
+                        podcast_ids.indexOf(result.podcast_id) !== -1 ? (
+                            <FontAwesome
+                                name="heart"
+                                className="text-danger ml-2"
+                                onClick={(e) =>
+                                    handleTogglePodcast(
+                                        e,
+                                        result.podcast_id,
+                                        result.podcast,
+                                        result.podcast_image,
+                                        result.publisher
+                                    )
+                                }
+                            />
+                        ) : (
+                            <FontAwesome
+                                name="heart"
+                                className="text-secondary ml-2"
+                                onClick={(e) =>
+                                    handleTogglePodcast(
+                                        e,
+                                        result.podcast_id,
+                                        result.podcast,
+                                        result.podcast_image,
+                                        result.publisher
+                                    )
+                                }
+                            />
+                        );
                     const publish_date = timeAgo.format(result.created);
                     const playtime = new Date(result.playtime_seconds * 1000)
                         .toISOString()
@@ -187,19 +246,19 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                 alt="podcast cover"
                             />
                             <div className="media-body podcast-details">
-                                <div
-                                    onClick={() => {
-                                        dispatch({
-                                            type: "playTrack",
-                                            payload: result,
-                                        });
-                                    }}
-                                    className="podcast-name"
-                                >
+                                <div className="podcast-name">
                                     <h4 className="mt-0">
-                                        <strong>
+                                        <strong
+                                            onClick={() => {
+                                                dispatch({
+                                                    type: "playTrack",
+                                                    payload: result,
+                                                });
+                                            }}
+                                        >
                                             {htmlDecode(result.podcast)}
                                         </strong>
+                                        {favorite_icon}
                                     </h4>
                                 </div>
                                 <div

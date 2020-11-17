@@ -85137,6 +85137,41 @@ var Soprano = {
     }
 
     return savePlaylist;
+  }(),
+  togglePodcast: function () {
+    var _togglePodcast = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee18(podcastId, title, image, publisher) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee18$(_context18) {
+        while (1) {
+          switch (_context18.prev = _context18.next) {
+            case 0:
+              _context18.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/podcast", {
+                podcast_id: podcastId,
+                title: title,
+                image: image,
+                publisher: publisher
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context18.sent;
+              return _context18.abrupt("return", response.data);
+
+            case 4:
+            case "end":
+              return _context18.stop();
+          }
+        }
+      }, _callee18);
+    }));
+
+    function togglePodcast(_x14, _x15, _x16, _x17) {
+      return _togglePodcast.apply(this, arguments);
+    }
+
+    return togglePodcast;
   }()
 };
 
@@ -85148,13 +85183,13 @@ function wait(ms) {
 
 var ListenNotes = {
   searchEpisode: function () {
-    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee18(term, offset, sortByDate) {
+    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee19(term, offset, sortByDate) {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee18$(_context18) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee19$(_context19) {
         while (1) {
-          switch (_context18.prev = _context18.next) {
+          switch (_context19.prev = _context19.next) {
             case 0:
-              _context18.next = 2;
+              _context19.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
                 headers: {
                   "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
@@ -85171,18 +85206,18 @@ var ListenNotes = {
               });
 
             case 2:
-              response = _context18.sent;
-              return _context18.abrupt("return", response.data);
+              response = _context19.sent;
+              return _context19.abrupt("return", response.data);
 
             case 4:
             case "end":
-              return _context18.stop();
+              return _context19.stop();
           }
         }
-      }, _callee18);
+      }, _callee19);
     }));
 
-    function searchEpisode(_x14, _x15, _x16) {
+    function searchEpisode(_x18, _x19, _x20) {
       return _searchEpisode.apply(this, arguments);
     }
 
@@ -85767,17 +85802,27 @@ var PlaylistsModule = function PlaylistsModule() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _SearchInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchInput */ "./resources/js/components/Module/SearchInput.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
-/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
-/* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
-/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
-/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
-/* harmony import */ var javascript_time_ago__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! javascript-time-ago */ "./node_modules/javascript-time-ago/index.js");
-/* harmony import */ var javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! javascript-time-ago/locale/en */ "./node_modules/javascript-time-ago/locale/en.json");
-var javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_8___namespace = /*#__PURE__*/__webpack_require__.t(/*! javascript-time-ago/locale/en */ "./node_modules/javascript-time-ago/locale/en.json", 1);
+/* harmony import */ var _SearchInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SearchInput */ "./resources/js/components/Module/SearchInput.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
+/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
+/* harmony import */ var javascript_time_ago__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! javascript-time-ago */ "./node_modules/javascript-time-ago/index.js");
+/* harmony import */ var javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! javascript-time-ago/locale/en */ "./node_modules/javascript-time-ago/locale/en.json");
+var javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! javascript-time-ago/locale/en */ "./node_modules/javascript-time-ago/locale/en.json", 1);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -85807,49 +85852,51 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-javascript_time_ago__WEBPACK_IMPORTED_MODULE_7__["default"].addDefaultLocale(javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_8__);
+
+
+javascript_time_ago__WEBPACK_IMPORTED_MODULE_9__["default"].addDefaultLocale(javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_10__);
 
 var PodcastModule = function PodcastModule() {
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState2 = _slicedToArray(_useState, 2),
       term = _useState2[0],
       setTerm = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(0),
       _useState4 = _slicedToArray(_useState3, 2),
       offset = _useState4[0],
       setOffset = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(1),
       _useState6 = _slicedToArray(_useState5, 2),
       sortByDate = _useState6[0],
       setSortByDate = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState8 = _slicedToArray(_useState7, 2),
       loading = _useState8[0],
       setLoading = _useState8[1];
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState10 = _slicedToArray(_useState9, 2),
       results = _useState10[0],
       setResults = _useState10[1];
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState12 = _slicedToArray(_useState11, 2),
       noResults = _useState12[0],
       setNoResults = _useState12[1];
 
-  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(0),
       _useState14 = _slicedToArray(_useState13, 2),
       count = _useState14[0],
       setCount = _useState14[1];
 
-  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(0),
       _useState16 = _slicedToArray(_useState15, 2),
       total = _useState16[0],
       setTotal = _useState16[1];
@@ -85916,27 +85963,27 @@ var PodcastModule = function PodcastModule() {
     setTerm("");
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "search-cont",
     className: "pt-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SearchInput__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SearchInput__WEBPACK_IMPORTED_MODULE_3__["default"], {
     placeholder: "Podcasts or episodes",
     inputValue: term,
     handleInput: handleInput,
     handleSubmit: handleSubmit,
     handleClear: handleClear
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "promo-powered",
     className: "text-right"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
     src: "/img/listennote.png",
     alt: "listen note",
     id: "listennote"
-  })), !results.length && state.podcasts.length > 0 && term === "" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PodcastFavorites, null), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_6__["Info"], {
+  })), !results.length && state.podcasts.length > 0 && term === "" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(PodcastFavorites, null), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__["Info"], {
     msg: "No podcasts found."
-  }), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_4__["BarSpinner"], {
+  }), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_6__["BarSpinner"], {
     width: "80%"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(SearchResults, {
     hasMore: offset < Math.floor(total / 10),
     results: results,
     loadMore: function loadMore() {
@@ -85946,37 +85993,36 @@ var PodcastModule = function PodcastModule() {
 };
 
 var PodcastFavorites = function PodcastFavorites() {
-  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+  var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__["SopranoContext"]),
       state = _useContext2.state,
       dispatch = _useContext2.dispatch;
 
-  console.log(state.podcasts);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
     className: "mt-2"
   }, "Favorites"), state.podcasts.length > 0 && state.podcasts.map(function (result, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       key: i,
       className: "media my-4 p-2"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
       onClick: function onClick() {},
-      title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.title),
+      title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title),
       className: "d-flex podcast-cover mr-3",
       src: result.image,
       alt: "podcast cover"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "media-body"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       onClick: function onClick() {},
       className: "podcast-name"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
       className: "mt-0"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.title)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "podcast-publisher"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
       className: "mt-1"
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.publisher))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.publisher))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "podcast-favorite-actions"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
       className: "btn btn-sm btn-outline-danger mt-2"
     }, "Remove"))));
   }));
@@ -85987,41 +86033,102 @@ var SearchResults = function SearchResults(_ref) {
       hasMore = _ref.hasMore,
       loadMore = _ref.loadMore;
 
-  var _useContext3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_3__["SopranoContext"]),
+  var _useContext3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__["SopranoContext"]),
       state = _useContext3.state,
       dispatch = _useContext3.dispatch;
 
-  var timeAgo = new javascript_time_ago__WEBPACK_IMPORTED_MODULE_7__["default"]("en-US");
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, results.length > 0 && results.map(function (result, i) {
+  var timeAgo = new javascript_time_ago__WEBPACK_IMPORTED_MODULE_9__["default"]("en-US");
+  var podcast_ids = [];
+  state.podcasts.map(function (podcast) {
+    return podcast_ids.push(podcast.podcast_id);
+  });
+
+  var handleTogglePodcast = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e, podcastId, title, image, publisher) {
+      var target;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              e.preventDefault();
+              target = e.currentTarget;
+              _context.next = 4;
+              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].togglePodcast(podcastId, title, image, publisher).then(function (res) {
+                if (res.toggle) {
+                  target.classList.remove("text-secondary");
+                  target.classList.add("text-danger");
+                } else {
+                  target.classList.add("text-secondary");
+                  target.classList.remove("text-danger");
+                }
+              });
+
+            case 4:
+              _context.next = 6;
+              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].getPodcasts().then(function (res) {
+                return dispatch({
+                  type: "getPodcasts",
+                  payload: res
+                });
+              });
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleTogglePodcast(_x, _x2, _x3, _x4, _x5) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, results.length > 0 && results.map(function (result, i) {
+    var favorite_icon = podcast_ids.indexOf(result.podcast_id) !== -1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      name: "heart",
+      className: "text-danger ml-2",
+      onClick: function onClick(e) {
+        return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
+      }
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      name: "heart",
+      className: "text-secondary ml-2",
+      onClick: function onClick(e) {
+        return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
+      }
+    });
     var publish_date = timeAgo.format(result.created);
     var playtime = new Date(result.playtime_seconds * 1000).toISOString().substr(11, 8);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       key: i,
       className: "media my-4 p-2"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
       onClick: function onClick() {
         dispatch({
           type: "playTrack",
           payload: result
         });
       },
-      title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description),
+      title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.description),
       className: "d-flex podcast-cover mr-3",
       src: result.cover,
       alt: "podcast cover"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "media-body podcast-details"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      className: "podcast-name"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
+      className: "mt-0"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("strong", {
       onClick: function onClick() {
         dispatch({
           type: "playTrack",
           payload: result
         });
-      },
-      className: "podcast-name"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-      className: "mt-0"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.podcast)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.podcast)), favorite_icon)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       onClick: function onClick(e) {
         e.preventDefault();
         var target = e.currentTarget.nextElementSibling;
@@ -86033,17 +86140,17 @@ var SearchResults = function SearchResults(_ref) {
         }
       },
       className: "podcast-title"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
       className: "mt-1 cursor"
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "podcast-description",
       style: {
         display: "none"
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_5__["htmlDecode"])(result.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, publish_date, playtime !== "00:00:00" ? " | " + playtime : "")))));
-  }), hasMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, publish_date, playtime !== "00:00:00" ? " | " + playtime : "")))));
+  }), hasMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "text-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     onClick: function onClick(e) {
       e.preventDefault();
       loadMore();
