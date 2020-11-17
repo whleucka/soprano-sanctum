@@ -4,6 +4,7 @@ use App\Http\Controllers\DirectoryController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\PodcastController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/directory/{directory}', [DirectoryController::class, 'update'])->name('directory.update');
     Route::delete('/directory/{directory}', [DirectoryController::class, 'destroy'])->name('directory.destroy');
 
-    // Track
+    // Tracks
     Route::post('/track', [TrackController::class, 'synch'])->name('track.synch');
     Route::post('/track/search', [TrackController::class, 'search'])->name('track.search');
     Route::get('/track/genres', [TrackController::class, 'genres'])->name('track.genres');
@@ -37,11 +38,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/track/stream/{track:fingerprint}', [TrackController::class, 'stream'])->name('track.stream');
     Route::get('/track/{track:fingerprint}/playlists', [TrackController::class, 'playlists'])->name('track.playlists');
 
-    // Playlist
+    // Playlists
     Route::get('/playlist', [PlaylistController::class, 'index'])->name('playlist.index');
     Route::post('/playlist', [PlaylistController::class, 'store'])->name('playlist.store');
     Route::delete('/playlist/{playlist}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
     Route::post('/playlist/{playlist}/track', [PlaylistController::class, 'track_toggle'])->name('playlist.track_toggle');
     Route::get('/playlist/{playlist}/load', [PlaylistController::class, 'load'])->name('playlist.load');
     Route::post('/playlist/{playlist}/save', [PlaylistController::class, 'save'])->name('playlist.save');
+
+
+    // Podcasts
+    Route::get('/podcast', [PodcastController::class, 'index'])->name('podcast.index');
+    Route::post('/podcast', [PodcastController::class, 'podcast_toggle'])->name('podcast.podcast_toggle');
 });

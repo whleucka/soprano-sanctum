@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Playlist::class);
     }
+
+    public function podcasts()
+    {
+        return $this->hasMany(Podcast::class);
+    }
 }
