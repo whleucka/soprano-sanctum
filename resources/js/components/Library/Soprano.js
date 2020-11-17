@@ -13,6 +13,12 @@ export const Soprano = {
         });
         return response.data;
     },
+    getPodcasts: async function () {
+        const response = await axios.get("/api/podcast", {
+            withCredentials: true,
+        });
+        return response.data;
+    },
     addDirectory: async function (path) {
         const response = await axios.post(
             "/api/directory",

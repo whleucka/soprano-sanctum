@@ -6,6 +6,8 @@ export function SopranoReducer(state, action) {
             return { ...state, user: action.payload };
         case "getDirectories":
             return { ...state, directories: action.payload };
+        case "getPodcasts":
+            return { ...state, podcasts: action.payload };
         case "addDirectory":
             return {
                 ...state,

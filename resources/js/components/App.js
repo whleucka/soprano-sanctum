@@ -19,6 +19,7 @@ const initialState = {
     currentTrack: {},
     playlist: [],
     playlists: [],
+    podcasts: [],
     shuffle: true,
     repeat: true,
 };
@@ -32,6 +33,9 @@ const App = () => {
         );
         Soprano.getPlaylists().then((res) =>
             dispatch({ type: "getPlaylists", payload: res })
+        );
+        Soprano.getPodcasts().then((res) =>
+            dispatch({ type: "getPodcasts", payload: res })
         );
     }, []);
 

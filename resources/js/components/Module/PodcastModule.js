@@ -11,6 +11,7 @@ import en from "javascript-time-ago/locale/en";
 TimeAgo.addDefaultLocale(en);
 
 const PodcastModule = () => {
+    const { state, dispatch } = useContext(SopranoContext);
     const [term, setTerm] = useState("");
     const [offset, setOffset] = useState(0);
     const [sortByDate, setSortByDate] = useState(1);
@@ -97,6 +98,9 @@ const PodcastModule = () => {
                         id="listennote"
                     />
                 </div>
+                {!results.length &&
+                    state.podcasts.length > 0 &&
+                    term === "" && <PodcastFavorites />}
                 {noResults && <Info msg="No podcasts found." />}
                 {loading && <BarSpinner width={"80%"} />}
                 <SearchResults
@@ -107,6 +111,52 @@ const PodcastModule = () => {
                     }}
                 />
             </div>
+        </>
+    );
+};
+
+const PodcastFavorites = () => {
+    const { state, dispatch } = useContext(SopranoContext);
+    console.log(state.podcasts);
+    return (
+        <>
+            <h3 className="mt-2">Favorites</h3>
+            {state.podcasts.length > 0 &&
+                state.podcasts.map((result, i) => {
+                    return (
+                        <div key={i} className="media my-4 p-2">
+                            <img
+                                onClick={() => {}}
+                                title={htmlDecode(result.title)}
+                                className="d-flex podcast-cover mr-3"
+                                src={result.image}
+                                alt="podcast cover"
+                            />
+                            <div className="media-body">
+                                <div
+                                    onClick={() => {}}
+                                    className="podcast-name"
+                                >
+                                    <h4 className="mt-0">
+                                        <strong>
+                                            {htmlDecode(result.title)}
+                                        </strong>
+                                    </h4>
+                                </div>
+                                <div className="podcast-publisher">
+                                    <h5 className="mt-1">
+                                        {htmlDecode(result.publisher)}
+                                    </h5>
+                                </div>
+                                <div className="podcast-favorite-actions">
+                                    <button className="btn btn-sm btn-outline-danger mt-2">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
         </>
     );
 };
