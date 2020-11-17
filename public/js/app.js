@@ -85830,6 +85830,7 @@ var PodcastModule = function PodcastModule() {
         var podcasts = [];
         podcast_results.map(function (result) {
           var podcast = {
+            episode_id: result.id,
             cover: result.image,
             podcast: result.podcast.title_original,
             publisher: result.podcast.publisher_original,
@@ -85838,7 +85839,9 @@ var PodcastModule = function PodcastModule() {
             description: result.description_original,
             link: result.link,
             podcast_url: result.audio,
-            playtime_seconds: result.audio_length_sec
+            playtime_seconds: result.audio_length_sec,
+            podcast_id: result.podcast.id,
+            podcast_image: result.podcast.image
           };
           podcasts.push(podcast);
         });

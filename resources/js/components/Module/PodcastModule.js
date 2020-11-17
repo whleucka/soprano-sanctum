@@ -35,6 +35,7 @@ const PodcastModule = () => {
                 let podcasts = [];
                 podcast_results.map((result) => {
                     const podcast = {
+                        episode_id: result.id,
                         cover: result.image,
                         podcast: result.podcast.title_original,
                         publisher: result.podcast.publisher_original,
@@ -44,6 +45,8 @@ const PodcastModule = () => {
                         link: result.link,
                         podcast_url: result.audio,
                         playtime_seconds: result.audio_length_sec,
+                        podcast_id: result.podcast.id,
+                        podcast_image: result.podcast.image,
                     };
                     podcasts.push(podcast);
                 });
