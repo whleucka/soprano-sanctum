@@ -151,4 +151,19 @@ export const ListenNotes = {
         );
         return response.data;
     },
+    searchPodcast: async function (id, recentFirst = true) {
+        const response = await axios.get(
+            `https://listen-api.listennotes.com/api/v2/podcasts/${id}`,
+            {
+                headers: {
+                    "X-ListenAPI-Key": process.env.MIX_LISTEN_API_KEY,
+                },
+                params: {
+                    sort: recentFirst ? "recent_first" : "oldest_first",
+                },
+                withCredentials: false,
+            }
+        );
+        return response.data;
+    },
 };

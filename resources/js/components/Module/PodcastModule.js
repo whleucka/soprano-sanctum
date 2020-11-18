@@ -83,6 +83,36 @@ const PodcastModule = () => {
         resetPodcasts();
         setTerm("");
     };
+
+    const setEpisodes = (podcast, results) => {
+        setLoading(true);
+        let episodes = [];
+        console.log([podcast, results]);
+        results.map((result) => {
+            const payload = {
+                episode_id: result.id,
+                cover: result.image,
+                podcast: podcast.title,
+                publisher: podcast.publisher,
+                created: result.pub_date_ms,
+                title: result.title,
+                description: result.description,
+                link: result.link,
+                podcast_url: result.audio,
+                playtime_seconds: result.audio_length_sec,
+                podcast_id: podcast.podcast_id,
+                podcast_image: podcast.image,
+            };
+            episodes.push(payload);
+        });
+        setResults(episodes);
+        setNoResults(false);
+        setOffset(0);
+        setTotal(0);
+        setCount(1);
+        setLoading(false);
+    };
+
     return (
         <>
             <div id="search-cont" className="pt-2">
@@ -102,7 +132,13 @@ const PodcastModule = () => {
                 </div>
                 {!results.length &&
                     state.podcasts.length > 0 &&
-                    term === "" && <PodcastFavorites />}
+                    term === "" && (
+                        <PodcastFavorites
+                            setSearchResults={(podcast, results) =>
+                                setEpisodes(podcast, results)
+                            }
+                        />
+                    )}
                 {noResults && <Info msg="No podcasts found." />}
                 {loading && <BarSpinner width={"80%"} />}
                 <SearchResults
@@ -117,8 +153,36 @@ const PodcastModule = () => {
     );
 };
 
-const PodcastFavorites = () => {
+const PodcastFavorites = ({ setSearchResults }) => {
     const { state, dispatch } = useContext(SopranoContext);
+
+    const handleRemovePodcast = async (
+        e,
+        podcastId,
+        title,
+        image,
+        publisher
+    ) => {
+        e.preventDefault();
+        await Soprano.togglePodcast(podcastId, title, image, publisher).then(
+            (res) => {
+                if (res.toggle) {
+                    // Podcast removed
+                }
+            }
+        );
+        await Soprano.getPodcasts().then((res) =>
+            dispatch({ type: "getPodcasts", payload: res })
+        );
+    };
+
+    const handleSearchPodcast = (podcast) => {
+        ListenNotes.searchPodcast(podcast.podcast_id).then((res) => {
+            const episodes = res.episodes;
+            setSearchResults(podcast, episodes);
+        });
+    };
+
     return (
         <>
             <h3 className="mt-2">Favorites</h3>
@@ -127,7 +191,9 @@ const PodcastFavorites = () => {
                     return (
                         <div key={i} className="media my-4 p-2">
                             <img
-                                onClick={() => {}}
+                                onClick={() => {
+                                    handleSearchPodcast(result);
+                                }}
                                 title={htmlDecode(result.title)}
                                 className="d-flex podcast-cover mr-3"
                                 src={result.image}
@@ -135,7 +201,9 @@ const PodcastFavorites = () => {
                             />
                             <div className="media-body">
                                 <div
-                                    onClick={() => {}}
+                                    onClick={() => {
+                                        handleSearchPodcast(result);
+                                    }}
                                     className="podcast-name"
                                 >
                                     <h4 className="mt-0">
@@ -150,8 +218,19 @@ const PodcastFavorites = () => {
                                     </h5>
                                 </div>
                                 <div className="podcast-favorite-actions">
-                                    <button className="btn btn-sm btn-outline-danger mt-2">
-                                        Remove
+                                    <button
+                                        onClick={(e) =>
+                                            handleRemovePodcast(
+                                                e,
+                                                result.podcast_id,
+                                                result.title,
+                                                result.image,
+                                                result.publisher
+                                            )
+                                        }
+                                        className="btn btn-sm btn-outline-danger mt-2"
+                                    >
+                                        <FontAwesome name="trash" />
                                     </button>
                                 </div>
                             </div>

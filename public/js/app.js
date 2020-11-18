@@ -85222,6 +85222,45 @@ var ListenNotes = {
     }
 
     return searchEpisode;
+  }(),
+  searchPodcast: function () {
+    var _searchPodcast = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee20(id) {
+      var recentFirst,
+          response,
+          _args20 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee20$(_context20) {
+        while (1) {
+          switch (_context20.prev = _context20.next) {
+            case 0:
+              recentFirst = _args20.length > 1 && _args20[1] !== undefined ? _args20[1] : true;
+              _context20.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/podcasts/".concat(id), {
+                headers: {
+                  "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
+                },
+                params: {
+                  sort: recentFirst ? "recent_first" : "oldest_first"
+                },
+                withCredentials: false
+              });
+
+            case 3:
+              response = _context20.sent;
+              return _context20.abrupt("return", response.data);
+
+            case 5:
+            case "end":
+              return _context20.stop();
+          }
+        }
+      }, _callee20);
+    }));
+
+    function searchPodcast(_x21) {
+      return _searchPodcast.apply(this, arguments);
+    }
+
+    return searchPodcast;
   }()
 };
 
@@ -85963,6 +86002,35 @@ var PodcastModule = function PodcastModule() {
     setTerm("");
   };
 
+  var setEpisodes = function setEpisodes(podcast, results) {
+    setLoading(true);
+    var episodes = [];
+    console.log([podcast, results]);
+    results.map(function (result) {
+      var payload = {
+        episode_id: result.id,
+        cover: result.image,
+        podcast: podcast.title,
+        publisher: podcast.publisher,
+        created: result.pub_date_ms,
+        title: result.title,
+        description: result.description,
+        link: result.link,
+        podcast_url: result.audio,
+        playtime_seconds: result.audio_length_sec,
+        podcast_id: podcast.podcast_id,
+        podcast_image: podcast.image
+      };
+      episodes.push(payload);
+    });
+    setResults(episodes);
+    setNoResults(false);
+    setOffset(0);
+    setTotal(0);
+    setCount(1);
+    setLoading(false);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "search-cont",
     className: "pt-2"
@@ -85979,7 +86047,11 @@ var PodcastModule = function PodcastModule() {
     src: "/img/listennote.png",
     alt: "listen note",
     id: "listennote"
-  })), !results.length && state.podcasts.length > 0 && term === "" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(PodcastFavorites, null), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__["Info"], {
+  })), !results.length && state.podcasts.length > 0 && term === "" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(PodcastFavorites, {
+    setSearchResults: function setSearchResults(podcast, results) {
+      return setEpisodes(podcast, results);
+    }
+  }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__["Info"], {
     msg: "No podcasts found."
   }), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_6__["BarSpinner"], {
     width: "80%"
@@ -85992,10 +86064,54 @@ var PodcastModule = function PodcastModule() {
   })));
 };
 
-var PodcastFavorites = function PodcastFavorites() {
+var PodcastFavorites = function PodcastFavorites(_ref) {
+  var setSearchResults = _ref.setSearchResults;
+
   var _useContext2 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__["SopranoContext"]),
       state = _useContext2.state,
       dispatch = _useContext2.dispatch;
+
+  var handleRemovePodcast = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e, podcastId, title, image, publisher) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              e.preventDefault();
+              _context.next = 3;
+              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].togglePodcast(podcastId, title, image, publisher).then(function (res) {
+                if (res.toggle) {// Podcast removed
+                }
+              });
+
+            case 3:
+              _context.next = 5;
+              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].getPodcasts().then(function (res) {
+                return dispatch({
+                  type: "getPodcasts",
+                  payload: res
+                });
+              });
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleRemovePodcast(_x, _x2, _x3, _x4, _x5) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var handleSearchPodcast = function handleSearchPodcast(podcast) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["ListenNotes"].searchPodcast(podcast.podcast_id).then(function (res) {
+      var episodes = res.episodes;
+      setSearchResults(podcast, episodes);
+    });
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
     className: "mt-2"
@@ -86004,7 +86120,9 @@ var PodcastFavorites = function PodcastFavorites() {
       key: i,
       className: "media my-4 p-2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-      onClick: function onClick() {},
+      onClick: function onClick() {
+        handleSearchPodcast(result);
+      },
       title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title),
       className: "d-flex podcast-cover mr-3",
       src: result.image,
@@ -86012,7 +86130,9 @@ var PodcastFavorites = function PodcastFavorites() {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "media-body"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-      onClick: function onClick() {},
+      onClick: function onClick() {
+        handleSearchPodcast(result);
+      },
       className: "podcast-name"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
       className: "mt-0"
@@ -86023,15 +86143,20 @@ var PodcastFavorites = function PodcastFavorites() {
     }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.publisher))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "podcast-favorite-actions"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      onClick: function onClick(e) {
+        return handleRemovePodcast(e, result.podcast_id, result.title, result.image, result.publisher);
+      },
       className: "btn btn-sm btn-outline-danger mt-2"
-    }, "Remove"))));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      name: "trash"
+    })))));
   }));
 };
 
-var SearchResults = function SearchResults(_ref) {
-  var results = _ref.results,
-      hasMore = _ref.hasMore,
-      loadMore = _ref.loadMore;
+var SearchResults = function SearchResults(_ref3) {
+  var results = _ref3.results,
+      hasMore = _ref3.hasMore,
+      loadMore = _ref3.loadMore;
 
   var _useContext3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__["SopranoContext"]),
       state = _useContext3.state,
@@ -86044,15 +86169,15 @@ var SearchResults = function SearchResults(_ref) {
   });
 
   var handleTogglePodcast = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e, podcastId, title, image, publisher) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e, podcastId, title, image, publisher) {
       var target;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               e.preventDefault();
               target = e.currentTarget;
-              _context.next = 4;
+              _context2.next = 4;
               return _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].togglePodcast(podcastId, title, image, publisher).then(function (res) {
                 if (res.toggle) {
                   target.classList.remove("text-secondary");
@@ -86064,7 +86189,7 @@ var SearchResults = function SearchResults(_ref) {
               });
 
             case 4:
-              _context.next = 6;
+              _context2.next = 6;
               return _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["Soprano"].getPodcasts().then(function (res) {
                 return dispatch({
                   type: "getPodcasts",
@@ -86074,14 +86199,14 @@ var SearchResults = function SearchResults(_ref) {
 
             case 6:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }));
 
-    return function handleTogglePodcast(_x, _x2, _x3, _x4, _x5) {
-      return _ref2.apply(this, arguments);
+    return function handleTogglePodcast(_x6, _x7, _x8, _x9, _x10) {
+      return _ref4.apply(this, arguments);
     };
   }();
 
