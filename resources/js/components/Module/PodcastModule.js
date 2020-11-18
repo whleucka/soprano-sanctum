@@ -194,9 +194,23 @@ const PodcastFavorites = ({ setSearchResults }) => {
                                     handleSearchPodcast(result);
                                 }}
                                 title={htmlDecode(result.title)}
-                                className="d-flex podcast-cover mr-3"
+                                className="d-flex podcast-cover"
                                 src={result.image}
                                 alt="podcast cover"
+                            />
+                            <FontAwesome
+                                name="heart"
+                                size="2x"
+                                className="text-danger mx-2"
+                                onClick={(e) =>
+                                    handleRemovePodcast(
+                                        e,
+                                        result.podcast_id,
+                                        result.title,
+                                        result.image,
+                                        result.publisher
+                                    )
+                                }
                             />
                             <div className="media-body">
                                 <div className="podcast-name">
@@ -208,19 +222,6 @@ const PodcastFavorites = ({ setSearchResults }) => {
                                         >
                                             {htmlDecode(result.title)}
                                         </strong>
-                                        <FontAwesome
-                                            name="heart"
-                                            className="text-danger ml-3"
-                                            onClick={(e) =>
-                                                handleRemovePodcast(
-                                                    e,
-                                                    result.podcast_id,
-                                                    result.title,
-                                                    result.image,
-                                                    result.publisher
-                                                )
-                                            }
-                                        />
                                     </h4>
                                 </div>
                                 <div className="podcast-publisher">
@@ -275,7 +276,8 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                         podcast_ids.indexOf(result.podcast_id) !== -1 ? (
                             <FontAwesome
                                 name="heart"
-                                className="text-danger ml-3"
+                                size="2x"
+                                className="text-danger mx-2"
                                 onClick={(e) =>
                                     handleTogglePodcast(
                                         e,
@@ -289,7 +291,8 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                         ) : (
                             <FontAwesome
                                 name="heart"
-                                className="text-secondary ml-3"
+                                size="2x"
+                                className="text-secondary mx-2"
                                 onClick={(e) =>
                                     handleTogglePodcast(
                                         e,
@@ -315,10 +318,11 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                     });
                                 }}
                                 title={htmlDecode(result.description)}
-                                className="d-flex podcast-cover mr-3"
+                                className="d-flex podcast-cover"
                                 src={result.cover}
                                 alt="podcast cover"
                             />
+                            {favorite_icon}
                             <div className="media-body podcast-details">
                                 <div className="podcast-name">
                                     <h4 className="mt-0">
@@ -332,7 +336,6 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                                         >
                                             {htmlDecode(result.podcast)}
                                         </strong>
-                                        {favorite_icon}
                                     </h4>
                                 </div>
                                 <div

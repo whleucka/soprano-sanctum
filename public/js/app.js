@@ -86123,9 +86123,16 @@ var PodcastFavorites = function PodcastFavorites(_ref) {
         handleSearchPodcast(result);
       },
       title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title),
-      className: "d-flex podcast-cover mr-3",
+      className: "d-flex podcast-cover",
       src: result.image,
       alt: "podcast cover"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      name: "heart",
+      size: "2x",
+      className: "text-danger mx-2",
+      onClick: function onClick(e) {
+        return handleRemovePodcast(e, result.podcast_id, result.title, result.image, result.publisher);
+      }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "media-body"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -86136,13 +86143,7 @@ var PodcastFavorites = function PodcastFavorites(_ref) {
       onClick: function onClick() {
         handleSearchPodcast(result);
       }
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      name: "heart",
-      className: "text-danger ml-3",
-      onClick: function onClick(e) {
-        return handleRemovePodcast(e, result.podcast_id, result.title, result.image, result.publisher);
-      }
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "podcast-publisher"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
       className: "mt-1"
@@ -86210,13 +86211,15 @@ var SearchResults = function SearchResults(_ref3) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, results.length > 0 && results.map(function (result, i) {
     var favorite_icon = podcast_ids.indexOf(result.podcast_id) !== -1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
       name: "heart",
-      className: "text-danger ml-3",
+      size: "2x",
+      className: "text-danger mx-2",
       onClick: function onClick(e) {
         return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
       }
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
       name: "heart",
-      className: "text-secondary ml-3",
+      size: "2x",
+      className: "text-secondary mx-2",
       onClick: function onClick(e) {
         return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
       }
@@ -86234,10 +86237,10 @@ var SearchResults = function SearchResults(_ref3) {
         });
       },
       title: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.description),
-      className: "d-flex podcast-cover mr-3",
+      className: "d-flex podcast-cover",
       src: result.cover,
       alt: "podcast cover"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    }), favorite_icon, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "media-body podcast-details"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "podcast-name"
@@ -86250,7 +86253,7 @@ var SearchResults = function SearchResults(_ref3) {
           payload: result
         });
       }
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.podcast)), favorite_icon)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.podcast)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       onClick: function onClick(e) {
         e.preventDefault();
         var target = e.currentTarget.nextElementSibling;
