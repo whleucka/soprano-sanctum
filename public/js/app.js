@@ -86129,7 +86129,7 @@ var PodcastFavorites = function PodcastFavorites(_ref) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
       name: "heart",
       size: "2x",
-      className: "text-danger mx-2",
+      className: "text-danger mx-3 cursor",
       onClick: function onClick(e) {
         return handleRemovePodcast(e, result.podcast_id, result.title, result.image, result.publisher);
       }
@@ -86212,14 +86212,14 @@ var SearchResults = function SearchResults(_ref3) {
     var favorite_icon = podcast_ids.indexOf(result.podcast_id) !== -1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
       name: "heart",
       size: "2x",
-      className: "text-danger mx-2",
+      className: "text-danger mx-3 cursor",
       onClick: function onClick(e) {
         return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
       }
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
       name: "heart",
       size: "2x",
-      className: "text-secondary mx-2",
+      className: "text-secondary mx-3 cursor",
       onClick: function onClick(e) {
         return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
       }
