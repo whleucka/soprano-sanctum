@@ -8,13 +8,13 @@ Soprano is a client-server music playback system. The system is built upon a Lar
 
 -   See a live demo [here](https://soprano.williamhleucka.com/)
 
-## Screenshots
+<!--## Screenshots-->
 
-<p align="center">
-<img src="https://i.ibb.co/1fPs3sv/s1.png" alt="playlist"><br>
-<img src="https://i.ibb.co/m8pPg4H/s2.png" alt="podcasts"><br>
-<img src="https://i.ibb.co/BCH66D6/s3.png" alt="mobile"><br>
-</p>
+<!--<p align="center">-->
+<!--<img src="https://i.ibb.co/1fPs3sv/s1.png" alt="playlist"><br>-->
+<!--<img src="https://i.ibb.co/m8pPg4H/s2.png" alt="podcasts"><br>-->
+<!--<img src="https://i.ibb.co/BCH66D6/s3.png" alt="mobile"><br>-->
+<!--</p>-->
 
 ## Features
 
