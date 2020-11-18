@@ -86129,26 +86129,24 @@ var PodcastFavorites = function PodcastFavorites(_ref) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "media-body"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-      onClick: function onClick() {
-        handleSearchPodcast(result);
-      },
       className: "podcast-name"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
       className: "mt-0"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("strong", null, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("strong", {
+      onClick: function onClick() {
+        handleSearchPodcast(result);
+      }
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      name: "heart",
+      className: "text-danger ml-3",
+      onClick: function onClick(e) {
+        return handleRemovePodcast(e, result.podcast_id, result.title, result.image, result.publisher);
+      }
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "podcast-publisher"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
       className: "mt-1"
-    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.publisher))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-      className: "podcast-favorite-actions"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-      onClick: function onClick(e) {
-        return handleRemovePodcast(e, result.podcast_id, result.title, result.image, result.publisher);
-      },
-      className: "btn btn-sm btn-outline-danger mt-2"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      name: "trash"
-    })))));
+    }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_7__["htmlDecode"])(result.publisher)))));
   }));
 };
 
@@ -86212,13 +86210,13 @@ var SearchResults = function SearchResults(_ref3) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, results.length > 0 && results.map(function (result, i) {
     var favorite_icon = podcast_ids.indexOf(result.podcast_id) !== -1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
       name: "heart",
-      className: "text-danger ml-2",
+      className: "text-danger ml-3",
       onClick: function onClick(e) {
         return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
       }
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default.a, {
       name: "heart",
-      className: "text-secondary ml-2",
+      className: "text-secondary ml-3",
       onClick: function onClick(e) {
         return handleTogglePodcast(e, result.podcast_id, result.podcast, result.podcast_image, result.publisher);
       }

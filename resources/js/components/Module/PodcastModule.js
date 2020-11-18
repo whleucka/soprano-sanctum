@@ -199,38 +199,34 @@ const PodcastFavorites = ({ setSearchResults }) => {
                                 alt="podcast cover"
                             />
                             <div className="media-body">
-                                <div
-                                    onClick={() => {
-                                        handleSearchPodcast(result);
-                                    }}
-                                    className="podcast-name"
-                                >
+                                <div className="podcast-name">
                                     <h4 className="mt-0">
-                                        <strong>
+                                        <strong
+                                            onClick={() => {
+                                                handleSearchPodcast(result);
+                                            }}
+                                        >
                                             {htmlDecode(result.title)}
                                         </strong>
+                                        <FontAwesome
+                                            name="heart"
+                                            className="text-danger ml-3"
+                                            onClick={(e) =>
+                                                handleRemovePodcast(
+                                                    e,
+                                                    result.podcast_id,
+                                                    result.title,
+                                                    result.image,
+                                                    result.publisher
+                                                )
+                                            }
+                                        />
                                     </h4>
                                 </div>
                                 <div className="podcast-publisher">
                                     <h5 className="mt-1">
                                         {htmlDecode(result.publisher)}
                                     </h5>
-                                </div>
-                                <div className="podcast-favorite-actions">
-                                    <button
-                                        onClick={(e) =>
-                                            handleRemovePodcast(
-                                                e,
-                                                result.podcast_id,
-                                                result.title,
-                                                result.image,
-                                                result.publisher
-                                            )
-                                        }
-                                        className="btn btn-sm btn-outline-danger mt-2"
-                                    >
-                                        <FontAwesome name="trash" />
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +275,7 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                         podcast_ids.indexOf(result.podcast_id) !== -1 ? (
                             <FontAwesome
                                 name="heart"
-                                className="text-danger ml-2"
+                                className="text-danger ml-3"
                                 onClick={(e) =>
                                     handleTogglePodcast(
                                         e,
@@ -293,7 +289,7 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                         ) : (
                             <FontAwesome
                                 name="heart"
-                                className="text-secondary ml-2"
+                                className="text-secondary ml-3"
                                 onClick={(e) =>
                                     handleTogglePodcast(
                                         e,
