@@ -87,7 +87,6 @@ const PodcastModule = () => {
     const setEpisodes = (podcast, results) => {
         setLoading(true);
         let episodes = [];
-        console.log([podcast, results]);
         results.map((result) => {
             const payload = {
                 episode_id: result.id,

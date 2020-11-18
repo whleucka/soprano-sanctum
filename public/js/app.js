@@ -86005,7 +86005,6 @@ var PodcastModule = function PodcastModule() {
   var setEpisodes = function setEpisodes(podcast, results) {
     setLoading(true);
     var episodes = [];
-    console.log([podcast, results]);
     results.map(function (result) {
       var payload = {
         episode_id: result.id,
