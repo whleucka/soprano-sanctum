@@ -279,7 +279,9 @@ ul.navbar-nav a:hover {
 #listennote {
     height: 12px;
 }
-
+.podcast-like {
+    font-size: 1.5rem;
+}
 .podcast-name:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -306,11 +308,11 @@ ul.navbar-nav a:hover {
     color: #fff;
 }
 
-.podcast-details h4 {
-    font-size: 1.3em;
+.podcast-name h4 {
+    font-size: 1.7em;
 }
 
-.podcast-details h5 {
+.podcast-name h5 {
     font-size: 1.1em;
 }
 .podcast-play {
@@ -410,12 +412,13 @@ ul.navbar-nav a:hover {
 }
 
 @media (max-width: 767.98px) {
-    .podcast-cover {
-        height: 50px;
+    .content {
+        padding-left: 5px;
+        padding-right: 5px;
     }
     #sidebar {
-        width: 75px;
-        min-width: 75px;
+        width: 50px;
+        min-width: 50px;
         text-align: center;
         padding-left: 0;
     }
@@ -424,7 +427,7 @@ ul.navbar-nav a:hover {
     }
     .navbar {
         margin: 0;
-        padding: 0 16px;
+        padding: 0 4px;
     }
     .grid-icon {
         height: 85px !important;
@@ -455,6 +458,15 @@ ul.navbar-nav a:hover {
     }
     .resultRow {
         padding: 0;
+    }
+    .podcast-name h4 {
+        font-size: 1.2rem;
+    }
+    .podcast-like {
+        font-size: 1rem;
+    }
+    .podcast-cover {
+        height: 60px;
     }
 }
 

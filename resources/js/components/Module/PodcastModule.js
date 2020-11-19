@@ -201,7 +201,7 @@ const PodcastFavorites = ({ setSearchResults }) => {
                             <FontAwesome
                                 name="heart"
                                 size="2x"
-                                className="text-danger mx-3 cursor"
+                                className="text-danger mx-3 cursor podcast-like"
                                 onClick={(e) =>
                                     handleRemovePodcast(
                                         e,
@@ -277,7 +277,7 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                             <FontAwesome
                                 name="heart"
                                 size="2x"
-                                className="text-danger mx-3 cursor"
+                                className="text-danger mx-3 cursor podcast-like"
                                 onClick={(e) =>
                                     handleTogglePodcast(
                                         e,
@@ -292,7 +292,7 @@ const SearchResults = ({ results, hasMore, loadMore }) => {
                             <FontAwesome
                                 name="heart"
                                 size="2x"
-                                className="text-secondary mx-3 cursor"
+                                className="text-secondary mx-3 cursor podcast-like"
                                 onClick={(e) =>
                                     handleTogglePodcast(
                                         e,

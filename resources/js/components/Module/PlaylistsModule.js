@@ -41,14 +41,14 @@ const PlaylistsModule = () => {
                                             onClick={handleDelete}
                                             className="btn btn-sm btn-danger mr-1"
                                         >
-                                            <FontAwesome name="trash" /> Delete
+                                            <FontAwesome name="trash" />
                                         </button>
                                         <button
                                             id={playlist.id}
                                             onClick={handleCopyPlaylist}
                                             className="btn btn-sm btn-success"
                                         >
-                                            <FontAwesome name="play" /> Load
+                                            <FontAwesome name="play" />
                                         </button>
                                     </td>
                                 </tr>
