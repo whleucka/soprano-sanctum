@@ -33,7 +33,7 @@ class PlaylistController extends Controller
         $this->authorize('create', Playlist::class);
         $data = $this->validatePlaylist();
         $data['user_id'] = $request->user()->id;
-        $playlist = Playlist::factory()->create($data);
+        $playlist = Playlist::create($data);
         return $playlist;
     }
 
