@@ -4,9 +4,9 @@
 <a href='https://github.com/whleucka/soprano-sanctum/issues' rel='Issues'>![GitHub issues](https://img.shields.io/github/issues/whleucka/soprano-sanctum)</a>
 <a href='https://discord.com/channels/760550600777138258' rel='Discord Server'>![Discord](https://img.shields.io/discord/760550600777138258)</a>
 
-Soprano is a client-server music playback system. The system is built upon a Laravel API backend with a modern React JS frontend. Host your own Spotify&trade; clone and ditch the monthly subscription fee. Take control of your music library!
+Soprano is a client-server music playback system. Soprano features a Laravel API backend with a modern React JS frontend. Host your own Spotify&trade; clone and ditch the monthly subscription fee. Take control of your music library!
 
--   See a live demo [here](https://soprano.williamhleucka.com/)
+-   Live demo [here](https://soprano.williamhleucka.com/)
 
 <!--## Screenshots-->
 
@@ -21,10 +21,11 @@ Soprano is a client-server music playback system. The system is built upon a Lar
 -   User authentication
 -   User playlists
 -   Music genres
--   Play/Pause/Next Track/Previous Track/Shuffle
+-   Player controls
 -   On-the-fly transcoding
--   Playback progress bar
--   Album art
+-   Track seeking
+-   Album cover art
+-   Podcast support with Listen Notes
 
 ## Installation
 
@@ -37,7 +38,7 @@ npm install
 
 ## Usage
 
--   Copy the .env.example file to .env and add your db secrets / ListenNotes API key.
+-   Copy the .env.example file to .env and add your db secrets / Listen Notes API key.
 -   Create a mysql database.
 -   Run migrations.
 
