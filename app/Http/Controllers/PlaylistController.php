@@ -85,7 +85,7 @@ class PlaylistController extends Controller
             return ['toggle' => 0];
         } else {
             $data['playlist_id'] = $playlist->id;
-            PlaylistTrack::factory()->create($data);
+            PlaylistTrack::create($data);
             return ['toggle' => 1];
         }     
     }
@@ -104,7 +104,7 @@ class PlaylistController extends Controller
             $target = PlaylistTrack::where('playlist_id', '=', $playlist->id)->where('track_id', '=', $track)->first();
             if (!$target) {
                 $new = ['track_id' => $track, 'playlist_id' => $playlist->id];
-                PlaylistTrack::factory()->create($new);
+                PlaylistTrack::create($new);
             }
         }        
         return TrackResource::collection($playlist->tracks);
