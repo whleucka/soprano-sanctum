@@ -117,7 +117,7 @@ class TrackController extends Controller
         $data = $this->validateAlbum();
         $tracks = DB::table('tracks')
             ->where('artist', '=', "{$data['artist']}")
-            ->orWhere('album', '=', "{$data['album']}")
+            ->where('album', '=', "{$data['album']}")
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);
