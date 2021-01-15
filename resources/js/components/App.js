@@ -15,7 +15,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 const initialState = {
     user: null,
     directories: null,
-    currentIndex: 0,
+    currentIndex: -1,
     currentTrack: {},
     playlist: [],
     playlists: [],

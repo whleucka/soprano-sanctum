@@ -36,7 +36,7 @@ class DirectoryController extends Controller
         $this->authorize('create', Directory::class);
         $data = $this->validateDirectory(); 
         $data['user_id'] = $request->user()->id;
-        $directory = Directory::factory()->create($data);
+        $directory = Directory::create($data);
         return $directory;
     }
 
