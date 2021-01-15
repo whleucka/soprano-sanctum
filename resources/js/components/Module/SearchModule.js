@@ -1,15 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
-import { SopranoContext } from "../Context/SopranoContext";
-import FontAwesome from "react-fontawesome";
-import { Soprano } from "../Library/Soprano";
-import TrackRow from "./TrackRow";
-import SearchInput from "./SearchInput";
-import { BarSpinner, GridSpinner } from "../Utilities/Spinner";
-import { Info } from "../Utilities/Alerts";
+import React, { useContext, useEffect, useState } from "react";
 import Avatar from "react-avatar";
+import FontAwesome from "react-fontawesome";
 import { useHistory } from "react-router-dom";
+
+import { SopranoContext } from "../Context/SopranoContext";
+import { Soprano } from "../Library/Soprano";
+import { Info } from "../Utilities/Alerts";
+import { BarSpinner, GridSpinner } from "../Utilities/Spinner";
 import { htmlDecode } from "../Utilities/Tools";
+
 import SavePlaylistModal from "./SavePlaylistModal";
+import SearchInput from "./SearchInput";
+import TrackRow from "./TrackRow";
 
 const SearchModule = () => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -68,6 +70,27 @@ const SearchModule = () => {
             dispatch({ type: "copyPlaylist", payload: res });
             history.push("/home");
         });
+    };
+
+    const callback = (e) => {
+        const set = e.currentTarget.dataset;
+        if (set.type === "album") {
+            setLoading(true);
+            Soprano.album(set.artist, set.album).then((res) => {
+                if (!res.length) setNoResults(true);
+                else setResults(res);
+                setLoading(false);
+            });
+        } else if (set.type === "artist") {
+            setLoading(true);
+            Soprano.artist(set.artist).then((res) => {
+                if (!res.length) setNoResults(true);
+                else setResults(res);
+                setLoading(false);
+            });
+        } else {
+            console.log("Unknown callback, trackRow");
+        }
     };
 
     return (
@@ -164,14 +187,13 @@ const SearchModule = () => {
                         </button>
                     </div>
                 )}
-                <SearchResults results={results} />
+                <SearchResults callback={callback} results={results} />
                 <SavePlaylistModal tracks={results} />
             </div>
         </>
     );
 };
-
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, callback }) => {
     const hasResults = results.length > 0;
     return (
         <>
@@ -183,6 +205,7 @@ const SearchResults = ({ results }) => {
                             index={i}
                             track={result}
                             key={i}
+                            callback={callback}
                         />
                     );
                 })}

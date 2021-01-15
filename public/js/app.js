@@ -84862,21 +84862,23 @@ var Soprano = {
 
     return search;
   }(),
-  getGenres: function () {
-    var _getGenres = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+  artist: function () {
+    var _artist2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_artist) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
         while (1) {
           switch (_context9.prev = _context9.next) {
             case 0:
               _context9.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/genres", {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track/artist", {
+                artist: _artist
+              }, {
                 withCredentials: true
               });
 
             case 2:
               response = _context9.sent;
-              return _context9.abrupt("return", response.data);
+              return _context9.abrupt("return", response.data.data);
 
             case 4:
             case "end":
@@ -84886,27 +84888,30 @@ var Soprano = {
       }, _callee9);
     }));
 
-    function getGenres() {
-      return _getGenres.apply(this, arguments);
+    function artist(_x6) {
+      return _artist2.apply(this, arguments);
     }
 
-    return getGenres;
+    return artist;
   }(),
-  getYears: function () {
-    var _getYears = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
+  album: function () {
+    var _album2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(artist, _album) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
               _context10.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/years", {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/track/album", {
+                artist: artist,
+                album: _album
+              }, {
                 withCredentials: true
               });
 
             case 2:
               response = _context10.sent;
-              return _context10.abrupt("return", response.data);
+              return _context10.abrupt("return", response.data.data);
 
             case 4:
             case "end":
@@ -84916,21 +84921,21 @@ var Soprano = {
       }, _callee10);
     }));
 
-    function getYears() {
-      return _getYears.apply(this, arguments);
+    function album(_x7, _x8) {
+      return _album2.apply(this, arguments);
     }
 
-    return getYears;
+    return album;
   }(),
-  getPlaylists: function () {
-    var _getPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
+  getGenres: function () {
+    var _getGenres = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
         while (1) {
           switch (_context11.prev = _context11.next) {
             case 0:
               _context11.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist", {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/genres", {
                 withCredentials: true
               });
 
@@ -84946,23 +84951,21 @@ var Soprano = {
       }, _callee11);
     }));
 
-    function getPlaylists() {
-      return _getPlaylists.apply(this, arguments);
+    function getGenres() {
+      return _getGenres.apply(this, arguments);
     }
 
-    return getPlaylists;
+    return getGenres;
   }(),
-  addPlaylist: function () {
-    var _addPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(name) {
+  getYears: function () {
+    var _getYears = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12() {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
         while (1) {
           switch (_context12.prev = _context12.next) {
             case 0:
               _context12.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist", {
-                name: name
-              }, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/years", {
                 withCredentials: true
               });
 
@@ -84978,21 +84981,21 @@ var Soprano = {
       }, _callee12);
     }));
 
-    function addPlaylist(_x6) {
-      return _addPlaylist.apply(this, arguments);
+    function getYears() {
+      return _getYears.apply(this, arguments);
     }
 
-    return addPlaylist;
+    return getYears;
   }(),
-  removePlaylist: function () {
-    var _removePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(id) {
+  getPlaylists: function () {
+    var _getPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13() {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
         while (1) {
           switch (_context13.prev = _context13.next) {
             case 0:
               _context13.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/playlist/".concat(id), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist", {
                 withCredentials: true
               });
 
@@ -85008,22 +85011,22 @@ var Soprano = {
       }, _callee13);
     }));
 
-    function removePlaylist(_x7) {
-      return _removePlaylist.apply(this, arguments);
+    function getPlaylists() {
+      return _getPlaylists.apply(this, arguments);
     }
 
-    return removePlaylist;
+    return getPlaylists;
   }(),
-  toggleTrackPlaylist: function () {
-    var _toggleTrackPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14(trackId, playlistId) {
+  addPlaylist: function () {
+    var _addPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14(name) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee14$(_context14) {
         while (1) {
           switch (_context14.prev = _context14.next) {
             case 0:
               _context14.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist/".concat(playlistId, "/track"), {
-                track_id: trackId
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist", {
+                name: name
               }, {
                 withCredentials: true
               });
@@ -85040,21 +85043,21 @@ var Soprano = {
       }, _callee14);
     }));
 
-    function toggleTrackPlaylist(_x8, _x9) {
-      return _toggleTrackPlaylist.apply(this, arguments);
+    function addPlaylist(_x9) {
+      return _addPlaylist.apply(this, arguments);
     }
 
-    return toggleTrackPlaylist;
+    return addPlaylist;
   }(),
-  getTrackPlaylists: function () {
-    var _getTrackPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15(fingerprint) {
+  removePlaylist: function () {
+    var _removePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15(id) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee15$(_context15) {
         while (1) {
           switch (_context15.prev = _context15.next) {
             case 0:
               _context15.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/".concat(fingerprint, "/playlists"), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/playlist/".concat(id), {
                 withCredentials: true
               });
 
@@ -85070,27 +85073,29 @@ var Soprano = {
       }, _callee15);
     }));
 
-    function getTrackPlaylists(_x10) {
-      return _getTrackPlaylists.apply(this, arguments);
+    function removePlaylist(_x10) {
+      return _removePlaylist.apply(this, arguments);
     }
 
-    return getTrackPlaylists;
+    return removePlaylist;
   }(),
-  loadPlaylist: function () {
-    var _loadPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16(playlistId) {
+  toggleTrackPlaylist: function () {
+    var _toggleTrackPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee16(trackId, playlistId) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee16$(_context16) {
         while (1) {
           switch (_context16.prev = _context16.next) {
             case 0:
               _context16.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist/".concat(playlistId, "/load"), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist/".concat(playlistId, "/track"), {
+                track_id: trackId
+              }, {
                 withCredentials: true
               });
 
             case 2:
               response = _context16.sent;
-              return _context16.abrupt("return", response.data.data);
+              return _context16.abrupt("return", response.data);
 
             case 4:
             case "end":
@@ -85100,29 +85105,27 @@ var Soprano = {
       }, _callee16);
     }));
 
-    function loadPlaylist(_x11) {
-      return _loadPlaylist.apply(this, arguments);
+    function toggleTrackPlaylist(_x11, _x12) {
+      return _toggleTrackPlaylist.apply(this, arguments);
     }
 
-    return loadPlaylist;
+    return toggleTrackPlaylist;
   }(),
-  savePlaylist: function () {
-    var _savePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee17(playlistId, tracks) {
+  getTrackPlaylists: function () {
+    var _getTrackPlaylists = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee17(fingerprint) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee17$(_context17) {
         while (1) {
           switch (_context17.prev = _context17.next) {
             case 0:
               _context17.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist/".concat(playlistId, "/save"), {
-                tracks: tracks
-              }, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/track/".concat(fingerprint, "/playlists"), {
                 withCredentials: true
               });
 
             case 2:
               response = _context17.sent;
-              return _context17.abrupt("return", response.data.data);
+              return _context17.abrupt("return", response.data);
 
             case 4:
             case "end":
@@ -85132,20 +85135,82 @@ var Soprano = {
       }, _callee17);
     }));
 
-    function savePlaylist(_x12, _x13) {
-      return _savePlaylist.apply(this, arguments);
+    function getTrackPlaylists(_x13) {
+      return _getTrackPlaylists.apply(this, arguments);
     }
 
-    return savePlaylist;
+    return getTrackPlaylists;
   }(),
-  togglePodcast: function () {
-    var _togglePodcast = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee18(podcastId, title, image, publisher) {
+  loadPlaylist: function () {
+    var _loadPlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee18(playlistId) {
       var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee18$(_context18) {
         while (1) {
           switch (_context18.prev = _context18.next) {
             case 0:
               _context18.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/playlist/".concat(playlistId, "/load"), {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context18.sent;
+              return _context18.abrupt("return", response.data.data);
+
+            case 4:
+            case "end":
+              return _context18.stop();
+          }
+        }
+      }, _callee18);
+    }));
+
+    function loadPlaylist(_x14) {
+      return _loadPlaylist.apply(this, arguments);
+    }
+
+    return loadPlaylist;
+  }(),
+  savePlaylist: function () {
+    var _savePlaylist = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee19(playlistId, tracks) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee19$(_context19) {
+        while (1) {
+          switch (_context19.prev = _context19.next) {
+            case 0:
+              _context19.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/playlist/".concat(playlistId, "/save"), {
+                tracks: tracks
+              }, {
+                withCredentials: true
+              });
+
+            case 2:
+              response = _context19.sent;
+              return _context19.abrupt("return", response.data.data);
+
+            case 4:
+            case "end":
+              return _context19.stop();
+          }
+        }
+      }, _callee19);
+    }));
+
+    function savePlaylist(_x15, _x16) {
+      return _savePlaylist.apply(this, arguments);
+    }
+
+    return savePlaylist;
+  }(),
+  togglePodcast: function () {
+    var _togglePodcast = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee20(podcastId, title, image, publisher) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee20$(_context20) {
+        while (1) {
+          switch (_context20.prev = _context20.next) {
+            case 0:
+              _context20.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/podcast", {
                 podcast_id: podcastId,
                 title: title,
@@ -85156,18 +85221,18 @@ var Soprano = {
               });
 
             case 2:
-              response = _context18.sent;
-              return _context18.abrupt("return", response.data);
+              response = _context20.sent;
+              return _context20.abrupt("return", response.data);
 
             case 4:
             case "end":
-              return _context18.stop();
+              return _context20.stop();
           }
         }
-      }, _callee18);
+      }, _callee20);
     }));
 
-    function togglePodcast(_x14, _x15, _x16, _x17) {
+    function togglePodcast(_x17, _x18, _x19, _x20) {
       return _togglePodcast.apply(this, arguments);
     }
 
@@ -85183,13 +85248,13 @@ function wait(ms) {
 
 var ListenNotes = {
   searchEpisode: function () {
-    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee19(term, offset, sortByDate) {
+    var _searchEpisode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee21(term, offset, sortByDate) {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee19$(_context19) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee21$(_context21) {
         while (1) {
-          switch (_context19.prev = _context19.next) {
+          switch (_context21.prev = _context21.next) {
             case 0:
-              _context19.next = 2;
+              _context21.next = 2;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/search", {
                 headers: {
                   "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
@@ -85206,34 +85271,34 @@ var ListenNotes = {
               });
 
             case 2:
-              response = _context19.sent;
-              return _context19.abrupt("return", response.data);
+              response = _context21.sent;
+              return _context21.abrupt("return", response.data);
 
             case 4:
             case "end":
-              return _context19.stop();
+              return _context21.stop();
           }
         }
-      }, _callee19);
+      }, _callee21);
     }));
 
-    function searchEpisode(_x18, _x19, _x20) {
+    function searchEpisode(_x21, _x22, _x23) {
       return _searchEpisode.apply(this, arguments);
     }
 
     return searchEpisode;
   }(),
   searchPodcast: function () {
-    var _searchPodcast = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee20(id) {
+    var _searchPodcast = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee22(id) {
       var recentFirst,
           response,
-          _args20 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee20$(_context20) {
+          _args22 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee22$(_context22) {
         while (1) {
-          switch (_context20.prev = _context20.next) {
+          switch (_context22.prev = _context22.next) {
             case 0:
-              recentFirst = _args20.length > 1 && _args20[1] !== undefined ? _args20[1] : true;
-              _context20.next = 3;
+              recentFirst = _args22.length > 1 && _args22[1] !== undefined ? _args22[1] : true;
+              _context22.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://listen-api.listennotes.com/api/v2/podcasts/".concat(id), {
                 headers: {
                   "X-ListenAPI-Key": "f5249228dac34455b88931be63af197c"
@@ -85245,18 +85310,18 @@ var ListenNotes = {
               });
 
             case 3:
-              response = _context20.sent;
-              return _context20.abrupt("return", response.data);
+              response = _context22.sent;
+              return _context22.abrupt("return", response.data);
 
             case 5:
             case "end":
-              return _context20.stop();
+              return _context22.stop();
           }
         }
-      }, _callee20);
+      }, _callee22);
     }));
 
-    function searchPodcast(_x21) {
+    function searchPodcast(_x24) {
       return _searchPodcast.apply(this, arguments);
     }
 
@@ -86441,7 +86506,7 @@ var SavePlaylistModal = function SavePlaylistModal(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group text-left"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
-    htmlFor: "name"
+    htmlFor: "modal-name"
   }, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     value: name,
@@ -86449,7 +86514,7 @@ var SavePlaylistModal = function SavePlaylistModal(_ref) {
       return setName(e.currentTarget.value);
     },
     className: "form-control",
-    id: "name",
+    id: "modal-name",
     placeholder: "Mix 2004...",
     required: true
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -86555,18 +86620,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var react_avatar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-avatar */ "./node_modules/react-avatar/es/index.js");
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
 /* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
-/* harmony import */ var _TrackRow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TrackRow */ "./resources/js/components/Module/TrackRow.js");
-/* harmony import */ var _SearchInput__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SearchInput */ "./resources/js/components/Module/SearchInput.js");
-/* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
-/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
-/* harmony import */ var react_avatar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-avatar */ "./node_modules/react-avatar/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
-/* harmony import */ var _SavePlaylistModal__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./SavePlaylistModal */ "./resources/js/components/Module/SavePlaylistModal.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var _Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Utilities/Alerts */ "./resources/js/components/Utilities/Alerts.js");
+/* harmony import */ var _Utilities_Spinner__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Utilities/Spinner */ "./resources/js/components/Utilities/Spinner.js");
+/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
+/* harmony import */ var _SavePlaylistModal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./SavePlaylistModal */ "./resources/js/components/Module/SavePlaylistModal.js");
+/* harmony import */ var _SearchInput__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./SearchInput */ "./resources/js/components/Module/SearchInput.js");
+/* harmony import */ var _TrackRow__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./TrackRow */ "./resources/js/components/Module/TrackRow.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -86599,7 +86664,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var SearchModule = function SearchModule() {
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_5__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
@@ -86623,12 +86688,12 @@ var SearchModule = function SearchModule() {
       noResults = _useState8[0],
       setNoResults = _useState8[1];
 
-  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_10__["useHistory"])();
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["useHistory"])();
 
   var search = function search(searchTerm) {
     if (searchTerm.trim() !== "") {
       setLoading(true);
-      _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].search(searchTerm).then(function (res) {
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__["Soprano"].search(searchTerm).then(function (res) {
         if (!res.length) setNoResults(true);else setNoResults(false);
         setResults(res);
         setLoading(false);
@@ -86683,11 +86748,11 @@ var SearchModule = function SearchModule() {
                 return insert_tracks.push(track.id);
               });
               _context.next = 6;
-              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].savePlaylist(playlist_id, insert_tracks);
+              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__["Soprano"].savePlaylist(playlist_id, insert_tracks);
 
             case 6:
               _context.next = 8;
-              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].loadPlaylist(playlist_id).then(function (res) {
+              return _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__["Soprano"].loadPlaylist(playlist_id).then(function (res) {
                 dispatch({
                   type: "copyPlaylist",
                   payload: res
@@ -86708,10 +86773,30 @@ var SearchModule = function SearchModule() {
     };
   }();
 
+  var callback = function callback(e) {
+    var set = e.currentTarget.dataset;
+
+    if (set.type === "album") {
+      setLoading(true);
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__["Soprano"].album(set.artist, set.album).then(function (res) {
+        if (!res.length) setNoResults(true);else setResults(res);
+        setLoading(false);
+      });
+    } else if (set.type === "artist") {
+      setLoading(true);
+      _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__["Soprano"].artist(set.artist).then(function (res) {
+        if (!res.length) setNoResults(true);else setResults(res);
+        setLoading(false);
+      });
+    } else {
+      console.log("Unknown callback, trackRow");
+    }
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "search-cont",
     className: "pt-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SearchInput__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SearchInput__WEBPACK_IMPORTED_MODULE_11__["default"], {
     placeholder: "Artist, Album, Track, Genre...",
     inputValue: term,
     handleInput: handleInput,
@@ -86720,7 +86805,7 @@ var SearchModule = function SearchModule() {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "results-cont",
     className: "mt-2"
-  }, noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__["Info"], {
+  }, noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__["Info"], {
     msg: "No results found. Please search for an artist, album, track, or genre."
   }), !loading && !term && !results.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Genres, {
     handleClick: function handleClick(e, genre) {
@@ -86732,7 +86817,7 @@ var SearchModule = function SearchModule() {
       e.preventDefault();
       search(year);
     }
-  })), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_7__["BarSpinner"], {
+  })), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_8__["BarSpinner"], {
     width: "80%"
   }), results.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "search-actions",
@@ -86780,21 +86865,24 @@ var SearchModule = function SearchModule() {
     name: "save",
     className: "mr-2"
   }), " ", "Playlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(SearchResults, {
+    callback: callback,
     results: results
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SavePlaylistModal__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SavePlaylistModal__WEBPACK_IMPORTED_MODULE_10__["default"], {
     tracks: results
   })));
 };
 
 var SearchResults = function SearchResults(_ref2) {
-  var results = _ref2.results;
+  var results = _ref2.results,
+      callback = _ref2.callback;
   var hasResults = results.length > 0;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, hasResults && results.map(function (result, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_TrackRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
       type: "search",
       index: i,
       track: result,
-      key: i
+      key: i,
+      callback: callback
     });
   }));
 };
@@ -86819,7 +86907,7 @@ var Genres = function Genres(_ref3) {
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     setLoading(true);
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].getGenres().then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__["Soprano"].getGenres().then(function (res) {
       if (!res.length) setNoResults(true);else setNoResults(false);
       setGenres(res);
       setLoading(false);
@@ -86828,22 +86916,22 @@ var Genres = function Genres(_ref3) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
     id: "genre",
     className: "mt-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Genre"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_7__["GridSpinner"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Genre"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_8__["GridSpinner"], {
     size: 14
-  }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__["Info"], {
+  }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__["Info"], {
     msg: "No genres found."
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "genre-cont",
     className: "d-flex justify-content-around flex-wrap"
   }, genres.map(function (genre, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: i,
       onClick: function onClick(e) {
         handleClick(e, genre);
       },
       className: "grid-icon m-2",
       title: name,
-      value: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_11__["htmlDecode"])(genre)
+      value: Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_9__["htmlDecode"])(genre)
     });
   })));
 };
@@ -86868,7 +86956,7 @@ var Years = function Years(_ref4) {
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     setLoading(true);
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].getYears().then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_6__["Soprano"].getYears().then(function (res) {
       if (!res.length) setNoResults(true);else setNoResults(false);
       setYears(res);
       setLoading(false);
@@ -86877,16 +86965,16 @@ var Years = function Years(_ref4) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
     id: "year",
     className: "mt-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Year"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_7__["GridSpinner"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Year"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_8__["GridSpinner"], {
     size: 14
-  }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_8__["Info"], {
+  }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__["Info"], {
     msg: "No years found."
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     id: "years-cont",
     className: "d-flex justify-content-around flex-wrap"
   }, years.map(function (year, i) {
     if (year.length !== 4) return;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_avatar__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: i,
       onClick: function onClick(e) {
         handleClick(e, year);
@@ -86945,7 +87033,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var TrackRow = function TrackRow(_ref) {
   var type = _ref.type,
       track = _ref.track,
-      index = _ref.index;
+      index = _ref.index,
+      _ref$callback = _ref.callback,
+      callback = _ref$callback === void 0 ? null : _ref$callback;
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
       state = _useContext.state,
@@ -87003,13 +87093,28 @@ var TrackRow = function TrackRow(_ref) {
     "aria-expanded": "false"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "search-album-cover",
+    title: track.album,
     src: track.cover,
     alt: "cover"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    title: track.album,
     className: "dropdown-menu",
     "x-placement": "right-start"
-  }, !state.playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "dropdown-item",
+    href: "#",
+    onClick: callback,
+    "data-type": "artist",
+    "data-artist": track.artist
+  }, "Artist: ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__["htmlDecode"])(track.artist)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "dropdown-item",
+    href: "#",
+    onClick: callback,
+    "data-type": "album",
+    "data-artist": track.artist,
+    "data-album": track.album
+  }, "Album: ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__["htmlDecode"])(track.album)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "dropdown-divider"
+  }), !state.playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "dropdown-item disabled",
     href: "#"
   }, "No playlists added yet."), state.playlists.length > 0 && state.playlists.map(function (playlist, i) {
@@ -87393,8 +87498,8 @@ var mod = function mod(x, n) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/whleucka/Projects/Laravel/soprano-sanctum/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/whleucka/Projects/Laravel/soprano-sanctum/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/whleucka/Data/Projects/php/laravel/soprano-sanctum/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/whleucka/Data/Projects/php/laravel/soprano-sanctum/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

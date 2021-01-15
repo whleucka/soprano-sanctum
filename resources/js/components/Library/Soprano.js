@@ -53,6 +53,22 @@ export const Soprano = {
         );
         return response.data.data;
     },
+    artist: async function (artist) {
+        const response = await axios.post(
+            "/api/track/artist",
+            { artist },
+            { withCredentials: true }
+        );
+        return response.data.data;
+    },
+    album: async function (artist, album) {
+        const response = await axios.post(
+            "/api/track/album",
+            { artist, album },
+            { withCredentials: true }
+        );
+        return response.data.data;
+    },
     getGenres: async function () {
         const response = await axios.get("/api/track/genres", {
             withCredentials: true,

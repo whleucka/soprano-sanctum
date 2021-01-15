@@ -4,7 +4,7 @@ import FontAwesome from "react-fontawesome";
 import { htmlDecode } from "../Utilities/Tools";
 import { Soprano } from "../Library/Soprano";
 
-const TrackRow = ({ type, track, index }) => {
+const TrackRow = ({ type, track, index, callback = null }) => {
     const { state, dispatch } = useContext(SopranoContext);
     const [trackPlaylist, setTrackPlaylist] = useState({});
     const handlePlay = (e) => {
@@ -51,15 +51,35 @@ const TrackRow = ({ type, track, index }) => {
                                 >
                                     <img
                                         className="search-album-cover"
+                                        title={track.album}
                                         src={track.cover}
                                         alt="cover"
                                     />
                                 </button>
                                 <div
-                                    title={track.album}
                                     className="dropdown-menu"
                                     x-placement="right-start"
                                 >
+                                    <a
+                                        className="dropdown-item"
+                                        href="#"
+                                        onClick={callback}
+                                        data-type="artist"
+                                        data-artist={track.artist}
+                                    >
+                                        Artist: {htmlDecode(track.artist)}
+                                    </a>
+                                    <a
+                                        className="dropdown-item"
+                                        href="#"
+                                        onClick={callback}
+                                        data-type="album"
+                                        data-artist={track.artist}
+                                        data-album={track.album}
+                                    >
+                                        Album: {htmlDecode(track.album)}
+                                    </a>
+                                    <div className="dropdown-divider"></div>
                                     {!state.playlists.length && (
                                         <a
                                             className="dropdown-item disabled"
