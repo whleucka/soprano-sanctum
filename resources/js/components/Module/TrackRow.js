@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import { SopranoContext } from "../Context/SopranoContext";
 import FontAwesome from "react-fontawesome";
-import { htmlDecode } from "../Utilities/Tools";
+
+import { SopranoContext } from "../Context/SopranoContext";
 import { Soprano } from "../Library/Soprano";
+import { htmlDecode } from "../Utilities/Tools";
 
 const TrackRow = ({ type, track, index, callback = null }) => {
     const { state, dispatch } = useContext(SopranoContext);
@@ -71,7 +72,12 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                         data-type="artist"
                                         data-artist={track.artist}
                                     >
-                                        Artist: {htmlDecode(track.artist)}
+                                        Artist:{" "}
+                                        {htmlDecode(track.artist).length > 30
+                                            ? htmlDecode(
+                                                  track.artist
+                                              ).substring(0, 30) + "..."
+                                            : htmlDecode(track.artist)}
                                     </a>
                                     <a
                                         className="dropdown-item"
@@ -81,7 +87,13 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                         data-artist={track.artist}
                                         data-album={track.album}
                                     >
-                                        Album: {htmlDecode(track.album)}
+                                        Album:{" "}
+                                        {htmlDecode(track.album).length > 30
+                                            ? htmlDecode(track.album).substring(
+                                                  0,
+                                                  30
+                                              ) + "..."
+                                            : htmlDecode(track.album)}
                                     </a>
                                     <div className="dropdown-divider"></div>
                                     {!state.playlists.length && (

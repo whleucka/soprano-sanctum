@@ -87005,11 +87005,11 @@ var Years = function Years(_ref4) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
-/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
-/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
-/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Context/SopranoContext */ "./resources/js/components/Context/SopranoContext.js");
+/* harmony import */ var _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Library/Soprano */ "./resources/js/components/Library/Soprano.js");
+/* harmony import */ var _Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utilities/Tools */ "./resources/js/components/Utilities/Tools.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -87041,7 +87041,7 @@ var TrackRow = function TrackRow(_ref) {
       _ref$callback = _ref.callback,
       callback = _ref$callback === void 0 ? null : _ref$callback;
 
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_1__["SopranoContext"]),
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Context_SopranoContext__WEBPACK_IMPORTED_MODULE_2__["SopranoContext"]),
       state = _useContext.state,
       dispatch = _useContext.dispatch;
 
@@ -87067,13 +87067,13 @@ var TrackRow = function TrackRow(_ref) {
   };
 
   var handleTrackPlaylists = function handleTrackPlaylists(e) {
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].getTrackPlaylists(track.fingerprint).then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].getTrackPlaylists(track.fingerprint).then(function (res) {
       setTrackPlaylist(res);
     });
   };
 
   var handleToggleTrackPlaylist = function handleToggleTrackPlaylist(e, trackId, playlistId) {
-    _Library_Soprano__WEBPACK_IMPORTED_MODULE_4__["Soprano"].toggleTrackPlaylist(trackId, playlistId).then(function (res) {
+    _Library_Soprano__WEBPACK_IMPORTED_MODULE_3__["Soprano"].toggleTrackPlaylist(trackId, playlistId).then(function (res) {
       setTrackPlaylist(_objectSpread(_objectSpread({}, trackPlaylist), {}, _defineProperty({}, playlistId, res.toggle)));
     });
   };
@@ -87113,14 +87113,14 @@ var TrackRow = function TrackRow(_ref) {
     onClick: callback,
     "data-type": "artist",
     "data-artist": track.artist
-  }, "Artist: ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__["htmlDecode"])(track.artist)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Artist:", " ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.artist).length > 30 ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.artist).substring(0, 30) + "..." : Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.artist)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "dropdown-item",
     href: "#",
     onClick: callback,
     "data-type": "album",
     "data-artist": track.artist,
     "data-album": track.album
-  }, "Album: ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__["htmlDecode"])(track.album)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Album:", " ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.album).length > 30 ? Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.album).substring(0, 30) + "..." : Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.album)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "dropdown-divider"
   }), !state.playlists.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "dropdown-item disabled",
@@ -87133,7 +87133,7 @@ var TrackRow = function TrackRow(_ref) {
       onClick: function onClick(e) {
         return handleToggleTrackPlaylist(e, track.id, playlist.id);
       }
-    }, trackPlaylist[playlist.id] == 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    }, trackPlaylist[playlist.id] == 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_fontawesome__WEBPACK_IMPORTED_MODULE_1___default.a, {
       name: "check"
     }), " ", playlist.name);
   }))), type === "playlist" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -87147,7 +87147,7 @@ var TrackRow = function TrackRow(_ref) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     onClick: handlePlay,
     className: type + "-search-row-title truncate w-100"
-  }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__["htmlDecode"])(track.artist), " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__["htmlDecode"])("&mdash;") + " ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_3__["htmlDecode"])(track.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.artist), " " + Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])("&mdash;") + " ", Object(_Utilities_Tools__WEBPACK_IMPORTED_MODULE_4__["htmlDecode"])(track.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: type + "-search-row-playtime-string"
   }, track.playtime_string))));
 };
