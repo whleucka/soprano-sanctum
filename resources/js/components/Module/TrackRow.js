@@ -73,10 +73,10 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                         data-artist={track.artist}
                                     >
                                         Artist:{" "}
-                                        {htmlDecode(track.artist).length > 30
+                                        {htmlDecode(track.artist).length > 20
                                             ? htmlDecode(
                                                   track.artist
-                                              ).substring(0, 30) + "..."
+                                              ).substring(0, 20) + "..."
                                             : htmlDecode(track.artist)}
                                     </a>
                                     <a
@@ -88,10 +88,10 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                         data-album={track.album}
                                     >
                                         Album:{" "}
-                                        {htmlDecode(track.album).length > 30
+                                        {htmlDecode(track.album).length > 20
                                             ? htmlDecode(track.album).substring(
                                                   0,
-                                                  30
+                                                  20
                                               ) + "..."
                                             : htmlDecode(track.album)}
                                     </a>
