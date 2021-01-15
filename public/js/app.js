@@ -84280,7 +84280,11 @@ var Player = function Player(_ref) {
     id: "player-cover-art",
     className: "d-flex mr-3",
     alt: "album cover",
-    src: cover_src
+    src: cover_src,
+    onError: function onError(e) {
+      e.target.onerror = null;
+      e.target.src = "/img/no-album.png";
+    }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "player-cont",
     className: "media-body"
@@ -87095,7 +87099,11 @@ var TrackRow = function TrackRow(_ref) {
     className: "search-album-cover",
     title: track.album,
     src: track.cover,
-    alt: "cover"
+    alt: "cover",
+    onError: function onError(e) {
+      e.target.onerror = null;
+      e.target.src = "/img/no-album.png";
+    }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "dropdown-menu",
     "x-placement": "right-start"
@@ -87131,7 +87139,11 @@ var TrackRow = function TrackRow(_ref) {
   }))), type === "playlist" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "search-album-cover mr-2",
     src: track.cover,
-    alt: "cover"
+    alt: "cover",
+    onError: function onError(e) {
+      e.target.onerror = null;
+      e.target.src = "/img/no-album.png";
+    }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     onClick: handlePlay,
     className: type + "-search-row-title truncate w-100"

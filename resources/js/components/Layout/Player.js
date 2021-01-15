@@ -268,6 +268,10 @@ const Player = ({ currentTrack, shuffle }) => {
                         className="d-flex mr-3"
                         alt="album cover"
                         src={cover_src}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/img/no-album.png";
+                        }}
                     />
                     <div id="player-cont" className="media-body">
                         {player.status === "idle" && (

@@ -54,6 +54,10 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                         title={track.album}
                                         src={track.cover}
                                         alt="cover"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "/img/no-album.png";
+                                        }}
                                     />
                                 </button>
                                 <div
@@ -120,6 +124,10 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                 className="search-album-cover mr-2"
                                 src={track.cover}
                                 alt="cover"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/img/no-album.png";
+                                }}
                             />
                         )}
                     </div>
