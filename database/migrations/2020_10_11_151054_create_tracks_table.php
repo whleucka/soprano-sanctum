@@ -20,7 +20,7 @@ class CreateTracksTable extends Migration
                   ->index();
             $table->mediumText('filenamepath');
             $table->string('filename');
-            $table->string('filepath');
+            $table->mediumText('filepath');
             $table->string('fileformat');
             $table->integer('filesize');
             $table->double('bitrate');
