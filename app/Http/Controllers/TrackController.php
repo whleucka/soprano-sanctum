@@ -63,14 +63,30 @@ class TrackController extends Controller
     public function validateAlbum()
     {
         return request()->validate([
-            'artist' => [
-                'required',
-                'string',
-            ],
             'album' => [
                 'required',
                 'string',
             ]
+        ]);
+    }
+    
+    public function validateGenre()
+    {
+        return request()->validate([
+            'genre' => [
+                'required',
+                'string',
+            ],
+        ]);
+    }
+    
+    public function validateYear()
+    {
+        return request()->validate([
+            'year' => [
+                'required',
+                'string',
+            ],
         ]);
     }
     
@@ -89,12 +105,21 @@ class TrackController extends Controller
         ]);
     }
 
+    public function recent_albums()
+    {
+        $this->authorize('viewAny', Track::class);
+        $albums = DB::table('tracks')->orderByDesc('created_at')->groupBy('album')->limit(28)->get();
+        return $albums; 
+    }
+
     public function playlists(Track $track)
     {
         $this->authorize('viewAny', Track::class);
         $output = [];
         foreach (request()->user()->playlists as $playlist) {
-            $in_playlist = PlaylistTrack::where('playlist_id', '=', $playlist->id)->where('track_id', '=', $track->id)->first();
+            $in_playlist = PlaylistTrack::where('playlist_id', '=', $playlist->id)
+                ->where('track_id', '=', $track->id)
+                ->first();
             $output[$playlist->id] = ($in_playlist) ? 1 : 0;
         }
         return $output;
@@ -116,8 +141,29 @@ class TrackController extends Controller
         $this->authorize('viewAny', Track::class);
         $data = $this->validateAlbum();
         $tracks = DB::table('tracks')
-            ->where('artist', '=', "{$data['artist']}")
             ->where('album', '=', "{$data['album']}")
+            ->orderBy('artist')->orderBy('album')
+            ->get();
+        return TrackResource::collection($tracks);
+    }
+    
+    public function year(Request $request)
+    {
+        $this->authorize('viewAny', Track::class);
+        $data = $this->validateYear();
+        $tracks = DB::table('tracks')
+            ->where('year', '=', "{$data['year']}")
+            ->orderBy('artist')->orderBy('album')
+            ->get();
+        return TrackResource::collection($tracks);
+    }
+    
+    public function genre(Request $request)
+    {
+        $this->authorize('viewAny', Track::class);
+        $data = $this->validateGenre();
+        $tracks = DB::table('tracks')
+            ->where('genre', 'like', "%{$data['genre']}%")
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);
@@ -131,8 +177,6 @@ class TrackController extends Controller
             ->where('artist', 'like', "%{$data['term']}%")
             ->orWhere('album', 'like', "%{$data['term']}%")
             ->orWhere('title', 'like', "%{$data['term']}%")
-            ->orWhere('genre', 'like', "%{$data['term']}%")
-            ->orWhere('year', '=', $data['term'])
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);

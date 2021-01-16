@@ -45,6 +45,12 @@ export const Soprano = {
             .then(await wait(1));
         return response.data;
     },
+    getRecentAlbums: async function () {
+        const response = await axios.get("/api/track/recent/albums", {
+            withCredentials: true,
+        });
+        return response.data;
+    },
     search: async function (term) {
         const response = await axios.post(
             "/api/track/search",
@@ -61,10 +67,26 @@ export const Soprano = {
         );
         return response.data.data;
     },
-    album: async function (artist, album) {
+    album: async function (album) {
         const response = await axios.post(
             "/api/track/album",
-            { artist, album },
+            { album },
+            { withCredentials: true }
+        );
+        return response.data.data;
+    },
+    genre: async function (genre) {
+        const response = await axios.post(
+            "/api/track/genre",
+            { genre },
+            { withCredentials: true }
+        );
+        return response.data.data;
+    },
+    year: async function (year) {
+        const response = await axios.post(
+            "/api/track/year",
+            { year },
             { withCredentials: true }
         );
         return response.data.data;

@@ -35,6 +35,37 @@ const SearchModule = () => {
         }
     };
 
+    const searchAlbum = (album) => {
+        console.log(album);
+        // Only being used for recent albums
+        setLoading(true);
+        Soprano.album(album).then((res) => {
+            if (!res.length) setNoResults(true);
+            else setResults(res);
+            setLoading(false);
+        });
+    };
+
+    const searchGenre = (genre) => {
+        setLoading(true);
+        Soprano.genre(genre).then((res) => {
+            if (!res.length) setNoResults(true);
+            else setNoResults(false);
+            setResults(res);
+            setLoading(false);
+        });
+    };
+
+    const searchYear = (year) => {
+        setLoading(true);
+        Soprano.year(year).then((res) => {
+            if (!res.length) setNoResults(true);
+            else setNoResults(false);
+            setResults(res);
+            setLoading(false);
+        });
+    };
+
     const handleInput = (e) => {
         const input = e.currentTarget.value;
         if (input.trim() !== "") setNoResults(false);
@@ -76,7 +107,7 @@ const SearchModule = () => {
         const set = e.currentTarget.dataset;
         if (set.type === "album") {
             setLoading(true);
-            Soprano.album(set.artist, set.album).then((res) => {
+            Soprano.album(set.album).then((res) => {
                 if (!res.length) setNoResults(true);
                 else setResults(res);
                 setLoading(false);
@@ -110,16 +141,22 @@ const SearchModule = () => {
                 )}
                 {!loading && !term && !results.length && (
                     <div>
+                        <RecentAlbums
+                            handleClick={(e, album) => {
+                                e.preventDefault();
+                                searchAlbum(album);
+                            }}
+                        />
                         <Genres
                             handleClick={(e, genre) => {
                                 e.preventDefault();
-                                search(genre);
+                                searchGenre(genre);
                             }}
                         />
                         <Years
                             handleClick={(e, year) => {
                                 e.preventDefault();
-                                search(year);
+                                searchYear(year);
                             }}
                         />
                     </div>
@@ -210,6 +247,49 @@ const SearchResults = ({ results, callback }) => {
                     );
                 })}
         </>
+    );
+};
+
+const RecentAlbums = ({ handleClick }) => {
+    const [recentAlbums, setRecentAlbums] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [noResults, setNoResults] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        Soprano.getRecentAlbums().then((res) => {
+            if (!res.length) setNoResults(true);
+            else setNoResults(false);
+            setRecentAlbums(res);
+            setLoading(false);
+        });
+    }, []);
+
+    return (
+        <section id="genre" className="mt-4">
+            <h3>Recent Albums</h3>
+            {loading && <GridSpinner size={14} />}
+            {noResults && <Info msg="No recent albums found." />}
+            <div
+                id="recent-albums-cont"
+                className="d-flex justify-content-around flex-wrap"
+            >
+                {recentAlbums.map((album, i) => {
+                    return (
+                        <Avatar
+                            key={i}
+                            onClick={(e) => {
+                                handleClick(e, album.album);
+                            }}
+                            src={album.cover}
+                            className="grid-icon m-2"
+                            title={album.album}
+                            value={htmlDecode(album.album)}
+                        />
+                    );
+                })}
+            </div>
+        </section>
     );
 };
 

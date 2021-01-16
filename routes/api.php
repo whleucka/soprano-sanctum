@@ -35,8 +35,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/track/search', [TrackController::class, 'search'])->name('track.search');
     Route::get('/track/genres', [TrackController::class, 'genres'])->name('track.genres');
     Route::get('/track/years', [TrackController::class, 'years'])->name('track.years');
+    Route::get('/track/recent/albums', [TrackController::class, 'recent_albums'])->name('track.recent_albums');
     Route::post('/track/artist', [TrackController::class, 'artist'])->name('track.artist');
     Route::post('/track/album', [TrackController::class, 'album'])->name('track.album');
+    Route::post('/track/genre', [TrackController::class, 'genre'])->name('track.genre');
+    Route::post('/track/year', [TrackController::class, 'year'])->name('track.year');
     Route::get('/track/stream/{track:fingerprint}', [TrackController::class, 'stream'])->name('track.stream');
     Route::get('/track/{track:fingerprint}/playlists', [TrackController::class, 'playlists'])->name('track.playlists');
 

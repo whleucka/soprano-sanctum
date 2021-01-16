@@ -84,7 +84,6 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                         href="#"
                                         onClick={callback}
                                         data-type="album"
-                                        data-artist={track.artist}
                                         data-album={track.album}
                                     >
                                         Album:{" "}
