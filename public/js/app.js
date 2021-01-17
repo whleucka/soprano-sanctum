@@ -87046,7 +87046,7 @@ var RecentAlbums = function RecentAlbums(_ref3) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section", {
     id: "genre",
     className: "mt-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Recent Albums"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_8__["GridSpinner"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, "Recently Added Albums"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Spinner__WEBPACK_IMPORTED_MODULE_8__["GridSpinner"], {
     size: 14
   }), noResults && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Utilities_Alerts__WEBPACK_IMPORTED_MODULE_7__["Info"], {
     msg: "No recent albums found."

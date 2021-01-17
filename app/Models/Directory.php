@@ -31,7 +31,10 @@ class Directory extends Model
         foreach ($it as $fi) {
             if (in_array(pathinfo($fi, PATHINFO_EXTENSION), $this->formats)) {
                 // $fi is SplFileInfo
-                $files['paths'][] = $fi->getPathName();
+                $pathfilename = $fi->getPathName();
+                $track = Track::where('filenamepath', '=', $pathfilename)->first();
+                if (!$track)
+                    $files['paths'][] = $pathfilename;
             }
         }
         $files['count'] = count($files['paths']);

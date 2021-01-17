@@ -108,7 +108,11 @@ class TrackController extends Controller
     public function recent_albums()
     {
         $this->authorize('viewAny', Track::class);
-        $albums = DB::table('tracks')->orderByDesc('created_at')->groupBy('album')->limit(28)->get();
+        $albums = DB::table('tracks')
+            ->orderByDesc('created_at')
+            ->groupBy('cover')
+            ->limit(10)
+            ->get();
         return $albums; 
     }
 
