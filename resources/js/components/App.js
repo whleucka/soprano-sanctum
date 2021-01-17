@@ -1,16 +1,18 @@
-import React, { useEffect, useReducer, useMemo } from "react";
+import md5 from "md5";
+import React, { useEffect, useMemo, useReducer } from "react";
 import ReactDOM from "react-dom";
-import { SopranoReducer } from "./Reducer/SopranoReducer";
-import { Soprano } from "./Library/Soprano";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import { SopranoContext } from "./Context/SopranoContext";
+import Admin from "./Layout/Admin";
+import Home from "./Layout/Home";
+import Player from "./Layout/Player";
+import Playlists from "./Layout/Playlists";
+import Podcasts from "./Layout/Podcasts";
 import Search from "./Layout/Search";
 import Menu from "./Layout/Sidebar";
-import Home from "./Layout/Home";
-import Admin from "./Layout/Admin";
-import Player from "./Layout/Player";
-import Podcasts from "./Layout/Podcasts";
-import Playlists from "./Layout/Playlists";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Soprano } from "./Library/Soprano";
+import { SopranoReducer } from "./Reducer/SopranoReducer";
 
 const initialState = {
     user: null,
@@ -44,6 +46,19 @@ const App = () => {
             dispatch({ type: "changeTrack", payload: state.currentIndex });
         }
     }, [state.currentIndex]);
+
+    useEffect(() => {
+        if (state.user) {
+            const email_hash = md5(state.user.email);
+            const image = document.createElement("img");
+            image.height = 30;
+            image.width = 30;
+            image.style.marginRight = "5px";
+            image.style.borderRadius = "10px";
+            image.src = `https://www.gravatar.com/avatar/${email_hash}`;
+            document.getElementById("avatar").appendChild(image);
+        }
+    }, [state.user]);
 
     const ContextValue = useMemo(() => {
         return { state, dispatch };
