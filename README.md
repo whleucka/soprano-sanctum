@@ -4,9 +4,9 @@
 <a href='https://github.com/whleucka/soprano-sanctum/issues' rel='Issues'>![GitHub issues](https://img.shields.io/github/issues/whleucka/soprano-sanctum)</a>
 <a href='https://discord.com/channels/760550600777138258' rel='Discord Server'>![Discord](https://img.shields.io/discord/760550600777138258)</a>
 
-Soprano is a client-server music playback system. Soprano securely serves your music library over the internet. Your music is transcoded to a compatible format and bitrate.
+Soprano is a client-server music playback system. Soprano securely serves your music library over the internet. Your music is transcoded to a compatible format and bitrate. You can also listen to your favorite podcasts.
 
--   Live demo [here](https://soprano.williamhleucka.com/)
+-   Demo [here](https://soprano.williamhleucka.com/)
 
 <!--## Screenshots-->
 
@@ -36,6 +36,7 @@ npm install
 
 ## Usage
 
+-   Install dependencies.
 -   Copy the .env.example file to .env and add your db secrets / Listen Notes API key.
 -   Create a mysql database.
 -   Run migrations.
@@ -51,7 +52,7 @@ npm run watch
 php artisan serve
 ```
 
-### Note
+### Hint
 
 -   In order to add/synchronize music directories, you must first make yourself an admin. Here is a simple example:
 
