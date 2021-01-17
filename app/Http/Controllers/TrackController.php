@@ -111,7 +111,7 @@ class TrackController extends Controller
         $albums = DB::table('tracks')
             ->orderByDesc('created_at')
             ->groupBy('cover')
-            ->limit(10)
+            ->limit(12)
             ->get();
         return $albums; 
     }
