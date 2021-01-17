@@ -11,7 +11,7 @@ Soprano is a client-server music playback system. Soprano securely serves your m
 <!--## Screenshots-->
 
 <p align="center">
-<img src="https://williamhleucka.com/storage/img/soprano.gif" alt="soprano"><br>
+<img src="https://bit.ly/3qrFFnU" alt="soprano"><br>
 </p>
 
 ## Features
