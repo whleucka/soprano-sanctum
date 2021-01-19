@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
       args:
         - MUSIC_DIR=${MUSIC_DIR}
+        - SOPRANO_MOUNT=${SOPRANO_MOUNT}
     image: digitalocean.com/php
     container_name: app
     restart: unless-stopped
