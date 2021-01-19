@@ -106,14 +106,14 @@ const Directory = ({ directory }) => {
                         className="btn btn-sm btn-primary float-right"
                         onClick={handleScanDirectory}
                     >
-                        <FontAwesome name="retweet" /> Scan
+                        <FontAwesome name="retweet" />
                     </button>
                     <button
                         id={directory.id}
                         className="btn btn-sm btn-danger float-right"
                         onClick={handleRemoveDirectory}
                     >
-                        <FontAwesome name="trash" /> Delete
+                        <FontAwesome name="trash" />
                     </button>
                 </div>
             </div>

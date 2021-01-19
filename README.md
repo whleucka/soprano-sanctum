@@ -4,17 +4,15 @@
 <a href='https://github.com/whleucka/soprano-sanctum/issues' rel='Issues'>![GitHub issues](https://img.shields.io/github/issues/whleucka/soprano-sanctum)</a>
 <a href='https://discord.com/channels/760550600777138258' rel='Discord Server'>![Discord](https://img.shields.io/discord/760550600777138258)</a>
 
-Soprano is a client-server music playback system. Soprano features a Laravel API backend with a modern React JS frontend. Host your own Spotify&trade; clone and ditch the monthly subscription fee. Take control of your music library!
+Soprano is a client-server music playback system. Soprano securely serves your music library over the internet. Your music is transcoded to a compatible format and bitrate.
 
 -   Live demo [here](https://soprano.williamhleucka.com/)
 
 <!--## Screenshots-->
 
-<!--<p align="center">-->
-<!--<img src="https://i.ibb.co/1fPs3sv/s1.png" alt="playlist"><br>-->
-<!--<img src="https://i.ibb.co/m8pPg4H/s2.png" alt="podcasts"><br>-->
-<!--<img src="https://i.ibb.co/BCH66D6/s3.png" alt="mobile"><br>-->
-<!--</p>-->
+<p align="center">
+<img src="https://williamhleucka.com/storage/img/soprano.gif" alt="soprano"><br>
+</p>
 
 ## Features
 

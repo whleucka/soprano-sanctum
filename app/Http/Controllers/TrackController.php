@@ -50,6 +50,30 @@ class TrackController extends Controller
         ]);
     }
     
+    public function validateArtist()
+    {
+        return request()->validate([
+            'artist' => [
+                'required',
+                'string',
+            ]
+        ]);
+    }
+    
+    public function validateAlbum()
+    {
+        return request()->validate([
+            'artist' => [
+                'required',
+                'string',
+            ],
+            'album' => [
+                'required',
+                'string',
+            ]
+        ]);
+    }
+    
     public function validateFilePath()
     {
         return request()->validate([
@@ -75,14 +99,37 @@ class TrackController extends Controller
         }
         return $output;
     } 
+    
+    public function artist(Request $request)
+    {
+        $this->authorize('viewAny', Track::class);
+        $data = $this->validateArtist();
+        $tracks = DB::table('tracks')
+            ->where('artist', '=', "{$data['artist']}")
+            ->orderBy('artist')->orderBy('album')
+            ->get();
+        return TrackResource::collection($tracks);
+    }
+    
+    public function album(Request $request)
+    {
+        $this->authorize('viewAny', Track::class);
+        $data = $this->validateAlbum();
+        $tracks = DB::table('tracks')
+            ->where('artist', '=', "{$data['artist']}")
+            ->where('album', '=', "{$data['album']}")
+            ->orderBy('artist')->orderBy('album')
+            ->get();
+        return TrackResource::collection($tracks);
+    }
 
     public function search(Request $request)
     {
         $this->authorize('viewAny', Track::class);
         $data = $this->validateSearchTerm();
         $tracks = DB::table('tracks')
-            ->where('artist', 'like', "{$data['term']}%")
-            ->orWhere('album', 'like', "{$data['term']}%")
+            ->where('artist', 'like', "%{$data['term']}%")
+            ->orWhere('album', 'like', "%{$data['term']}%")
             ->orWhere('title', 'like', "%{$data['term']}%")
             ->orWhere('genre', 'like', "%{$data['term']}%")
             ->orWhere('year', '=', $data['term'])

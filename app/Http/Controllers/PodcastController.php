@@ -24,7 +24,7 @@ class PodcastController extends Controller
             return ['toggle' => 0];
         } else {
             $data['user_id'] = request()->user()->id;
-			Podcast::factory()->create($data);
+			Podcast::create($data);
             return ['toggle' => 1];
         }     
     }

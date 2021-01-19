@@ -69,13 +69,13 @@ const SavePlaylistModal = ({ tracks }) => {
                             errors={errors.errors["name"]}
                         />
                         <div className="form-group text-left">
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="modal-name">Name</label>
                             <input
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.currentTarget.value)}
                                 className="form-control"
-                                id="name"
+                                id="modal-name"
                                 placeholder="Mix 2004..."
                                 required
                             />
