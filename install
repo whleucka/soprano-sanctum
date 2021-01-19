@@ -5,6 +5,7 @@ docker-compose exec app php artisan config:cache
 docker-compose exec app php artisan route:cache
 docker-compose exec app php artisan view:cache
 docker-compose exec app php artisan migrate:fresh
+docker-compose exec app php artisan storage:link
 docker-compose exec app npm install && npm run prod 
 docker-compose exec app composer install --optimize-autoloader --no-dev
  
