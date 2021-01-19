@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - MUSIC_DIR=${MUSIC_DIR}
     image: digitalocean.com/php
     container_name: app
     restart: unless-stopped
@@ -31,7 +33,7 @@ services:
       - "443:443"
     volumes:
       - ./:/var/www
-      - ${MUSIC_DIR}:/music
+      - ${MUSIC_DIR}:${SOPRANO_MOUNT}
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network

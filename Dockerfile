@@ -43,6 +43,9 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
+# Copy music directory
+COPY ${MUSIC_DIR} ${SOPRANO_MOUNT}
+
 # Change current user to www
 USER www
 
