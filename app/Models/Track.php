@@ -54,15 +54,15 @@ class Track extends Model
         $id3 = new getID3;
         $data = $id3->analyze($filepath);
         getid3_lib::CopyTagsToComments($data);
-       
+        $cover = Track::getCover($filepath);
         return [
-            'fingerprint' => md5($data['filenamepath']),
+            'fingerprint' => md5($data['filenamepath'].$cover),
             'filenamepath' => $data['filenamepath'],
             'filename' => $data['filename'],
             'filepath' => $data['filepath'],
             'fileformat' => $data['fileformat'],
             'filesize' => $data['filesize'],
-            'cover' => Track::getCover($filepath),
+            'cover' => $cover, 
             'bitrate' => (isset($data['bitrate'])) ? $data['bitrate'] : 0,
             'mime_type' => (isset($data['mime_type'])) ? $data['mime_type'] : '',
             'playtime_seconds' => (isset($data['playtime_seconds'])) ? $data['playtime_seconds'] : 0,
