@@ -176,6 +176,7 @@ const PodcastFavorites = ({ setSearchResults }) => {
     };
 
     const handleSearchPodcast = (podcast) => {
+        document.getElementById("podcasts").scrollTo(0, 0);
         ListenNotes.searchPodcast(podcast.podcast_id).then((res) => {
             const episodes = res.episodes;
             setSearchResults(podcast, episodes);

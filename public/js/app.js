@@ -85937,6 +85937,7 @@ var PodcastFavorites = function PodcastFavorites(_ref) {
   }();
 
   var handleSearchPodcast = function handleSearchPodcast(podcast) {
+    document.getElementById("podcasts").scrollTo(0, 0);
     _Library_Soprano__WEBPACK_IMPORTED_MODULE_2__["ListenNotes"].searchPodcast(podcast.podcast_id).then(function (res) {
       var episodes = res.episodes;
       setSearchResults(podcast, episodes);
