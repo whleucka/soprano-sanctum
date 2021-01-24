@@ -55,8 +55,14 @@ class Track extends Model
         $data = $id3->analyze($filepath);
         getid3_lib::CopyTagsToComments($data);
         $cover = Track::getCover($filepath);
+        $fingerprint = md5($data['filenamepath']);
+        $track = Track::find($fingerprint);
+        // Always force a cover sync
+        if ($track) {
+            $track->update(['cover' => $cover]);
+        }
         return [
-            'fingerprint' => md5($data['filenamepath'].$cover),
+            'fingerprint' => $fingerprint,
             'filenamepath' => $data['filenamepath'],
             'filename' => $data['filename'],
             'filepath' => $data['filepath'],
