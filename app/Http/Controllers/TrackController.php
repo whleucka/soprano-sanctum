@@ -34,7 +34,7 @@ class TrackController extends Controller
         $data = $this->validateFilePath();
         $meta = Track::analyze($data['filepath']);
         $track = Track::updateOrCreate(
-            ['fingerprint' => $meta['fingerprint']],
+            ['fingerprint' => $meta['fingerprint'], 'cover' => $meta['cover']],
             $meta
         );
         return $track;
