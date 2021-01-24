@@ -42,6 +42,7 @@ const SearchInput = ({
                     <FontAwesome name="search" className="mr-2" />
                 </button>
                 <button
+                    id="search-reset"
                     className="btn btn-secondary"
                     type="button"
                     onClick={handleClear}

@@ -36,7 +36,6 @@ const SearchModule = () => {
     };
 
     const searchAlbum = (album) => {
-        console.log(album);
         // Only being used for recent albums
         setLoading(true);
         Soprano.album(album).then((res) => {
@@ -128,7 +127,7 @@ const SearchModule = () => {
         <>
             <div id="search-cont" className="pt-2">
                 <SearchInput
-                    placeholder="Artist, Album, Track, Genre..."
+                    placeholder="Artist, Album, Track..."
                     inputValue={term}
                     handleInput={handleInput}
                     handleSubmit={handleSubmit}
@@ -254,41 +253,50 @@ const RecentAlbums = ({ handleClick }) => {
     const [recentAlbums, setRecentAlbums] = useState([]);
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        Soprano.getRecentAlbums().then((res) => {
-            if (!res.length) setNoResults(true);
-            else setNoResults(false);
-            setRecentAlbums(res);
-            setLoading(false);
-        });
-    }, []);
+        if (show) {
+            setLoading(true);
+            Soprano.getRecentAlbums().then((res) => {
+                if (show) {
+                    if (!res.length) setNoResults(true);
+                    else setNoResults(false);
+                    setRecentAlbums(res);
+                    setLoading(false);
+                }
+            });
+        }
+    }, [show]);
 
     return (
         <section id="genre" className="mt-4">
-            <h3>Recently Added Albums</h3>
+            <h3 onClick={(e) => setShow(!show)} className="cursor">
+                Browse Recent Albums
+            </h3>
             {loading && <GridSpinner size={14} />}
             {noResults && <Info msg="No recent albums found." />}
-            <div
-                id="recent-albums-cont"
-                className="d-flex justify-content-around flex-wrap"
-            >
-                {recentAlbums.map((album, i) => {
-                    return (
-                        <Avatar
-                            key={i}
-                            onClick={(e) => {
-                                handleClick(e, album.album);
-                            }}
-                            src={album.cover}
-                            className="grid-icon m-2"
-                            title={album.album}
-                            value={htmlDecode(album.album)}
-                        />
-                    );
-                })}
-            </div>
+            {show && (
+                <div
+                    id="recent-albums-cont"
+                    className="d-flex justify-content-around flex-wrap"
+                >
+                    {recentAlbums.map((album, i) => {
+                        return (
+                            <Avatar
+                                key={i}
+                                onClick={(e) => {
+                                    handleClick(e, album.album);
+                                }}
+                                src={album.cover}
+                                className="grid-icon m-2"
+                                title={album.album}
+                                value={htmlDecode(album.album)}
+                            />
+                        );
+                    })}
+                </div>
+            )}
         </section>
     );
 };
@@ -297,40 +305,47 @@ const Genres = ({ handleClick }) => {
     const [genres, setGenres] = useState([]);
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        Soprano.getGenres().then((res) => {
-            if (!res.length) setNoResults(true);
-            else setNoResults(false);
-            setGenres(res);
-            setLoading(false);
-        });
-    }, []);
+        if (show) {
+            setLoading(true);
+            Soprano.getGenres().then((res) => {
+                if (!res.length) setNoResults(true);
+                else setNoResults(false);
+                setGenres(res);
+                setLoading(false);
+            });
+        }
+    }, [show]);
 
     return (
         <section id="genre" className="mt-4">
-            <h3>Genre</h3>
+            <h3 className="cursor" onClick={(e) => setShow(!show)}>
+                Browse Genres
+            </h3>
             {loading && <GridSpinner size={14} />}
             {noResults && <Info msg="No genres found." />}
-            <div
-                id="genre-cont"
-                className="d-flex justify-content-around flex-wrap"
-            >
-                {genres.map((genre, i) => {
-                    return (
-                        <Avatar
-                            key={i}
-                            onClick={(e) => {
-                                handleClick(e, genre);
-                            }}
-                            className="grid-icon m-2"
-                            title={name}
-                            value={htmlDecode(genre)}
-                        />
-                    );
-                })}
-            </div>
+            {show && (
+                <div
+                    id="genre-cont"
+                    className="d-flex justify-content-around flex-wrap"
+                >
+                    {genres.map((genre, i) => {
+                        return (
+                            <Avatar
+                                key={i}
+                                onClick={(e) => {
+                                    handleClick(e, genre);
+                                }}
+                                className="grid-icon m-2"
+                                title={name}
+                                value={htmlDecode(genre)}
+                            />
+                        );
+                    })}
+                </div>
+            )}
         </section>
     );
 };
@@ -339,41 +354,48 @@ const Years = ({ handleClick }) => {
     const [years, setYears] = useState([]);
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        Soprano.getYears().then((res) => {
-            if (!res.length) setNoResults(true);
-            else setNoResults(false);
-            setYears(res);
-            setLoading(false);
-        });
-    }, []);
+        if (show) {
+            setLoading(true);
+            Soprano.getYears().then((res) => {
+                if (!res.length) setNoResults(true);
+                else setNoResults(false);
+                setYears(res);
+                setLoading(false);
+            });
+        }
+    }, [show]);
 
     return (
         <section id="year" className="mt-4">
-            <h3>Year</h3>
+            <h3 className="cursor" onClick={(e) => setShow(!show)}>
+                Browse Years
+            </h3>
             {loading && <GridSpinner size={14} />}
             {noResults && <Info msg="No years found." />}
-            <div
-                id="years-cont"
-                className="d-flex justify-content-around flex-wrap"
-            >
-                {years.map((year, i) => {
-                    if (year.length !== 4) return;
-                    return (
-                        <Avatar
-                            key={i}
-                            onClick={(e) => {
-                                handleClick(e, year);
-                            }}
-                            className="grid-icon m-2"
-                            title={year}
-                            value={year}
-                        />
-                    );
-                })}
-            </div>
+            {show && (
+                <div
+                    id="years-cont"
+                    className="d-flex justify-content-around flex-wrap"
+                >
+                    {years.map((year, i) => {
+                        if (year.length !== 4) return;
+                        return (
+                            <Avatar
+                                key={i}
+                                onClick={(e) => {
+                                    handleClick(e, year);
+                                }}
+                                className="grid-icon m-2"
+                                title={year}
+                                value={year}
+                            />
+                        );
+                    })}
+                </div>
+            )}
         </section>
     );
 };

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
-import FontAwesome from "react-fontawesome";
-import { SopranoContext } from "../Context/SopranoContext";
 import Avatar from "react-avatar";
+import FontAwesome from "react-fontawesome";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
+
+import { SopranoContext } from "../Context/SopranoContext";
 import { Soprano } from "../Library/Soprano";
 import CreatePlaylistModal from "../Module/CreatePlaylistModal";
 
@@ -14,13 +15,23 @@ const Menu = () => {
         Soprano.loadPlaylist(playlist_id).then((res) => {
             dispatch({ type: "copyPlaylist", payload: res });
             history.push("/home");
+            setTimeout((_) => {
+                document.getElementById("home").scrollTo(0, 0);
+            }, 50);
         });
     };
 
     return (
         <nav id="sidebar">
             <ul className="navbar-nav">
-                <Link to="/home">
+                <Link
+                    onClick={(e) => {
+                        setTimeout((_) => {
+                            document.getElementById("home").scrollTo(0, 0);
+                        }, 50);
+                    }}
+                    to="/home"
+                >
                     <li className="navbar-item">
                         <FontAwesome
                             name="headphones"
@@ -38,7 +49,18 @@ const Menu = () => {
                         <span className="link-toggle">Playlists</span>
                     </li>
                 </Link>
-                <Link to="/search">
+                <Link
+                    onClick={(e) => {
+                        setTimeout((_) => {
+                            document.getElementById("search").scrollTo(0, 0);
+                            const resetButton = document.getElementById(
+                                "search-reset"
+                            );
+                            resetButton.click();
+                        }, 50);
+                    }}
+                    to="/search"
+                >
                     <li className="navbar-item">
                         <FontAwesome
                             name="search"
@@ -47,7 +69,18 @@ const Menu = () => {
                         <span className="link-toggle">Search</span>
                     </li>
                 </Link>
-                <Link to="/podcasts">
+                <Link
+                    onClick={(e) => {
+                        setTimeout((_) => {
+                            document.getElementById("podcasts").scrollTo(0, 0);
+                            const resetButton = document.getElementById(
+                                "search-reset"
+                            );
+                            resetButton.click();
+                        }, 50);
+                    }}
+                    to="/podcasts"
+                >
                     <li className="navbar-item">
                         <FontAwesome
                             name="microphone"
@@ -95,9 +128,8 @@ const Menu = () => {
                                         name={playlist.name}
                                     />
                                     <span className="link-toggle">
-                                        {playlist.name.length > 10
-                                            ? playlist.name.substr(0, 10) +
-                                              "..."
+                                        {playlist.name.length > 9
+                                            ? playlist.name.substr(0, 9) + "..."
                                             : playlist.name}
                                     </span>
                                 </li>
