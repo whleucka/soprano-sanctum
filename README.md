@@ -54,11 +54,7 @@ php artisan serve
 
 ### Hint
 
--   In order to add/synchronize music directories, you must first make yourself an admin. Here is a simple example:
-
-```mysql
-UPDATE users SET is_admin=1 WHERE id = 'some_user_id'
-```
+-   In order to add/synchronize music directories, you must be an administrator. The first account registered is the administrator. IF you remove this user or need to make more admins, then you must modify the users table via SQL or Tinker.
 
 ### Tests
 
