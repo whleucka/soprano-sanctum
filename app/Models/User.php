@@ -47,6 +47,7 @@ class User extends Authenticatable
     {
         parent::boot();
         self::creating(function ($model) {
+            $model->is_admin = (Track::count() === 0);
             $model->uuid = Str::uuid();
         });
     }
