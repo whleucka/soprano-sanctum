@@ -109,8 +109,8 @@ class TrackController extends Controller
     {
         $this->authorize('viewAny', Track::class);
         $albums = DB::table('tracks')
-            ->distinct('filepath')
             ->orderByDesc('created_at')
+            ->groupBy('filepath')
             ->limit(24)
             ->get();
         return $albums; 
