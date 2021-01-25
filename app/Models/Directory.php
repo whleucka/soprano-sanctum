@@ -32,7 +32,7 @@ class Directory extends Model
             if (in_array(pathinfo($fi, PATHINFO_EXTENSION), $this->formats)) {
                 // $fi is SplFileInfo
                 $pathfilename = $fi->getPathName();
-                $name = addslashes($pathfilename); 
+                $name = html_entity_decode($pathfilename); 
                 $fingerprint = md5($name);
                 $track = Track::where('fingerprint', '=', $fingerprint)->first();
                 if (!$track) {
