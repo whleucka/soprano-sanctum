@@ -32,7 +32,7 @@ class Directory extends Model
             if (in_array(pathinfo($fi, PATHINFO_EXTENSION), $this->formats)) {
                 // $fi is SplFileInfo
                 $pathfilename = $fi->getPathName();
-                $name = htmlspecialchars_decode($pathfilename); 
+                $name = htmlspecialchars_decode($pathfilename, ENT_QUOTES); 
                 $track = Track::where('filenamepath', '=', $name)->first();
                 if (!$track) {
                     $files['paths'][] = $pathfilename;
