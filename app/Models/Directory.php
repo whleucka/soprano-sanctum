@@ -39,6 +39,7 @@ class Directory extends Model
                     $cover = Track::getCover($track->filepath);
                     $track->update(['cover' => $cover]);
                 }
+                dd([$track, $pathfilename]);
             }
         }
         $files['count'] = count($files['paths']);
