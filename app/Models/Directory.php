@@ -31,16 +31,9 @@ class Directory extends Model
         foreach ($it as $fi) {
             if (in_array(pathinfo($fi, PATHINFO_EXTENSION), $this->formats)) {
                 // $fi is SplFileInfo
+                // We should improve this!
                 $pathfilename = $fi->getPathName();
-                $name = htmlspecialchars_decode($pathfilename, ENT_QUOTES); 
-                $track = Track::where('filenamepath', '=', $name)->first();
-                if (!$track) {
-                    $files['paths'][] = $pathfilename;
-                } else {
-                    $cover = Track::getCover($track->filepath);
-                    $track->update(['cover' => $cover]);
-                }
-                dd([$track, $pathfilename, $name]);
+                $files['paths'][] = $pathfilename;
             }
         }
         $files['count'] = count($files['paths']);
