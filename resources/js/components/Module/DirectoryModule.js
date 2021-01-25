@@ -89,12 +89,22 @@ const Directory = ({ directory }) => {
     const handleScanDirectory = (e) => {
         const id = parseInt(e.currentTarget.id);
         Soprano.scanDirectory(id).then(async (res) => {
-            setScanning(true);
             const count = res.count;
             const paths = res.paths;
-            doRequests(count, paths);
+            if (count > 0) {
+                setScanning(true);
+                doRequests(count, paths);
+            } else {
+                setProgress(100);
+            }
         });
     };
+
+    const scanIcon = scanning ? (
+        <FontAwesome name="spinner" spin />
+    ) : (
+        <FontAwesome name="retweet" />
+    );
 
     return (
         <div>
@@ -106,7 +116,7 @@ const Directory = ({ directory }) => {
                         className="btn btn-sm btn-primary float-right"
                         onClick={handleScanDirectory}
                     >
-                        <FontAwesome name="retweet" />
+                        {scanIcon}
                     </button>
                     <button
                         id={directory.id}

@@ -55,7 +55,7 @@ class Track extends Model
         $data = $id3->analyze($filepath);
         getid3_lib::CopyTagsToComments($data);
         $cover = Track::getCover($filepath);
-        $fingerprint = md5($data['filenamepath']);
+        $fingerprint = md5($filepath);
         return [
             'fingerprint' => $fingerprint,
             'filenamepath' => $data['filenamepath'],
