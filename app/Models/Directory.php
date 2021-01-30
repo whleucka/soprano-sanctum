@@ -34,10 +34,12 @@ class Directory extends Model
                 // $fi is SplFileInfo
                 $path = $fi->getRealPath();
                 $track = Track::where('filenamepath', '=', $path)->first();
-                if (!$track)
+                if (!$track) {
                     $files['paths'][] = $path;  
-                else
+                } else {
                     $track->cover = Track::getCover($path);
+                    $track->save(); 
+                }
             }
         }
         $files['count'] = count($files['paths']);
