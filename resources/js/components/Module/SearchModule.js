@@ -272,7 +272,7 @@ const RecentAlbums = ({ handleClick }) => {
     return (
         <section id="genre" className="mt-4">
             <h3 onClick={(e) => setShow(!show)} className="cursor">
-                Browse Recent Albums
+                Recently Added Albums
             </h3>
             {loading && <GridSpinner size={14} />}
             {noResults && <Info msg="No recent albums found." />}

@@ -108,7 +108,7 @@ class TrackController extends Controller
         $albums = DB::table('tracks')
             ->orderByDesc('created_at')
             ->groupBy('filepath')
-            ->limit(24)
+            ->limit(32)
             ->get();
         return $albums; 
     }
