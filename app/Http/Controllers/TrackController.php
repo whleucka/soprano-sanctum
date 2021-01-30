@@ -33,11 +33,7 @@ class TrackController extends Controller
         $this->authorize('create', Track::class);
         $data = $this->validateFilePath();
         $meta = Track::analyze($data['filepath']);
-        $fingerprint = md5_file($data['filepath']);
-        $track = Track::updateOrCreate(
-            ['fingerprint' => $fingerprint],
-            $meta
-        );
+        $track = Track::create($meta);
         return $track;
     }
 
@@ -182,6 +178,7 @@ class TrackController extends Controller
             ->where('artist', 'like', "%{$data['term']}%")
             ->orWhere('album', 'like', "%{$data['term']}%")
             ->orWhere('title', 'like', "%{$data['term']}%")
+            ->groupBy('fingerprint')
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);
