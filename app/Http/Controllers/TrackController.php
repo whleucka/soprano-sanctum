@@ -33,8 +33,9 @@ class TrackController extends Controller
         $this->authorize('create', Track::class);
         $data = $this->validateFilePath();
         $meta = Track::analyze($data['filepath']);
+        $fingerprint = md5_file($data['filepath']);
         $track = Track::updateOrCreate(
-            ['fingerprint' => $meta['fingerprint']],
+            ['fingerprint' => $fingerprint],
             $meta
         );
         return $track;

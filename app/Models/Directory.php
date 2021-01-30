@@ -33,9 +33,12 @@ class Directory extends Model
             if (in_array(pathinfo($fi, PATHINFO_EXTENSION), $this->formats)) {
                 // $fi is SplFileInfo
                 $pathfilename = $fi->getPathName();
-                $track = Track::where('filenamepath', '=', $pathfilename)->first();
+                $fingerprint = md5_file($pathfilename);
+                $track = Track::where('fingerprint', '=', $fingerprint)->first();
                 if (!$track)
                     $files['paths'][] = $pathfilename;  
+                else
+                    $track->cover = Track::getCover($pathfilename);
             }
         }
         $files['count'] = count($files['paths']);
