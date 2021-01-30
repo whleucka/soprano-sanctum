@@ -23,8 +23,12 @@ Route::middleware(['guest'])->group(function() {
 });
 
 Route::middleware(['auth'])->group(function() {
-    // App
+    // App routes
     Route::get('/{app}', [AppController::class, 'index'])
-        ->where('app', '(home|admin|podcasts|playlists|settings|search)')
+        ->where('app', '(home|podcasts|playlists|settings|search)')
         ->name('home');
+});
+Route::middleware(['auth:admin'])->group(function() {
+    // Admin frontend
+    Route::get('/admin', [AppController::class, 'index'])->name('admin'); 
 });
