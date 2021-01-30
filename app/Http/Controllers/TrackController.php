@@ -132,6 +132,7 @@ class TrackController extends Controller
         $data = $this->validateArtist();
         $tracks = DB::table('tracks')
             ->where('artist', '=', "{$data['artist']}")
+            ->groupBy('fingerprint')
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);
@@ -143,6 +144,7 @@ class TrackController extends Controller
         $data = $this->validateAlbum();
         $tracks = DB::table('tracks')
             ->where('album', '=', "{$data['album']}")
+            ->groupBy('fingerprint')
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);
@@ -154,6 +156,7 @@ class TrackController extends Controller
         $data = $this->validateYear();
         $tracks = DB::table('tracks')
             ->where('year', '=', "{$data['year']}")
+            ->groupBy('fingerprint')
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);
@@ -165,6 +168,7 @@ class TrackController extends Controller
         $data = $this->validateGenre();
         $tracks = DB::table('tracks')
             ->where('genre', 'like', "%{$data['genre']}%")
+            ->groupBy('fingerprint')
             ->orderBy('artist')->orderBy('album')
             ->get();
         return TrackResource::collection($tracks);
