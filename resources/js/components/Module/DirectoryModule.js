@@ -134,10 +134,13 @@ const Directory = ({ directory }) => {
                 <div className="alert alert-dark my-4 p-1" role="alert">
                     <ul className="m-0 p-2 pl-4">
                         <li>{stats.count.toFixed(0)} new files discovered.</li>
-                        <li>{stats.covers.toFixed(0)} covers updated.</li>
+                        <li>
+                            {stats.covers.toFixed(0)} existing album covers
+                            updated.
+                        </li>
                         <li>
                             {stats.removed.toFixed(0)} orphaned files removed
-                            from db.
+                            from database.
                         </li>
                     </ul>
                 </div>
