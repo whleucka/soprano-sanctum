@@ -24,7 +24,8 @@ class Directory extends Model
     {
         $files = [
             'paths' => [],
-            'count' => 0
+            'count' => 0,
+            'removed' => 0
         ];
         $di = new RecursiveDirectoryIterator($this->path, RecursiveDirectoryIterator::SKIP_DOTS);
         $it = new RecursiveIteratorIterator($di);
@@ -32,22 +33,27 @@ class Directory extends Model
             if (in_array(pathinfo($fi, PATHINFO_EXTENSION), $this->formats)) {
                 // $fi is SplFileInfo
                 $pathfilename = $fi->getPathName();
-                $files['paths'][] = $pathfilename;  
+                $track = Track::where('filenamepath', '=', $pathfilename)->first();
+                if (!$track)
+                    $files['paths'][] = $pathfilename;  
             }
         }
         $files['count'] = count($files['paths']);
-        $this->removeOrphans();
+        $files['removed'] = $this->removeOrphans();
         return $files;
     }
 
     public function removeOrphans()
     {
         $tracks = Track::all();
+        $removed = 0;
         foreach ($tracks as $track) {
             if (!file_exists($track->filenamepath)) {
+                $removed++;
                 PlaylistTrack::where('track_id', '=', $track->id)->delete();
                 $track->delete();
             }
         }
+        return $removed;
     }
 }
