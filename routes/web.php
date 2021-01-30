@@ -28,7 +28,6 @@ Route::middleware(['auth'])->group(function() {
         ->where('app', '(home|podcasts|playlists|settings|search)')
         ->name('home');
 });
-Route::middleware(['auth:admin'])->group(function() {
-    // Admin frontend
-    Route::get('/admin', [AppController::class, 'index'])->name('admin'); 
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/admin', [AppController::class, 'index'])->name('admin');
 });
