@@ -81,7 +81,7 @@ const App = () => {
                     <Route path="/podcasts">
                         <Podcasts />
                     </Route>
-                    {user.is_admin && (
+                    {state.user.is_admin && (
                         <Route path="/admin">
                             <Admin />
                         </Route>
