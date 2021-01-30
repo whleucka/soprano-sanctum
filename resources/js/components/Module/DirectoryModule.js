@@ -104,12 +104,6 @@ const Directory = ({ directory }) => {
     const handleScanDirectory = (e) => {
         const id = parseInt(e.currentTarget.id);
         Soprano.scanDirectory(id).then(async (res) => {
-            setStats({
-                count: res.count,
-                removed: res.removed,
-                covers: res.covers,
-                show: true,
-            });
             const count = res.count;
             const paths = res.paths;
             if (count > 0) {
@@ -119,6 +113,12 @@ const Directory = ({ directory }) => {
             } else {
                 setProgress(100);
             }
+            setStats({
+                count: res.count,
+                removed: res.removed,
+                covers: res.covers,
+                show: true,
+            });
         });
     };
 
@@ -131,8 +131,8 @@ const Directory = ({ directory }) => {
     return (
         <div>
             {stats.show && (
-                <div className="alert alert-primary my-4 p-1" role="alert">
-                    <ul className="m-0 p-0 pl-3">
+                <div className="alert alert-dark my-4 p-1" role="alert">
+                    <ul className="m-0 p-2 pl-4">
                         <li>{stats.count.toFixed(0)} new files discovered.</li>
                         <li>{stats.covers.toFixed(0)} covers updated.</li>
                         <li>

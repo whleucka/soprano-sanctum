@@ -87348,12 +87348,6 @@ var Directory = function Directory(_ref) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                setStats({
-                  count: res.count,
-                  removed: res.removed,
-                  covers: res.covers,
-                  show: true
-                });
                 count = res.count;
                 paths = res.paths;
 
@@ -87364,6 +87358,13 @@ var Directory = function Directory(_ref) {
                 } else {
                   setProgress(100);
                 }
+
+                setStats({
+                  count: res.count,
+                  removed: res.removed,
+                  covers: res.covers,
+                  show: true
+                });
 
               case 4:
               case "end":
@@ -87386,10 +87387,10 @@ var Directory = function Directory(_ref) {
     name: "retweet"
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, stats.show && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "alert alert-primary my-4 p-1",
+    className: "alert alert-dark my-4 p-1",
     role: "alert"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
-    className: "m-0 p-0 pl-3"
+    className: "m-0 p-2 pl-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, stats.count.toFixed(0), " new files discovered."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, stats.covers.toFixed(0), " covers updated."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, stats.removed.toFixed(0), " orphaned files removed from db."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "truncate dir-path w-100 pt-1"
   }, directory.path, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
