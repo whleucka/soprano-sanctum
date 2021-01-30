@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import FontAwesome from "react-fontawesome";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { SopranoContext } from "../Context/SopranoContext";
 import { Soprano } from "../Library/Soprano";
 import { htmlDecode } from "../Utilities/Tools";
@@ -50,7 +50,7 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                     aria-haspopup="true"
                                     aria-expanded="false"
                                 >
-                                    <img
+                                    <LazyLoadImage
                                         className="search-album-cover"
                                         title={track.album}
                                         src={track.cover}
@@ -84,7 +84,9 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                                         href="#"
                                         onClick={callback}
                                         data-type="album"
-                                        data-album={track.album}
+                                        data-album_signature={
+                                            track.album_signature
+                                        }
                                     >
                                         Album:{" "}
                                         {htmlDecode(track.album).length > 20
@@ -131,7 +133,7 @@ const TrackRow = ({ type, track, index, callback = null }) => {
                             </div>
                         )}
                         {type === "playlist" && (
-                            <img
+                            <LazyLoadImage
                                 className="search-album-cover mr-2"
                                 src={track.cover}
                                 alt="cover"

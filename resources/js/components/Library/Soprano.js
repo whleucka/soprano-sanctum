@@ -67,10 +67,10 @@ export const Soprano = {
         );
         return response.data.data;
     },
-    album: async function (album) {
+    album: async function (album_signature) {
         const response = await axios.post(
             "/api/track/album",
-            { album },
+            { album_signature },
             { withCredentials: true }
         );
         return response.data.data;

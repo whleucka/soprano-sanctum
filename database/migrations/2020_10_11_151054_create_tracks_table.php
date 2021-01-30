@@ -32,6 +32,8 @@ class CreateTracksTable extends Migration
                   ->index();
             $table->string('album')
                   ->index();
+            $table->char('album_signature', 32)
+                  ->index();
             $table->string('title')
                   ->index();
             $table->string('year')

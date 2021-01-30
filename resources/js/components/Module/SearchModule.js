@@ -35,10 +35,10 @@ const SearchModule = () => {
         }
     };
 
-    const searchAlbum = (album) => {
+    const searchAlbum = (album_signature) => {
         // Only being used for recent albums
         setLoading(true);
-        Soprano.album(album).then((res) => {
+        Soprano.album(album_signature).then((res) => {
             if (!res.length) setNoResults(true);
             else setResults(res);
             setLoading(false);
@@ -106,7 +106,7 @@ const SearchModule = () => {
         const set = e.currentTarget.dataset;
         if (set.type === "album") {
             setLoading(true);
-            Soprano.album(set.album).then((res) => {
+            Soprano.album(set.album_signature).then((res) => {
                 if (!res.length) setNoResults(true);
                 else setResults(res);
                 setLoading(false);
@@ -141,9 +141,9 @@ const SearchModule = () => {
                 {!loading && !term && !results.length && (
                     <div>
                         <RecentAlbums
-                            handleClick={(e, album) => {
+                            handleClick={(e, album_signature) => {
                                 e.preventDefault();
-                                searchAlbum(album);
+                                searchAlbum(album_signature);
                             }}
                         />
                         <Genres
@@ -286,7 +286,7 @@ const RecentAlbums = ({ handleClick }) => {
                             <Avatar
                                 key={i}
                                 onClick={(e) => {
-                                    handleClick(e, album.album);
+                                    handleClick(e, album.album_signature);
                                 }}
                                 src={album.cover}
                                 className="grid-icon m-2"

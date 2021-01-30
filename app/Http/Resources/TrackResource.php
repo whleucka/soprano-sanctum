@@ -20,6 +20,7 @@ class TrackResource extends JsonResource
             'cover' => $this->cover,
             'artist' => $this->artist,
             'album' => $this->album,
+            'album_signature' => $this->album_signature,
             'title' => $this->title,
             'year' => $this->year,
             'mime_type' => $this->mime_type,

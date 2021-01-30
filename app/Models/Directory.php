@@ -23,9 +23,10 @@ class Directory extends Model
     public function scan(): array
     {
         $files = [
-            'paths' => [],
             'count' => 0,
-            'removed' => 0
+            'covers' => 0,
+            'removed' => 0,
+            'paths' => [],
         ];
         $di = new RecursiveDirectoryIterator($this->path, RecursiveDirectoryIterator::SKIP_DOTS);
         $it = new RecursiveIteratorIterator($di);
@@ -37,8 +38,12 @@ class Directory extends Model
                 if (!$track) {
                     $files['paths'][] = $path;  
                 } else {
-                    $track->cover = Track::getCover($path);
-                    $track->save(); 
+                    $cover = Track::getCover($path);
+                    if ($cover != $track->cover) {
+                        $files['covers']++;    
+                        $track->cover = $cover; 
+                        $track->save(); 
+                    }
                 }
             }
         }

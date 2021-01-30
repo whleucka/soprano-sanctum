@@ -63,6 +63,21 @@ const Directory = ({ directory }) => {
     const { state, dispatch } = useContext(SopranoContext);
     const [progress, setProgress] = useState(0);
     const [scanning, setScanning] = useState(false);
+    const [stats, setStats] = useState({
+        count: 0,
+        removed: 0,
+        covers: 0,
+        show: false,
+    });
+
+    const resetStats = () => {
+        setStats({
+            count: 0, // Files to synchronize
+            removed: 0, // Orphaned files removed from db
+            covers: 0, // Covers updated
+            show: false,
+        });
+    };
 
     const handleRemoveDirectory = (e) => {
         e.preventDefault();
@@ -89,10 +104,17 @@ const Directory = ({ directory }) => {
     const handleScanDirectory = (e) => {
         const id = parseInt(e.currentTarget.id);
         Soprano.scanDirectory(id).then(async (res) => {
+            setStats({
+                count: res.count,
+                removed: res.removed,
+                covers: res.covers,
+                show: true,
+            });
             const count = res.count;
             const paths = res.paths;
             if (count > 0) {
                 setScanning(true);
+                resetStats();
                 doRequests(count, paths);
             } else {
                 setProgress(100);
@@ -108,6 +130,18 @@ const Directory = ({ directory }) => {
 
     return (
         <div>
+            {stats.show && (
+                <div className="alert alert-primary my-4 p-1" role="alert">
+                    <ul className="m-0 p-0 pl-3">
+                        <li>{stats.count.toFixed(0)} new files discovered.</li>
+                        <li>{stats.covers.toFixed(0)} covers updated.</li>
+                        <li>
+                            {stats.removed.toFixed(0)} orphaned files removed
+                            from db.
+                        </li>
+                    </ul>
+                </div>
+            )}
             <div className="truncate dir-path w-100 pt-1">
                 {directory.path}
                 <div className="directory-actions d-inline">

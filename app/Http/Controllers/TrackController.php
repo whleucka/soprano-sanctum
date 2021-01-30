@@ -57,10 +57,10 @@ class TrackController extends Controller
         ]);
     }
     
-    public function validateAlbum()
+    public function validateAlbumSignature()
     {
         return request()->validate([
-            'album' => [
+            'album_signature' => [
                 'required',
                 'string',
             ]
@@ -141,9 +141,9 @@ class TrackController extends Controller
     public function album(Request $request)
     {
         $this->authorize('viewAny', Track::class);
-        $data = $this->validateAlbum();
+        $data = $this->validateAlbumSignature();
         $tracks = DB::table('tracks')
-            ->where('album', '=', "{$data['album']}")
+            ->where('album_signature', '=', "{$data['album_signature']}")
             ->groupBy('fingerprint')
             ->orderBy('artist')->orderBy('album')
             ->get();

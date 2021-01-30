@@ -70,6 +70,7 @@ class Track extends Model
             'playtime_string' => (isset($data['playtime_string'])) ? $data['playtime_string'] : '',
             'artist' => (isset($data['comments_html']['artist'])) ? $data['comments_html']['artist'][0] : 'No Artist',
             'album' => (isset($data['comments_html']['album'])) ? $data['comments_html']['album'][0] : 'No Album', 
+            'album_signature' => md5($data['filepath']),
             'title' => (isset($data['comments_html']['title'])) ? $data['comments_html']['title'][0] : 'No Title',
             'year' => (isset($data['comments_html']['year'])) ? $data['comments_html']['year'][0] : '',
             'number' => (isset($data['comments_html']['track_number'])) ? $data['comments_html']['track_number'][0] : '',
