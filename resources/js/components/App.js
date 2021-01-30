@@ -81,9 +81,11 @@ const App = () => {
                     <Route path="/podcasts">
                         <Podcasts />
                     </Route>
-                    <Route path="/admin">
-                        <Admin />
-                    </Route>
+                    {user.is_admin && (
+                        <Route path="/admin">
+                            <Admin />
+                        </Route>
+                    )}
                 </Switch>
                 <Player
                     shuffle={state.shuffle}
