@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Models\Directory;
+use App\Models\Track;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +26,25 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // Directory scan
+        $schedule->call(function() {
+            $directories = Directory::all();
+            foreach ($directories as $directory) {
+                $files = $directory->scan();
+                foreach ($files['paths'] as $path) {
+                    $meta = Track::analyze($path);
+                    $track = Track::updateOrCreate(
+                        ['fingerprint' => md5_file($path)],
+                        $meta
+                    );
+                    if ($track->wasRecentlyCreated && $track->wasChanged()) {
+                        error_log("Soprano Synchronize: Update " . print_r([$track->artist, $track->album, $track->title], true));
+                    } elseif ($track->wasRecentlyCreated) {
+                        error_log("Soprano Synchronize: New file! " . print_r([$track->artist, $track->album, $track->title], true));
+                    }
+                }
+            }
+        })->everyTenMinutes();
     }
 
     /**
