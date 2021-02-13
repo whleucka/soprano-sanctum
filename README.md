@@ -7,7 +7,7 @@
 Soprano is a client-server music playback system. Soprano securely serves your music library over the internet. Your music is transcoded to a compatible format and bitrate. You can also listen to your favorite podcasts.
 
 <p align="center">
-<img src="https://ibb.co/2jxQXNQ" alt="soprano"><br>
+<img src="https://i.ibb.co/9q6LRtL/soprano.gif" alt="soprano"><br>
 </p>
 
 ## Features
