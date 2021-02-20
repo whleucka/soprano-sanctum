@@ -14,17 +14,17 @@ use Exception;
 class Track extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
-    
+
     public function transcode(string $filepath)
     {
         error_log("Transcoding {$filepath}" . PHP_EOL);
-        $storage_dir = storage_path().'/app/public/transcode/';
+        $storage_dir = storage_path() . '/app/public/transcode/';
         if (!file_exists($storage_dir)) {
             mkdir($storage_dir);
         }
-        $md5_file = $storage_dir.md5($filepath).'.mp3';
+        $md5_file = $storage_dir . md5($filepath) . '.mp3';
         if (!file_exists($md5_file)) {
             $ffmpeg = FFMpeg\FFMpeg::create([
                 'ffmpeg.binaries' => '/usr/bin/ffmpeg',
@@ -63,13 +63,13 @@ class Track extends Model
             'filepath' => $data['filepath'],
             'fileformat' => $data['fileformat'],
             'filesize' => $data['filesize'],
-            'cover' => $cover, 
+            'cover' => $cover,
             'bitrate' => (isset($data['bitrate'])) ? $data['bitrate'] : 0,
             'mime_type' => (isset($data['mime_type'])) ? $data['mime_type'] : '',
             'playtime_seconds' => (isset($data['playtime_seconds'])) ? $data['playtime_seconds'] : 0,
             'playtime_string' => (isset($data['playtime_string'])) ? $data['playtime_string'] : '',
             'artist' => (isset($data['comments_html']['artist'])) ? $data['comments_html']['artist'][0] : 'No Artist',
-            'album' => (isset($data['comments_html']['album'])) ? $data['comments_html']['album'][0] : 'No Album', 
+            'album' => (isset($data['comments_html']['album'])) ? $data['comments_html']['album'][0] : 'No Album',
             'album_signature' => md5($data['filepath']),
             'title' => (isset($data['comments_html']['title'])) ? $data['comments_html']['title'][0] : 'No Title',
             'year' => (isset($data['comments_html']['year'])) ? $data['comments_html']['year'][0] : '',
@@ -78,15 +78,15 @@ class Track extends Model
         ];
     }
 
-   public static function getCover(string $filepath): string
-   {
-        $fi = new SplFileInfo($filepath); 
-        $path = $fi->getpath(); 
+    public static function getCover(string $filepath): string
+    {
+        $fi = new SplFileInfo($filepath);
+        $path = $fi->getpath();
 
         $covers = [
-            $path.'/cover.jpeg',
-            $path.'/cover.jpg',
-            $path.'/cover.png'
+            $path . '/cover.jpeg',
+            $path . '/cover.jpg',
+            $path . '/cover.png'
         ];
         foreach ($covers as $cover) {
             if (file_exists($cover)) {
@@ -96,12 +96,12 @@ class Track extends Model
                 $cover_ext = $cover_info['extension'];
                 $cover_name = md5($cover);
                 // Make the storage dir if it doesn't exist
-                $storage_dir = storage_path().'/app/public/covers/';
+                $storage_dir = storage_path() . '/app/public/covers/';
                 if (!file_exists($storage_dir)) {
                     mkdir($storage_dir);
                 }
-                $storage_path = $storage_dir.$cover_name.'.'.$cover_ext;
-                $public_path = '/storage/covers/'.$cover_name.'.'.$cover_ext;
+                $storage_path = $storage_dir . $cover_name . '.' . $cover_ext;
+                $public_path = '/storage/covers/' . $cover_name . '.' . $cover_ext;
                 if (!file_exists($storage_path)) {
                     File::copy($cover, $storage_path);
                     return $public_path;
@@ -111,5 +111,5 @@ class Track extends Model
             }
         }
         return '/img/no-album.png';
-    } 
+    }
 }
