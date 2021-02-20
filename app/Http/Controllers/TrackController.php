@@ -7,6 +7,7 @@ use App\Models\PlaylistTrack;
 use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class TrackController extends Controller
 {
@@ -33,7 +34,10 @@ class TrackController extends Controller
         $this->authorize('create', Track::class);
         $data = $this->validateFilePath();
         $meta = Track::analyze($data['filepath']);
-        $track = Track::create($meta);
+        $track = Track::updateOrCreate(
+            ['fingerprint' => $meta['fingerprint']],
+            $meta
+        );
         return $track;
     }
 
@@ -46,7 +50,7 @@ class TrackController extends Controller
             ]
         ]);
     }
-    
+
     public function validateArtist()
     {
         return request()->validate([
@@ -56,7 +60,7 @@ class TrackController extends Controller
             ]
         ]);
     }
-    
+
     public function validateAlbumSignature()
     {
         return request()->validate([
@@ -66,7 +70,7 @@ class TrackController extends Controller
             ]
         ]);
     }
-    
+
     public function validateGenre()
     {
         return request()->validate([
@@ -76,7 +80,7 @@ class TrackController extends Controller
             ],
         ]);
     }
-    
+
     public function validateYear()
     {
         return request()->validate([
@@ -86,14 +90,15 @@ class TrackController extends Controller
             ],
         ]);
     }
-    
+
     public function validateFilePath()
     {
         return request()->validate([
             'filepath' => [
-                'required', 
-                'string', 
-                function($attribute, $value, $fail) {
+                'required',
+                'string',
+                Rule::unique('tracks'),
+                function ($attribute, $value, $fail) {
                     if (!file_exists($value)) {
                         $fail("Path not found");
                     }
@@ -110,7 +115,7 @@ class TrackController extends Controller
             ->groupBy('filepath')
             ->limit(32)
             ->get();
-        return $albums; 
+        return $albums;
     }
 
     public function playlists(Track $track)
@@ -124,8 +129,8 @@ class TrackController extends Controller
             $output[$playlist->id] = ($in_playlist) ? 1 : 0;
         }
         return $output;
-    } 
-    
+    }
+
     public function artist(Request $request)
     {
         $this->authorize('viewAny', Track::class);
@@ -137,7 +142,7 @@ class TrackController extends Controller
             ->get();
         return TrackResource::collection($tracks);
     }
-    
+
     public function album(Request $request)
     {
         $this->authorize('viewAny', Track::class);
@@ -149,7 +154,7 @@ class TrackController extends Controller
             ->get();
         return TrackResource::collection($tracks);
     }
-    
+
     public function year(Request $request)
     {
         $this->authorize('viewAny', Track::class);
@@ -161,7 +166,7 @@ class TrackController extends Controller
             ->get();
         return TrackResource::collection($tracks);
     }
-    
+
     public function genre(Request $request)
     {
         $this->authorize('viewAny', Track::class);
@@ -200,7 +205,7 @@ class TrackController extends Controller
             }
         }
         sort($genres);
-        return $genres; 
+        return $genres;
     }
 
     public function years(Request $request)
@@ -215,7 +220,7 @@ class TrackController extends Controller
         foreach ($years_raw as $year_raw) {
             $years[] = $year_raw->year;
         }
-        return $years; 
+        return $years;
     }
 
     /**
